@@ -1,17 +1,162 @@
-MIT License
+PROPRIETARY SOFTWARE LICENSE
 
-Copyright (c) 2026 Firman Arief Hidayatullah / HMCL
+Copyright (c) 2026 Hijaiyyah Mathematics Computational Laboratory (HMCL)
+Author: Firman Arief Hidayatullah
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+All Rights Reserved.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+================================================================================
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+1. GRANT OF LICENSE
+
+   This software, including but not limited to its source code, object code,
+   documentation, dataset, mathematical framework, language specification,
+   instruction set architecture, virtual machine implementation, graphical
+   user interface, and all associated materials (collectively, the "Software"),
+   is the intellectual property of the copyright holder.
+
+   No license, right, or interest in the Software is granted to any party
+   except as expressly set forth in a separate written agreement signed by
+   the copyright holder.
+
+2. RESTRICTIONS
+
+   Unless explicitly authorized in writing by the copyright holder,
+   you may NOT:
+
+   (a) copy, reproduce, or duplicate the Software or any portion thereof;
+
+   (b) modify, adapt, translate, reverse engineer, decompile, disassemble,
+       or create derivative works based on the Software;
+
+   (c) distribute, sublicense, lease, rent, lend, or otherwise transfer
+       the Software or any rights therein to any third party;
+
+   (d) use the Software for any commercial purpose without a separate
+       commercial license agreement;
+
+   (e) remove, alter, or obscure any copyright, trademark, or other
+       proprietary notices contained in or on the Software;
+
+   (f) use the Software to develop a competing product or service;
+
+   (g) use the name "Hijaiyyah Mathematics", "HOM", "Hybit", "HC",
+       "HCVM", "H-ISA", "CSGI", "HGSS", "HC18DC", "CMM-18C", "HCPU",
+       or any related trademark or service mark without prior written
+       permission from the copyright holder.
+
+3. INTELLECTUAL PROPERTY
+
+   The Software embodies original intellectual property including but
+   not limited to:
+
+   (a) the mathematical framework known as "Matematika Hijaiyyah",
+       comprising the formal mapping of 28 canonical Hijaiyyah letterforms
+       to 18-dimensional integer codex vectors;
+
+   (b) the computational unit known as "Hybit" (Hijaiyyah Hyperdimensional
+       Bit Integration Technology);
+
+   (c) the programming language known as "HC" (Hijaiyyah Codex);
+
+   (d) the instruction set architecture known as "H-ISA" (Hijaiyyah
+       Instruction Set Architecture);
+
+   (e) the virtual machine known as "HCVM" (Hijaiyyah Codex Virtual
+       Machine);
+
+   (f) the skeleton graph interface known as "CSGI" (Canonical Skeleton
+       Graph Interface);
+
+   (g) the security system known as "HGSS" (Hijaiyyah Guarded Signature
+       System);
+
+   (h) the data format known as "HC18DC" (Hijaiyyah Codex 18-Dimensional
+       Canonical);
+
+   (i) the sealed dataset known as "HM-28-v1.0-HC18D";
+
+   (j) all associated documentation, specifications, and design documents.
+
+   All trademarks, service marks, and trade names are the property of
+   the copyright holder.
+
+4. DATASET INTEGRITY
+
+   The sealed dataset HM-28-v1.0-HC18D and its associated SHA-256 hash
+   constitute a formal mathematical artifact. Any modification to the
+   dataset without authorization from the copyright holder constitutes
+   a violation of this license and may compromise the mathematical
+   integrity of the system.
+
+   SHA-256 Seal:
+   f82d385917ffe32ae2b5711409b1341e90934c52172ae9d0fa68888e3b9c51c8
+
+5. ACADEMIC AND RESEARCH USE
+
+   Researchers and educators who wish to study, reference, or evaluate
+   the Software for non-commercial academic purposes are encouraged to
+   contact the copyright holder to discuss appropriate terms.
+
+   Citation of the mathematical framework in academic publications is
+   permitted and encouraged, provided proper attribution is given:
+
+   Hidayatullah, F. A. (2026). Matematika Hijaiyyah.
+   HM-28-v1.0-HC18D. Hijaiyyah Mathematics Computational Laboratory.
+
+6. NO WARRANTY
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+   EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+   MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, AND
+   NONINFRINGEMENT.
+
+   IN NO EVENT SHALL THE COPYRIGHT HOLDER BE LIABLE FOR ANY CLAIM,
+   DAMAGES, OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+   TORT, OR OTHERWISE, ARISING FROM, OUT OF, OR IN CONNECTION WITH
+   THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+7. TERMINATION
+
+   Any unauthorized use of the Software automatically terminates any
+   implied or express license granted herein. Upon termination, all
+   copies of the Software in your possession must be destroyed.
+
+8. GOVERNING LAW
+
+   This license shall be governed by and construed in accordance with
+   the laws of the Republic of Indonesia, without regard to its
+   conflict of law provisions.
+
+9. SEVERABILITY
+
+   If any provision of this license is held to be unenforceable or
+   invalid, such provision shall be modified to the minimum extent
+   necessary to make it enforceable, and the remaining provisions
+   shall continue in full force and effect.
+
+10. ENTIRE AGREEMENT
+
+    This license constitutes the entire agreement between the parties
+    with respect to the Software and supersedes all prior or
+    contemporaneous understandings regarding such subject matter.
+
+11. CONTACT
+
+    For licensing inquiries, permissions, or commercial use agreements:
+
+    Hijaiyyah Mathematics Computational Laboratory (HMCL)
+    Author: Firman Arief Hidayatullah
+    GitHub: https://github.com/hijaiyyahtech
+
+================================================================================
+
+Release: HM-28-v1.0-HC18D-B84D025
+Date: 2026
+Status: VERIFIED & SEALED
+
+Signed: Firman Arief Hidayatullah
+Key ID: FAH-SIG
+
+(c) 2026 Hijaiyyah Mathematics Computational Laboratory (HMCL)
+All Rights Reserved.
