@@ -1,44 +1,62 @@
 # Code of Conduct
 
-## HOM — Hijaiyyah Operating Machine
+## Komitmen Kami
 
-### Our Pledge
+Sebagai kontributor dan pengelola proyek **HOM**,
+kami berkomitmen untuk menjadikan partisipasi dalam proyek ini
+sebagai pengalaman yang bebas dari pelecehan bagi semua orang,
+tanpa memandang usia, ukuran tubuh, disabilitas, etnis,
+identitas gender, tingkat pengalaman, kebangsaan,
+penampilan, ras, agama, atau orientasi seksual.
 
-We are committed to providing a welcoming and professional environment for everyone who participates in this project.
+## Standar Kami
 
-### Our Standards
+### Perilaku yang berkontribusi positif:
 
-**Expected behavior:**
+- menggunakan bahasa yang ramah dan inklusif,
+- menghormati sudut pandang dan pengalaman yang berbeda,
+- menerima kritik konstruktif dengan lapang dada,
+- fokus pada apa yang terbaik bagi proyek,
+- menunjukkan empati terhadap anggota komunitas lain.
 
-- Professional and respectful communication
-- Constructive feedback and collaboration
-- Respect for differing viewpoints and experiences
-- Focus on technical excellence and project goals
-- Proper attribution of contributions and ideas
+### Perilaku yang tidak dapat diterima:
 
-**Unacceptable behavior:**
+- penggunaan bahasa atau citra yang bersifat seksual,
+- trolling, komentar menghina, atau serangan pribadi,
+- pelecehan dalam bentuk publik maupun privat,
+- mempublikasikan informasi pribadi orang lain tanpa izin,
+- perilaku lain yang secara wajar dianggap tidak profesional.
 
-- Harassment, discrimination, or personal attacks
-- Sharing private information without consent
-- Trolling or deliberate disruption
-- Any conduct that violates applicable laws
+## Tanggung Jawab Pengelola
 
-### Scope
+Pengelola proyek bertanggung jawab untuk:
+- mengklarifikasi standar perilaku yang dapat diterima,
+- mengambil tindakan korektif yang tepat dan adil,
+- menghapus, mengedit, atau menolak komentar, commit, kode,
+  wiki edits, issues, dan kontribusi lain yang tidak sesuai.
 
-This Code of Conduct applies to all project spaces, including:
-- Repository discussions and issues
-- Pull request reviews
-- Project communications
+## Ruang Lingkup
 
-### Enforcement
+Code of Conduct ini berlaku di seluruh ruang proyek,
+termasuk repository, issues, pull requests, dan ruang diskusi.
 
-Instances of unacceptable behavior may be reported to the project maintainers.
-All complaints will be reviewed and investigated promptly and fairly.
+## Penegakan
 
-### Attribution
+Perilaku yang tidak dapat diterima dapat dilaporkan melalui
+**GitHub Issues** dengan label `conduct`.
 
-This Code of Conduct is adapted for the HOM project.
+Semua laporan akan ditinjau secara adil dan rahasia.
+
+## Atribusi
+
+Code of Conduct ini diadaptasi dari
+[Contributor Covenant](https://www.contributor-covenant.org/),
+versi 2.1.
 
 ---
 
+<div align="center">
+
 © 2026 Hijaiyyah Mathematics Computational Laboratory (HMCL)
+
+</div>
