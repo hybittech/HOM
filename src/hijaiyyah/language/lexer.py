@@ -7,7 +7,7 @@ Imports token definitions from tokens.py (canonical source).
 
 from __future__ import annotations
 
-from typing import Dict, FrozenSet, List, Optional, Tuple
+from typing import List, Optional
 
 from hijaiyyah.language.tokens import (
     TokenType,
@@ -113,7 +113,7 @@ class Lexer:
         return None
 
     def _remaining(self) -> str:
-        return self._src[self._pos:]
+        return self._src[self._pos :]
 
     def _emit(self, token_type: TokenType, value: str) -> None:
         self._tokens.append(Token(token_type, value, self._line, self._col))
@@ -132,13 +132,11 @@ class Lexer:
         self._col += 3
         depth = 1
         while self._pos < len(self._src) and depth > 0:
-            if (self._src[self._pos] == "-" and
-                self._peek(1) == "-" and self._peek(2) == ")"):
+            if self._src[self._pos] == "-" and self._peek(1) == "-" and self._peek(2) == ")":
                 depth -= 1
                 self._pos += 3
                 self._col += 3
-            elif (self._src[self._pos] == "(" and
-                  self._peek(1) == "-" and self._peek(2) == "-"):
+            elif self._src[self._pos] == "(" and self._peek(1) == "-" and self._peek(2) == "-":
                 depth += 1
                 self._pos += 3
                 self._col += 3
@@ -190,8 +188,9 @@ class Lexer:
                 self._col = 0
             chars.append(ch)
             self._advance()
-        raise LexerError(f"Unterminated string (started L{start_line}:{start_col})",
-                         self._line, self._col)
+        raise LexerError(
+            f"Unterminated string (started L{start_line}:{start_col})", self._line, self._col
+        )
 
     def _read_char_literal(self) -> None:
         start_col = self._col
@@ -232,24 +231,29 @@ class Lexer:
             self._pos += 1
             self._col += 1
         p1 = self._peek(1)
-        if (self._pos < len(self._src) and self._src[self._pos] == "."
-                and p1 is not None and p1.isdigit()):
+        if (
+            self._pos < len(self._src)
+            and self._src[self._pos] == "."
+            and p1 is not None
+            and p1.isdigit()
+        ):
             self._pos += 1
             self._col += 1
             while self._pos < len(self._src) and self._src[self._pos].isdigit():
                 self._pos += 1
                 self._col += 1
-            self._emit(TokenType.FLOAT, self._src[start:self._pos])
+            self._emit(TokenType.FLOAT, self._src[start : self._pos])
         else:
-            self._emit(TokenType.INTEGER, self._src[start:self._pos])
+            self._emit(TokenType.INTEGER, self._src[start : self._pos])
 
     def _read_identifier(self) -> None:
         start = self._pos
-        while (self._pos < len(self._src) and
-               (self._src[self._pos].isalnum() or self._src[self._pos] in "_*Θ")):
+        while self._pos < len(self._src) and (
+            self._src[self._pos].isalnum() or self._src[self._pos] in "_*Θ"
+        ):
             self._pos += 1
             self._col += 1
-        word = self._src[start:self._pos]
+        word = self._src[start : self._pos]
         if word == "_":
             self._emit(TokenType.UNDERSCORE, word)
             return

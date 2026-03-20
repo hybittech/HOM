@@ -16,13 +16,26 @@ from __future__ import annotations
 
 import hashlib
 import math
-from typing import Any, Callable, Dict, List, Optional, Tuple, Union
+from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from hijaiyyah.language.ast_nodes import (
-    ASTNode, Program, LetStmt, ConstStmt, ExpressedStmt, ReturnStmt,
-    Block, FnDecl, Literal, VarRef, BinaryExpr, MethodCall, CallExpr,
-    ModuleAccess, IfExpr, RangeExpr, MatchExpr, MatchArm,
-    IndexExpr, ForStmt, WhileStmt, ArrayLiteral, BreakStmt, ContinueStmt,
+    ASTNode,
+    Program,
+    LetStmt,
+    ConstStmt,
+    ExpressedStmt,
+    ReturnStmt,
+    Block,
+    FnDecl,
+    Literal,
+    VarRef,
+    BinaryExpr,
+    MethodCall,
+    CallExpr,
+    ModuleAccess,
+    IfExpr,
+    RangeExpr,
+    MatchExpr,
 )
 from hijaiyyah.core.master_table import MASTER_TABLE, CodexEntry
 from hijaiyyah.core.exceptions import EBNFSemanticError
@@ -32,15 +45,14 @@ from hijaiyyah.core.exceptions import EBNFSemanticError
 #  SECTION 1 — VECTOR PRIMITIVES
 # ══════════════════════════════════════════════════════════════════
 
+
 def _vec(obj: Any) -> List[int]:
     """Extract 18-component integer vector from CodexEntry or list."""
     if isinstance(obj, CodexEntry):
         return list(obj.vector)
     if isinstance(obj, (list, tuple)):
         return list(obj)
-    raise EBNFSemanticError(
-        f"Expected hybit/vector, got {type(obj).__name__}"
-    )
+    raise EBNFSemanticError(f"Expected hybit/vector, got {type(obj).__name__}")
 
 
 def _v14(obj: Any) -> List[int]:
@@ -84,21 +96,48 @@ def _proj(vec: List[int], slots: List[int]) -> List[int]:
 _SLOT_MAP: Dict[str, int] = {
     # Primary names (matching book notation)
     "theta": 0,
-    "Na": 1, "Nb": 2, "Nd": 3,
-    "Kp": 4, "Kx": 5, "Ks": 6, "Ka": 7, "Kc": 8,
-    "Qp": 9, "Qx": 10, "Qs": 11, "Qa": 12, "Qc": 13,
-    "AN": 14, "AK": 15, "AQ": 16, "Hstar": 17,
+    "Na": 1,
+    "Nb": 2,
+    "Nd": 3,
+    "Kp": 4,
+    "Kx": 5,
+    "Ks": 6,
+    "Ka": 7,
+    "Kc": 8,
+    "Qp": 9,
+    "Qx": 10,
+    "Qs": 11,
+    "Qa": 12,
+    "Qc": 13,
+    "AN": 14,
+    "AK": 15,
+    "AQ": 16,
+    "Hstar": 17,
     # Lowercase aliases
-    "na": 1, "nb": 2, "nd": 3,
-    "kp": 4, "kx": 5, "ks": 6, "ka": 7, "kc": 8,
-    "qp": 9, "qx": 10, "qs": 11, "qa": 12, "qc": 13,
-    "an": 14, "ak": 15, "aq": 16, "hstar": 17,
+    "na": 1,
+    "nb": 2,
+    "nd": 3,
+    "kp": 4,
+    "kx": 5,
+    "ks": 6,
+    "ka": 7,
+    "kc": 8,
+    "qp": 9,
+    "qx": 10,
+    "qs": 11,
+    "qa": 12,
+    "qc": 13,
+    "an": 14,
+    "ak": 15,
+    "aq": 16,
+    "hstar": 17,
 }
 
 
 # ══════════════════════════════════════════════════════════════════
 #  SECTION 2 — GUARD CHECKS (aligned with book R1–R5)
 # ══════════════════════════════════════════════════════════════════
+
 
 def _guard_check(vec: List[int]) -> bool:
     """
@@ -151,8 +190,13 @@ def _guard_detail(vec: List[int]) -> Dict[str, Any]:
     R5 = U == vec[10] + vec[11] + vec[12] + 4 * vec[13]
 
     return {
-        "R1": R1, "R2": R2, "R3": R3, "R4": R4, "R5": R5,
-        "rho": rho, "U": U,
+        "R1": R1,
+        "R2": R2,
+        "R3": R3,
+        "R4": R4,
+        "R5": R5,
+        "rho": rho,
+        "U": U,
         "all_pass": R1 and R2 and R3 and R4 and R5,
     }
 
@@ -160,6 +204,7 @@ def _guard_detail(vec: List[int]) -> Dict[str, Any]:
 # ══════════════════════════════════════════════════════════════════
 #  SECTION 3 — EXOMATRIX BUILDER
 # ══════════════════════════════════════════════════════════════════
+
 
 def _build_exomatrix(v: List[int]) -> List[List[int]]:
     """
@@ -179,17 +224,18 @@ def _build_exomatrix(v: List[int]) -> List[List[int]]:
     AQ = v[9] + v[10] + v[11] + v[12] + v[13]
 
     return [
-        [theta, U,    rho,  0,    0  ],
-        [v[1],  v[2], v[3], 0,    AN ],
-        [v[4],  v[5], v[6], v[7], v[8]],
-        [v[9],  v[10], v[11], v[12], v[13]],
-        [v[17], 0,    0,    AK,   AQ ],
+        [theta, U, rho, 0, 0],
+        [v[1], v[2], v[3], 0, AN],
+        [v[4], v[5], v[6], v[7], v[8]],
+        [v[9], v[10], v[11], v[12], v[13]],
+        [v[17], 0, 0, AK, AQ],
     ]
 
 
 # ══════════════════════════════════════════════════════════════════
 #  SECTION 4 — MASTER TABLE ACCESS
 # ══════════════════════════════════════════════════════════════════
+
 
 def _all_entries() -> List[CodexEntry]:
     """Return all 28 CodexEntry objects from the sealed Master Table."""
@@ -205,25 +251,30 @@ def _all_vectors() -> List[List[int]]:
 #  SECTION 5 — CONTROL FLOW EXCEPTIONS
 # ══════════════════════════════════════════════════════════════════
 
+
 class ReturnException(Exception):
     """Raised by return statements to unwind the call stack."""
+
     def __init__(self, value: Any):
         self.value = value
 
 
 class BreakException(Exception):
     """Raised by break statements."""
+
     pass
 
 
 class ContinueException(Exception):
     """Raised by continue statements."""
+
     pass
 
 
 # ══════════════════════════════════════════════════════════════════
 #  SECTION 6 — ENVIRONMENT (scoped variable storage)
 # ══════════════════════════════════════════════════════════════════
+
 
 class Environment:
     """Lexically scoped variable and function storage."""
@@ -258,6 +309,7 @@ class Environment:
 #  SECTION 7 — HC EVALUATOR
 # ══════════════════════════════════════════════════════════════════
 
+
 class HCEvaluator:
     """
     HC v1.0 Evaluator with complete five-field standard library.
@@ -285,18 +337,18 @@ class HCEvaluator:
 
         # I/O
         g.define("println", lambda *a: self._print(" ".join(str(x) for x in a)))
-        g.define("print",   lambda *a: self._print(" ".join(str(x) for x in a)))
+        g.define("print", lambda *a: self._print(" ".join(str(x) for x in a)))
 
         # Assertions
-        g.define("assert",        self._bi_assert)
+        g.define("assert", self._bi_assert)
         g.define("assert_approx", self._bi_assert_approx)
 
         # Hybit constructors
-        g.define("load",           self._bi_load)
-        g.define("load_id",        self._bi_load_id)
-        g.define("zero",           lambda: [0] * 18)
-        g.define("is_hijaiyyah",   self._bi_is_hijaiyyah)
-        g.define("identify",       self._bi_identify)
+        g.define("load", self._bi_load)
+        g.define("load_id", self._bi_load_id)
+        g.define("zero", lambda: [0] * 18)
+        g.define("is_hijaiyyah", self._bi_is_hijaiyyah)
+        g.define("identify", self._bi_identify)
 
         # Utility
         g.define("now", lambda: 0)
@@ -305,13 +357,16 @@ class HCEvaluator:
         g.define("len", len)
 
         # hm module namespace — the five fields
-        g.define("hm", {
-            "vectronometry": self._mod_vectronometry(),
-            "differential":  self._mod_differential(),
-            "integral":      self._mod_integral(),
-            "geometry":      self._mod_geometry(),
-            "exomatrix":     self._mod_exomatrix(),
-        })
+        g.define(
+            "hm",
+            {
+                "vectronometry": self._mod_vectronometry(),
+                "differential": self._mod_differential(),
+                "integral": self._mod_integral(),
+                "geometry": self._mod_geometry(),
+                "exomatrix": self._mod_exomatrix(),
+            },
+        )
 
     # ── Built-in implementations ─────────────────────────────────
 
@@ -319,13 +374,9 @@ class HCEvaluator:
         if not cond:
             raise EBNFSemanticError(msg)
 
-    def _bi_assert_approx(
-        self, a: float, b: float, eps: float = 1e-9
-    ) -> None:
+    def _bi_assert_approx(self, a: float, b: float, eps: float = 1e-9) -> None:
         if abs(a - b) > eps:
-            raise EBNFSemanticError(
-                f"assert_approx failed: |{a} - {b}| = {abs(a-b)} > {eps}"
-            )
+            raise EBNFSemanticError(f"assert_approx failed: |{a} - {b}| = {abs(a - b)} > {eps}")
 
     def _bi_load(self, ch: Any) -> Any:
         """Load a CodexEntry by character. Raises on unknown letter."""
@@ -342,7 +393,7 @@ class HCEvaluator:
         entries = _all_entries()
         if 0 <= idx < len(entries):
             return entries[idx]
-        raise EBNFSemanticError(f"load_id({idx}): out of range 0..{len(entries)-1}")
+        raise EBNFSemanticError(f"load_id({idx}): out of range 0..{len(entries) - 1}")
 
     def _bi_is_hijaiyyah(self, ch: Any) -> bool:
         if not isinstance(ch, str):
@@ -458,8 +509,8 @@ class HCEvaluator:
             "%": lambda a, b: a % b,
             "==": lambda a, b: a == b,
             "!=": lambda a, b: a != b,
-            "<":  lambda a, b: a < b,
-            ">":  lambda a, b: a > b,
+            "<": lambda a, b: a < b,
+            ">": lambda a, b: a > b,
             "<=": lambda a, b: a <= b,
             ">=": lambda a, b: a >= b,
             "&&": lambda a, b: bool(a) and bool(b),
@@ -509,13 +560,9 @@ class HCEvaluator:
                 return attr(*args)
             return attr
 
-        raise EBNFSemanticError(
-            f"Unknown method '{m}' on {type(obj).__name__}"
-        )
+        raise EBNFSemanticError(f"Unknown method '{m}' on {type(obj).__name__}")
 
-    def _dispatch_hybit_method(
-        self, obj: Any, method: str, args: List[Any]
-    ) -> Any:
+    def _dispatch_hybit_method(self, obj: Any, method: str, args: List[Any]) -> Any:
         """Central dispatch for all hybit/vector methods."""
         vec = _vec(obj)
 
@@ -619,9 +666,7 @@ class HCEvaluator:
             data = bytes(v18)
             return hashlib.sha256(data).hexdigest()
 
-        raise EBNFSemanticError(
-            f"Unknown hybit method: '{method}'"
-        )
+        raise EBNFSemanticError(f"Unknown hybit method: '{method}'")
 
     # ── Index expressions (h[0], arr[i]) ─────────────────────────
 
@@ -634,15 +679,11 @@ class HCEvaluator:
             vec = _vec(obj)
             if isinstance(index, int) and 0 <= index < len(vec):
                 return vec[index]
-            raise EBNFSemanticError(
-                f"Index {index} out of range for vector of length {len(vec)}"
-            )
+            raise EBNFSemanticError(f"Index {index} out of range for vector of length {len(vec)}")
         if isinstance(obj, dict) and index in obj:
             return obj[index]
 
-        raise EBNFSemanticError(
-            f"Cannot index {type(obj).__name__} with {index}"
-        )
+        raise EBNFSemanticError(f"Cannot index {type(obj).__name__} with {index}")
 
     # ── Function / module calls ──────────────────────────────────
 
@@ -655,9 +696,7 @@ class HCEvaluator:
                 if isinstance(val, dict) and part in val:
                     val = val[part]
                 else:
-                    raise EBNFSemanticError(
-                        f"Module member '{part}' not found in '{node.callee}'"
-                    )
+                    raise EBNFSemanticError(f"Module member '{part}' not found in '{node.callee}'")
             func = val
         else:
             func = self.current_env.get(node.callee)
@@ -674,9 +713,7 @@ class HCEvaluator:
             if isinstance(val, dict) and part in val:
                 val = val[part]
             else:
-                raise EBNFSemanticError(
-                    f"Module member '{part}' not found"
-                )
+                raise EBNFSemanticError(f"Module member '{part}' not found")
         return val
 
     # ── Control flow ─────────────────────────────────────────────
@@ -761,9 +798,9 @@ class HCEvaluator:
             v = _vec(h)
             return {
                 "theta": _proj(v, [0]),
-                "N":     _proj(v, [1, 2, 3]),
-                "K":     _proj(v, [4, 5, 6, 7, 8]),
-                "Q":     _proj(v, [9, 10, 11, 12, 13]),
+                "N": _proj(v, [1, 2, 3]),
+                "K": _proj(v, [4, 5, 6, 7, 8]),
+                "Q": _proj(v, [9, 10, 11, 12, 13]),
             }
 
         def primitive_ratios(h) -> Dict[str, float]:
@@ -787,8 +824,8 @@ class HCEvaluator:
             if theta == 0:
                 return {"r_U": 0.0, "r_rho": 0.0, "r_loop": 0.0}
             return {
-                "r_U":    U / theta,
-                "r_rho":  rho / theta,
+                "r_U": U / theta,
+                "r_rho": rho / theta,
                 "r_loop": (4 * v[13]) / theta,
             }
 
@@ -834,8 +871,12 @@ class HCEvaluator:
             sq_Q = sum(v[k] ** 2 for k in range(9, 14))
             rhs = sq_theta + sq_N + sq_K + sq_Q
             return {
-                "lhs": lhs, "rhs": rhs,
-                "theta": sq_theta, "N": sq_N, "K": sq_K, "Q": sq_Q,
+                "lhs": lhs,
+                "rhs": rhs,
+                "theta": sq_theta,
+                "N": sq_N,
+                "K": sq_K,
+                "Q": sq_Q,
                 "pass": lhs == rhs,
             }
 
@@ -846,34 +887,36 @@ class HCEvaluator:
                 v = list(e.vector)
                 pr = primitive_ratios(e)
                 tr = turning_ratios(e)
-                rows.append({
-                    "letter":    e.char,
-                    "name":      e.name,
-                    "norm2":     _norm2_v14(v),
-                    "norm":      math.sqrt(_norm2_v14(v)),
-                    "r_N":       pr["r_N"],
-                    "r_K":       pr["r_K"],
-                    "r_Q":       pr["r_Q"],
-                    "alpha_deg": math.degrees(comp_angle(e)),
-                    "U":         _U(v),
-                    "rho":       _rho(v),
-                    "r_U":       tr["r_U"],
-                    "r_rho":     tr["r_rho"],
-                    "r_loop":    tr["r_loop"],
-                })
+                rows.append(
+                    {
+                        "letter": e.char,
+                        "name": e.name,
+                        "norm2": _norm2_v14(v),
+                        "norm": math.sqrt(_norm2_v14(v)),
+                        "r_N": pr["r_N"],
+                        "r_K": pr["r_K"],
+                        "r_Q": pr["r_Q"],
+                        "alpha_deg": math.degrees(comp_angle(e)),
+                        "U": _U(v),
+                        "rho": _rho(v),
+                        "r_U": tr["r_U"],
+                        "r_rho": tr["r_rho"],
+                        "r_loop": tr["r_loop"],
+                    }
+                )
             return rows
 
         return {
-            "project":           project,
-            "primitive_ratios":  primitive_ratios,
-            "turning_ratios":    turning_ratios,
-            "comp_angle":        comp_angle,
-            "norm2":             norm2,
-            "norm":              norm,
-            "inner":             inner,
-            "cosine":            cosine,
+            "project": project,
+            "primitive_ratios": primitive_ratios,
+            "turning_ratios": turning_ratios,
+            "comp_angle": comp_angle,
+            "norm2": norm2,
+            "norm": norm,
+            "inner": inner,
+            "cosine": cosine,
             "pythagorean_check": pythagorean_check,
-            "full_table":        full_table,
+            "full_table": full_table,
         }
 
     # ── Field 2: hm::differential (Bab II-B, Ch 22–24) ──────────
@@ -896,9 +939,9 @@ class HCEvaluator:
             return {
                 "total": total,
                 "theta": d_theta,
-                "N":     d_N,
-                "K":     d_K,
-                "Q":     d_Q,
+                "N": d_N,
+                "K": d_K,
+                "Q": d_Q,
                 "pct_turning": (d_theta / total * 100) if total else 0.0,
             }
 
@@ -939,9 +982,19 @@ class HCEvaluator:
             entries = _all_entries()
             char_map = {e.char: e for e in entries}
             explicit_pairs = [
-                ("ص", "ض"), ("د", "ذ"), ("ح", "خ"), ("ع", "غ"), ("ط", "ظ"),
-                ("د", "ر"), ("ب", "ج"), ("ب", "ت"), ("ا", "ب"),
-                ("س", "ش"), ("م", "هـ"), ("ب", "هـ"), ("ا", "هـ"),
+                ("ص", "ض"),
+                ("د", "ذ"),
+                ("ح", "خ"),
+                ("ع", "غ"),
+                ("ط", "ظ"),
+                ("د", "ر"),
+                ("ب", "ج"),
+                ("ب", "ت"),
+                ("ا", "ب"),
+                ("س", "ش"),
+                ("م", "هـ"),
+                ("ب", "هـ"),
+                ("ا", "هـ"),
             ]
             rows = []
             for ch1, ch2 in explicit_pairs:
@@ -949,22 +1002,25 @@ class HCEvaluator:
                 e2 = char_map.get(ch2)
                 if e1 and e2:
                     dec = norm_decomposition(e1, e2)
-                    rows.append({
-                        "h1": ch1, "h2": ch2,
-                        "dist2_sq": dec["total"],
-                        "d2": math.sqrt(dec["total"]),
-                        **dec,
-                    })
+                    rows.append(
+                        {
+                            "h1": ch1,
+                            "h2": ch2,
+                            "dist2_sq": dec["total"],
+                            "d2": math.sqrt(dec["total"]),
+                            **dec,
+                        }
+                    )
             return rows
 
         return {
-            "diff":               diff,
+            "diff": diff,
             "norm_decomposition": norm_decomposition,
-            "dot_gradient":       dot_gradient,
-            "u_gradient":         u_gradient,
-            "all_dot_variants":   all_dot_variants,
-            "second_diff":        second_diff,
-            "distance_table":     distance_table,
+            "dot_gradient": dot_gradient,
+            "u_gradient": u_gradient,
+            "all_dot_variants": all_dot_variants,
+            "second_diff": second_diff,
+            "distance_table": distance_table,
         }
 
     # ── Field 3: hm::integral (Bab II-C, Ch 25–28) ──────────────
@@ -987,8 +1043,8 @@ class HCEvaluator:
                 trajectory.append(list(total))
 
             return {
-                "cod18":      total,
-                "length":     length,
+                "cod18": total,
+                "length": length,
                 "trajectory": trajectory,
             }
 
@@ -1006,11 +1062,11 @@ class HCEvaluator:
             U = _U(v)
             return {
                 "theta": v[0],
-                "N":     [v[1], v[2], v[3]],
-                "K":     [v[4], v[5], v[6], v[7], v[8]],
-                "Q":     [v[9], v[10], v[11], v[12], v[13]],
-                "U":     U,
-                "rho":   v[0] - U,
+                "N": [v[1], v[2], v[3]],
+                "K": [v[4], v[5], v[6], v[7], v[8]],
+                "Q": [v[9], v[10], v[11], v[12], v[13]],
+                "U": U,
+                "rho": v[0] - U,
             }
 
         def centroid(text: str) -> List[float]:
@@ -1026,11 +1082,11 @@ class HCEvaluator:
             return string_integral(text)["trajectory"]
 
         return {
-            "string_integral":          string_integral,
-            "add_codex":                add_codex,
-            "layer_integrals":          layer_integrals,
-            "centroid":                 centroid,
-            "cumulative":               cumulative,
+            "string_integral": string_integral,
+            "add_codex": add_codex,
+            "layer_integrals": layer_integrals,
+            "centroid": centroid,
+            "cumulative": cumulative,
         }
 
     # ── Field 4: hm::geometry (Bab II-D, Ch 29–31) ──────────────
@@ -1056,9 +1112,9 @@ class HCEvaluator:
             return math.sqrt(diameter_sq())
 
         return {
-            "euclidean":              euclidean,
-            "diameter_sq":            diameter_sq,
-            "diameter":               diameter,
+            "euclidean": euclidean,
+            "diameter_sq": diameter_sq,
+            "diameter": diameter,
         }
 
     # ── Field 5: hm::exomatrix (Bab II-E, Ch 32–36) ─────────────
@@ -1075,7 +1131,11 @@ class HCEvaluator:
             R4 = E[4][4] == sum(E[3])
             R5 = E[0][1] == E[3][1] + E[3][2] + E[3][3] + 4 * E[3][4]
             return {
-                "R1": R1, "R2": R2, "R3": R3, "R4": R4, "R5": R5,
+                "R1": R1,
+                "R2": R2,
+                "R3": R3,
+                "R4": R4,
+                "R5": R5,
                 "all_pass": R1 and R2 and R3 and R4 and R5,
             }
 
@@ -1083,7 +1143,7 @@ class HCEvaluator:
             return sum(E[r][c] ** 2 for r in range(5) for c in range(5))
 
         return {
-            "build":             build,
-            "audit":             audit,
-            "phi":               phi,
+            "build": build,
+            "audit": audit,
+            "phi": phi,
         }

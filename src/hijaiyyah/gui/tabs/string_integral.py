@@ -19,15 +19,12 @@ from __future__ import annotations
 import math
 import time
 import tkinter as tk
-from tkinter import ttk, messagebox
-from typing import Any, Dict, List, Optional, Tuple
+from tkinter import ttk
+from typing import Any, List, Optional, Tuple
 
-from ...core.master_table import MasterTable, MASTER_TABLE
-from ...core.codex_entry import CodexEntry
-from ...core.guards import guard_check, compute_U, compute_rho
+from ...core.master_table import MasterTable
+from ...core.guards import compute_U
 from ...algebra import integral as integ
-from ...algebra import vectronometry as vec
-from ...algebra import geometry as geo
 from ...algebra import exomatrix_analysis as exo
 from ..theme import THEME
 from ..widgets import OutputWriter, make_text
@@ -113,7 +110,9 @@ class StringIntegralTab:
         ttk.Button(row1, text="⟳ Clear", command=self._clear).pack(side=tk.LEFT, padx=2)
 
         # Status
-        ttk.Label(row1, textvariable=self._status_var, foreground=THEME.dim_fg).pack(side=tk.RIGHT, padx=5)
+        ttk.Label(row1, textvariable=self._status_var, foreground=THEME.dim_fg).pack(
+            side=tk.RIGHT, padx=5
+        )
 
         # Compare input
         row2 = ttk.Frame(input_frame)
@@ -132,7 +131,9 @@ class StringIntegralTab:
         entry2.pack(side=tk.LEFT, padx=5)
 
         ttk.Button(row2, text="⇆ Compare Both", command=self._compare).pack(side=tk.LEFT, padx=2)
-        ttk.Button(row2, text="📝 Anagram Check", command=self._anagram_check).pack(side=tk.LEFT, padx=2)
+        ttk.Button(row2, text="📝 Anagram Check", command=self._anagram_check).pack(
+            side=tk.LEFT, padx=2
+        )
 
         # Preset buttons
         preset_frame = ttk.Frame(input_frame)
@@ -149,19 +150,21 @@ class StringIntegralTab:
         # ── Output Section ───────────────────────────────────────
         self._text, _ = make_text(self._tab, font=("Consolas", 11), wrap=tk.NONE)
         self._out = OutputWriter(self._text)
-        self._out.add_tags({
-            "title":   {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 14, "bold")},
-            "section": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 11, "bold")},
-            "value":   {"foreground": THEME.number_fg},
-            "pass":    {"foreground": THEME.success},
-            "fail":    {"foreground": THEME.error},
-            "dim":     {"foreground": THEME.dim_fg},
-            "warn":    {"foreground": THEME.warning},
-            "field":   {"foreground": "#ffeaa7"},
-            "formula": {"foreground": "#81ecec"},
-            "letter":  {"foreground": THEME.hijaiyyah_fg},
-            "compare": {"foreground": "#fdcb6e"},
-        })
+        self._out.add_tags(
+            {
+                "title": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 14, "bold")},
+                "section": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 11, "bold")},
+                "value": {"foreground": THEME.number_fg},
+                "pass": {"foreground": THEME.success},
+                "fail": {"foreground": THEME.error},
+                "dim": {"foreground": THEME.dim_fg},
+                "warn": {"foreground": THEME.warning},
+                "field": {"foreground": "#ffeaa7"},
+                "formula": {"foreground": "#81ecec"},
+                "letter": {"foreground": THEME.hijaiyyah_fg},
+                "compare": {"foreground": "#fdcb6e"},
+            }
+        )
 
         self._show_welcome()
 
@@ -268,7 +271,9 @@ class StringIntegralTab:
         self._out.writeln("ANAGRAM INVARIANCE CHECK — Theorem 25.3.1", "title")
         self._out.writeln("═" * 60)
         self._out.writeln()
-        self._out.writeln(f"  ∫_{'{x₁⋯xₙ}'} = ∫_{'{x_σ(1)⋯x_σ(n)}'}  for any permutation σ", "formula")
+        self._out.writeln(
+            f"  ∫_{'{x₁⋯xₙ}'} = ∫_{'{x_σ(1)⋯x_σ(n)}'}  for any permutation σ", "formula"
+        )
         self._out.writeln()
 
         v1 = cod1["cod18"]
@@ -292,8 +297,24 @@ class StringIntegralTab:
             self._out.writeln()
             self._out.writeln("  Differing components:", "field")
             slot_names = [
-                "Θ̂","Na","Nb","Nd","Kp","Kx","Ks","Ka","Kc",
-                "Qp","Qx","Qs","Qa","Qc","AN","AK","AQ","H*",
+                "Θ̂",
+                "Na",
+                "Nb",
+                "Nd",
+                "Kp",
+                "Kx",
+                "Ks",
+                "Ka",
+                "Kc",
+                "Qp",
+                "Qx",
+                "Qs",
+                "Qa",
+                "Qc",
+                "AN",
+                "AK",
+                "AQ",
+                "H*",
             ]
             for idx, delta in nonzero:
                 name = slot_names[idx] if idx < len(slot_names) else f"[{idx}]"
@@ -330,12 +351,28 @@ class StringIntegralTab:
         w.writeln("① COD₁₈ VECTOR — 18-Dimensional String Integral", "section")
         w.writeln("─" * 60, "dim")
         w.writeln()
-        w.writeln(f"  Cod₁₈(w) = Σᵢ v₁₈(xᵢ)  for each Hijaiyyah letter xᵢ in w", "formula")
+        w.writeln("  Cod₁₈(w) = Σᵢ v₁₈(xᵢ)  for each Hijaiyyah letter xᵢ in w", "formula")
         w.writeln()
 
         slot_names = [
-            "Θ̂","Na","Nb","Nd","Kp","Kx","Ks","Ka","Kc",
-            "Qp","Qx","Qs","Qa","Qc","AN","AK","AQ","H*",
+            "Θ̂",
+            "Na",
+            "Nb",
+            "Nd",
+            "Kp",
+            "Kx",
+            "Ks",
+            "Ka",
+            "Kc",
+            "Qp",
+            "Qx",
+            "Qs",
+            "Qa",
+            "Qc",
+            "AN",
+            "AK",
+            "AQ",
+            "H*",
         ]
         slot_groups = [
             ("Inḥinā'", [0]),
@@ -372,7 +409,7 @@ class StringIntegralTab:
         w.writeln()
 
         identity_ok = layers["theta"] == U_total + rho_total
-        w.writeln(f"  Identity: ∫Θ̂ = ∫U + ∫ρ", "formula")
+        w.writeln("  Identity: ∫Θ̂ = ∫U + ∫ρ", "formula")
         w.writeln(
             f"           {layers['theta']} = {U_total} + {rho_total}  "
             f"{'✓ VERIFIED' if identity_ok else '✗ VIOLATION'}",
@@ -384,16 +421,16 @@ class StringIntegralTab:
         if layers["theta"] > 0:
             r_u = U_total / layers["theta"]
             r_rho = rho_total / layers["theta"]
-            w.writeln(f"  Turning profile:", "field")
-            w.writeln(f"    r_U   = {r_u:.4f}  ({r_u*100:.1f}% non-primary)", "dim")
-            w.writeln(f"    r_ρ   = {r_rho:.4f}  ({r_rho*100:.1f}% primary)", "dim")
+            w.writeln("  Turning profile:", "field")
+            w.writeln(f"    r_U   = {r_u:.4f}  ({r_u * 100:.1f}% non-primary)", "dim")
+            w.writeln(f"    r_ρ   = {r_rho:.4f}  ({r_rho * 100:.1f}% primary)", "dim")
 
             # Visual bar
             bar_len = 40
             u_bar = int(r_u * bar_len)
             rho_bar = bar_len - u_bar
             w.writeln(f"    [{'█' * u_bar}{'░' * rho_bar}]", "value")
-            w.writeln(f"     {'U':>{u_bar+1}}{'ρ':>{rho_bar}}", "dim")
+            w.writeln(f"     {'U':>{u_bar + 1}}{'ρ':>{rho_bar}}", "dim")
         w.writeln()
 
         # ── Section 3: Per-Letter Decomposition
@@ -423,7 +460,7 @@ class StringIntegralTab:
             q_str = f"({ev[9]},{ev[10]},{ev[11]},{ev[12]},{ev[13]})"
 
             w.writeln(
-                f"  {ch:<4} {entry.name:<8} {ev[0]:<4} {ev[0]*90:<5} "
+                f"  {ch:<4} {entry.name:<8} {ev[0]:<4} {ev[0] * 90:<5} "
                 f"{n_str:<12} {k_str:<16} {q_str:<16} {U_letter:<4} {rho_letter:<4}",
                 "value",
             )
@@ -435,8 +472,8 @@ class StringIntegralTab:
             w.writeln("④ CUMULATIVE TRAJECTORY — S₀ → Sₙ", "section")
             w.writeln("─" * 60, "dim")
             w.writeln()
-            w.writeln(f"  Sₖ = Σᵢ₌₁ᵏ v₁₈(xᵢ)  (Definition 27.2.1)", "formula")
-            w.writeln(f"  Each Sₖ is monotonically non-decreasing (Lemma 27.2.1)", "formula")
+            w.writeln("  Sₖ = Σᵢ₌₁ᵏ v₁₈(xᵢ)  (Definition 27.2.1)", "formula")
+            w.writeln("  Each Sₖ is monotonically non-decreasing (Lemma 27.2.1)", "formula")
             w.writeln()
             w.writeln(
                 f"  {'k':<4} {'Letter':<6} {'∫Θ̂':<6} {'∫AN':<6} {'∫AK':<6} {'∫AQ':<6} {'∫U':<6} {'∫ρ':<6}",
@@ -450,7 +487,9 @@ class StringIntegralTab:
                     hijaiyyah_chars.append(ch)
 
             for k, sk in enumerate(traj):
-                letter_label = hijaiyyah_chars[k - 1] if k > 0 and k <= len(hijaiyyah_chars) else "—"
+                letter_label = (
+                    hijaiyyah_chars[k - 1] if k > 0 and k <= len(hijaiyyah_chars) else "—"
+                )
                 U_k = sk[10] + sk[11] + sk[12] + 4 * sk[13]
                 rho_k = sk[0] - U_k
 
@@ -468,14 +507,13 @@ class StringIntegralTab:
                 max_theta = integ.max_component_theta(text)
                 mvt_ok = min_theta <= mean_theta <= max_theta
 
-                w.writeln(f"  Mean Value Theorem (Theorem 26.1.1):", "field")
+                w.writeln("  Mean Value Theorem (Theorem 26.1.1):", "field")
                 w.writeln(
-                    f"    min(Θ̂ᵢ) ≤ (1/n)∫Θ̂ ≤ max(Θ̂ᵢ)",
+                    "    min(Θ̂ᵢ) ≤ (1/n)∫Θ̂ ≤ max(Θ̂ᵢ)",
                     "formula",
                 )
                 w.writeln(
-                    f"    {min_theta} ≤ {mean_theta:.2f} ≤ {max_theta}  "
-                    f"{'✓' if mvt_ok else '✗'}",
+                    f"    {min_theta} ≤ {mean_theta:.2f} ≤ {max_theta}  {'✓' if mvt_ok else '✗'}",
                     "pass" if mvt_ok else "fail",
                 )
                 w.writeln()
@@ -499,7 +537,7 @@ class StringIntegralTab:
                     w.writeln(f"  {name:<12} {total:<8} {mean:<10.4f}", "value")
 
             w.writeln()
-            w.writeln(f"  Mean Θ̂ = {cent[0]:.4f} quadrants ≈ {cent[0]*90:.1f}°", "value")
+            w.writeln(f"  Mean Θ̂ = {cent[0]:.4f} quadrants ≈ {cent[0] * 90:.1f}°", "value")
             w.writeln()
 
         # ── Section 6: Energy
@@ -523,7 +561,7 @@ class StringIntegralTab:
         w.writeln()
 
         if energy_parts:
-            w.writeln(f"  Breakdown:", "field")
+            w.writeln("  Breakdown:", "field")
             for ch, phi in energy_parts:
                 entry = self._table.get_by_char(ch)
                 name = entry.name if entry else "?"
@@ -588,7 +626,7 @@ class StringIntegralTab:
         # Same turning?
         if l1["theta"] == l2["theta"]:
             w.writeln(
-                f"  ✦ Same total turning ({l1['theta']} quadrants = {l1['theta']*90}°)",
+                f"  ✦ Same total turning ({l1['theta']} quadrants = {l1['theta'] * 90}°)",
                 "pass",
             )
             if l1["U"] != l2["U"]:
@@ -608,7 +646,7 @@ class StringIntegralTab:
         diff = [v1[i] - v2[i] for i in range(18)]
         d2_sq = sum(d * d for d in diff[:14])
 
-        w.writeln(f"  Codex distance:", "field")
+        w.writeln("  Codex distance:", "field")
         w.writeln(f"    ‖Δ‖² = {d2_sq}", "value")
         w.writeln(f"    ‖Δ‖  = {math.sqrt(d2_sq):.6f}", "value")
 

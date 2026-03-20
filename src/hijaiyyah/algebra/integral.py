@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from typing import Any, Dict, List
 
-from ..core.codex_entry import CodexEntry
 from ..core.guards import compute_U
 from ..core.exomatrix import build_exomatrix
 from ..core.master_table import MASTER_TABLE

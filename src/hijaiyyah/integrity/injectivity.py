@@ -1,5 +1,7 @@
 """Injectivity verifier: all 28 codex vectors must be unique."""
+
 from ..core.master_table import MASTER_TABLE
+
 
 class InjectivityVerifier:
     def verify(self) -> bool:
@@ -7,9 +9,12 @@ class InjectivityVerifier:
         return len(set(vecs)) == len(vecs)
 
     def collision_pairs(self):
-        seen = {}; collisions = []
+        seen = {}
+        collisions = []
         for e in MASTER_TABLE.all_entries():
             k = tuple(e.vector)
-            if k in seen: collisions.append((seen[k], e.char))
-            else: seen[k] = e.char
+            if k in seen:
+                collisions.append((seen[k], e.char))
+            else:
+                seen[k] = e.char
         return collisions

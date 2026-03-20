@@ -6,17 +6,23 @@ Main application: assembles all tabs and launches the GUI.
 from __future__ import annotations
 
 import os
-import time
 import tkinter as tk
 from tkinter import ttk
 from typing import Optional
 
-from ..core.master_table import MasterTable, MASTER_TABLE
+from ..core.master_table import MASTER_TABLE
 from ..hisa.machine import HISAMachine
-from ..hisa.compiler import HL18ECompiler
 from ..language.evaluator import HCEvaluator
 
-from .theme import THEME, configure_styles, APP_TITLE, APP_VERSION, MIN_SIZE, LOGO_PATH, MATH_LOGO_PATH
+from .theme import (
+    THEME,
+    configure_styles,
+    APP_TITLE,
+    APP_VERSION,
+    MIN_SIZE,
+    LOGO_PATH,
+    MATH_LOGO_PATH,
+)
 from .tabs.letter_explorer import LetterExplorerTab
 from .tabs.master_table import MasterTableTab
 from .tabs.theorems import TheoremTab
@@ -102,7 +108,9 @@ class HOMApp:
                 img = img.subsample(scale, scale)
                 self._header_logo = img
                 tk.Label(
-                    header, image=img, bg=THEME.header_bg,
+                    header,
+                    image=img,
+                    bg=THEME.header_bg,
                 ).pack(side=tk.LEFT, padx=(12, 8), pady=8)
         except Exception:
             pass
@@ -120,17 +128,25 @@ class HOMApp:
                 img_m = img_m.subsample(scale_m, scale_m)
                 self._header_math_logo = img_m
                 tk.Label(
-                    title_frame, image=img_m, bg=THEME.header_bg,
+                    title_frame,
+                    image=img_m,
+                    bg=THEME.header_bg,
                 ).pack(side=tk.LEFT, padx=(0, 6))
             else:
                 tk.Label(
-                    title_frame, text="HOM", font=("Segoe UI", 22, "bold"),
-                    fg=THEME.hijaiyyah_fg, bg=THEME.header_bg,
+                    title_frame,
+                    text="HOM",
+                    font=("Segoe UI", 22, "bold"),
+                    fg=THEME.hijaiyyah_fg,
+                    bg=THEME.header_bg,
                 ).pack(side=tk.LEFT, padx=(0, 6))
         except Exception:
             tk.Label(
-                title_frame, text="HOM", font=("Segoe UI", 22, "bold"),
-                fg=THEME.hijaiyyah_fg, bg=THEME.header_bg,
+                title_frame,
+                text="HOM",
+                font=("Segoe UI", 22, "bold"),
+                fg=THEME.hijaiyyah_fg,
+                bg=THEME.header_bg,
             ).pack(side=tk.LEFT, padx=(0, 6))
 
         subtitle_frame = tk.Frame(title_frame, bg=THEME.header_bg)
@@ -193,7 +209,7 @@ class HOMApp:
         bar.pack_propagate(False)
 
         sha_short = self._table.compute_sha256()[:16]
-        entries = self._table.all_entries()
+        self._table.all_entries()
 
         # Left: version + SHA
         tk.Label(
@@ -207,7 +223,7 @@ class HOMApp:
         # Center: letter/dimension stats
         tk.Label(
             bar,
-            text=f"28 letters  ·  18 dimensions  ·  252 bytes ROM",
+            text="28 letters  ·  18 dimensions  ·  252 bytes ROM",
             font=("Consolas", 9),
             fg=THEME.dim_fg,
             bg=THEME.surface,
@@ -216,7 +232,7 @@ class HOMApp:
         # Right: copyright
         tk.Label(
             bar,
-            text=f"© 2026 HMCL  ",
+            text="© 2026 HMCL  ",
             font=("Consolas", 9),
             fg=THEME.dim_fg,
             bg=THEME.surface,

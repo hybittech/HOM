@@ -16,6 +16,7 @@ class CodexEntry:
       name:   Latin transliteration (e.g., 'Ba')
       vector: 18-element tuple of non-negative integers
     """
+
     index: int
     char: str
     name: str

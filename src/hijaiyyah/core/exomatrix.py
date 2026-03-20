@@ -32,9 +32,9 @@ def build_exomatrix(v: Any) -> List[List[int]]:
     a_q = vec[9] + vec[10] + vec[11] + vec[12] + vec[13]
 
     return [
-        [theta,  U,      rho,    0,      0    ],
-        [vec[1], vec[2], vec[3], 0,      a_n  ],
+        [theta, U, rho, 0, 0],
+        [vec[1], vec[2], vec[3], 0, a_n],
         [vec[4], vec[5], vec[6], vec[7], vec[8]],
         [vec[9], vec[10], vec[11], vec[12], vec[13]],
-        [vec[17], 0,     0,      a_k,    a_q  ],
+        [vec[17], 0, 0, a_k, a_q],
     ]

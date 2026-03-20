@@ -7,14 +7,34 @@ Aligned with HC Language Spec v1.0 / HL-18E formal grammar.
 
 from __future__ import annotations
 
-from typing import Any, List, Optional, Tuple
+from typing import List, Optional, Tuple
 
-from hijaiyyah.language.lexer import Token, TokenType, LexerError
+from hijaiyyah.language.lexer import Token, TokenType
 from hijaiyyah.language.ast_nodes import (
-    ASTNode, Program, LetStmt, ConstStmt, ExpressedStmt, ReturnStmt,
-    Block, FnDecl, Literal, VarRef, BinaryExpr, MethodCall, CallExpr,
-    ModuleAccess, IfExpr, RangeExpr, MatchExpr, MatchArm,
-    ForStmt, WhileStmt, IndexExpr, ArrayLiteral, BreakStmt, ContinueStmt,
+    ASTNode,
+    Program,
+    LetStmt,
+    ConstStmt,
+    ExpressedStmt,
+    ReturnStmt,
+    Block,
+    FnDecl,
+    Literal,
+    VarRef,
+    BinaryExpr,
+    MethodCall,
+    CallExpr,
+    ModuleAccess,
+    IfExpr,
+    RangeExpr,
+    MatchExpr,
+    MatchArm,
+    ForStmt,
+    WhileStmt,
+    IndexExpr,
+    ArrayLiteral,
+    BreakStmt,
+    ContinueStmt,
 )
 
 
@@ -24,7 +44,9 @@ class ParseError(Exception):
     def __init__(self, message: str, token: Optional[Token] = None):
         self.token = token
         if token:
-            super().__init__(f"L{token.line}:{token.col}: {message} (got {token.type.name} '{token.value}')")
+            super().__init__(
+                f"L{token.line}:{token.col}: {message} (got {token.type.name} '{token.value}')"
+            )
         else:
             super().__init__(message)
 
@@ -143,7 +165,7 @@ class Parser:
 
     def _parse_let(self) -> LetStmt:
         self._expect(TokenType.KW_LET)
-        mutable = self._match(TokenType.KW_MUT) is not None
+        _ = self._match(TokenType.KW_MUT) is not None
         name_tok = self._expect(TokenType.IDENTIFIER, "Expected variable name")
         type_ann = ""
         if self._match(TokenType.COLON):
@@ -166,9 +188,16 @@ class Parser:
 
     def _parse_type_annotation(self) -> str:
         parts = []
-        while self._at(TokenType.IDENTIFIER, TokenType.LT, TokenType.GT,
-                       TokenType.LBRACKET, TokenType.RBRACKET,
-                       TokenType.SEMICOLON, TokenType.INTEGER, TokenType.COMMA):
+        while self._at(
+            TokenType.IDENTIFIER,
+            TokenType.LT,
+            TokenType.GT,
+            TokenType.LBRACKET,
+            TokenType.RBRACKET,
+            TokenType.SEMICOLON,
+            TokenType.INTEGER,
+            TokenType.COMMA,
+        ):
             if self._at(TokenType.ASSIGN, TokenType.LBRACE):
                 break
             parts.append(self._advance().value)
@@ -448,7 +477,9 @@ class Parser:
         while True:
             if self._at(TokenType.DOT):
                 self._advance()
-                name_tok = self._expect(TokenType.IDENTIFIER, "Expected method/field name after '.'")
+                name_tok = self._expect(
+                    TokenType.IDENTIFIER, "Expected method/field name after '.'"
+                )
 
                 # Method call: obj.method(args)
                 if self._at(TokenType.LPAREN):
@@ -532,7 +563,7 @@ class Parser:
         if tok.type == TokenType.IDENTIFIER:
             return self._parse_identifier_expr()
 
-        raise ParseError(f"Unexpected token in expression", tok)
+        raise ParseError("Unexpected token in expression", tok)
 
     def _parse_array_literal(self) -> ArrayLiteral:
         self._expect(TokenType.LBRACKET)

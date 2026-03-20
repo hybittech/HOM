@@ -29,7 +29,7 @@ def assemble_line(line: str) -> int:
 
     # Strip inline comments
     if ";" in line:
-        line = line[:line.index(";")].strip()
+        line = line[: line.index(";")].strip()
 
     parts = line.split()
     if not parts:
@@ -43,7 +43,9 @@ def assemble_line(line: str) -> int:
     s2 = int(parts[3]) if len(parts) > 3 else 0
     imm = int(parts[4]) if len(parts) > 4 else 0
 
-    return (op << 24) | ((dst & 0xF) << 20) | ((s1 & 0xF) << 16) | ((s2 & 0xF) << 12) | (imm & 0xFFF)
+    return (
+        (op << 24) | ((dst & 0xF) << 20) | ((s1 & 0xF) << 16) | ((s2 & 0xF) << 12) | (imm & 0xFFF)
+    )
 
 
 def assemble(source: str) -> List[int]:

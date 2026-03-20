@@ -16,18 +16,15 @@ Professional geometry analysis covering Bab II-D (Chapters 29–31):
 
 from __future__ import annotations
 
-import math
 import time
 import tkinter as tk
 from tkinter import ttk
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Any, List, Optional, Tuple
 
-from ...core.master_table import MasterTable, MASTER_TABLE
+from ...core.master_table import MasterTable
 from ...core.codex_entry import CodexEntry
-from ...core.guards import compute_U, compute_rho
 from ...algebra import geometry as geo
 from ...algebra import vectronometry as vec
-from ...algebra import differential as diff
 from ..theme import THEME
 from ..widgets import OutputWriter, make_text
 
@@ -81,21 +78,37 @@ class GeometryTab:
         self._v2.set(self._names[-1] if self._names else "")
 
         ttk.Label(toolbar, text="Letter 1:", font=THEME.font_ui_bold).pack(side=tk.LEFT)
-        ttk.Combobox(toolbar, textvariable=self._v1, values=self._names, width=14).pack(side=tk.LEFT, padx=3)
+        ttk.Combobox(toolbar, textvariable=self._v1, values=self._names, width=14).pack(
+            side=tk.LEFT, padx=3
+        )
 
         ttk.Label(toolbar, text="Letter 2:").pack(side=tk.LEFT, padx=(8, 0))
-        ttk.Combobox(toolbar, textvariable=self._v2, values=self._names, width=14).pack(side=tk.LEFT, padx=3)
+        ttk.Combobox(toolbar, textvariable=self._v2, values=self._names, width=14).pack(
+            side=tk.LEFT, padx=3
+        )
 
-        ttk.Button(toolbar, text="▶ Full Distance Analysis", command=self._full_distance).pack(side=tk.LEFT, padx=4)
+        ttk.Button(toolbar, text="▶ Full Distance Analysis", command=self._full_distance).pack(
+            side=tk.LEFT, padx=4
+        )
 
         ttk.Separator(toolbar, orient=tk.VERTICAL).pack(side=tk.LEFT, fill=tk.Y, padx=8)
 
-        ttk.Button(toolbar, text="🌐 Diameter & Centroid", command=self._show_topology).pack(side=tk.LEFT, padx=2)
-        ttk.Button(toolbar, text="📊 Gram Matrix", command=self._show_gram).pack(side=tk.LEFT, padx=2)
-        ttk.Button(toolbar, text="📐 Distance Matrix", command=self._show_distance_matrix).pack(side=tk.LEFT, padx=2)
-        ttk.Button(toolbar, text="⊥ Orthogonality Map", command=self._show_orthogonality).pack(side=tk.LEFT, padx=2)
+        ttk.Button(toolbar, text="🌐 Diameter & Centroid", command=self._show_topology).pack(
+            side=tk.LEFT, padx=2
+        )
+        ttk.Button(toolbar, text="📊 Gram Matrix", command=self._show_gram).pack(
+            side=tk.LEFT, padx=2
+        )
+        ttk.Button(toolbar, text="📐 Distance Matrix", command=self._show_distance_matrix).pack(
+            side=tk.LEFT, padx=2
+        )
+        ttk.Button(toolbar, text="⊥ Orthogonality Map", command=self._show_orthogonality).pack(
+            side=tk.LEFT, padx=2
+        )
 
-        ttk.Label(toolbar, textvariable=self._status_var, foreground=THEME.dim_fg).pack(side=tk.RIGHT, padx=5)
+        ttk.Label(toolbar, textvariable=self._status_var, foreground=THEME.dim_fg).pack(
+            side=tk.RIGHT, padx=5
+        )
 
         # ── Quick pair bar ───────────────────────────────────────
         pair_bar = ttk.Frame(self._tab)
@@ -115,26 +128,28 @@ class GeometryTab:
             ttk.Button(
                 pair_bar,
                 text=f"{label}",
-                command=lambda a=ch1, b=ch2: self._quick_pair(a, b), # type: ignore
+                command=lambda a=ch1, b=ch2: self._quick_pair(a, b),  # type: ignore
             ).pack(side=tk.LEFT, padx=1)
 
         # ── Output ───────────────────────────────────────────────
         self._text, _ = make_text(self._tab, font=("Consolas", 11), wrap=tk.NONE)
         self._out = OutputWriter(self._text)
-        self._out.add_tags({
-            "title":   {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 14, "bold")},
-            "section": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 12, "bold")},
-            "sub":     {"foreground": "#74b9ff", "font": ("Consolas", 11, "bold")},
-            "value":   {"foreground": THEME.number_fg},
-            "pass":    {"foreground": THEME.success, "font": ("Consolas", 11, "bold")},
-            "fail":    {"foreground": THEME.error, "font": ("Consolas", 11, "bold")},
-            "dim":     {"foreground": THEME.dim_fg},
-            "warn":    {"foreground": THEME.warning},
-            "field":   {"foreground": "#ffeaa7"},
-            "formula": {"foreground": "#81ecec"},
-            "ref":     {"foreground": "#dfe6e9", "font": ("Consolas", 10, "italic")},
-            "matrix":  {"foreground": "#b2bec3", "font": ("Consolas", 9)},
-        })
+        self._out.add_tags(
+            {
+                "title": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 14, "bold")},
+                "section": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 12, "bold")},
+                "sub": {"foreground": "#74b9ff", "font": ("Consolas", 11, "bold")},
+                "value": {"foreground": THEME.number_fg},
+                "pass": {"foreground": THEME.success, "font": ("Consolas", 11, "bold")},
+                "fail": {"foreground": THEME.error, "font": ("Consolas", 11, "bold")},
+                "dim": {"foreground": THEME.dim_fg},
+                "warn": {"foreground": THEME.warning},
+                "field": {"foreground": "#ffeaa7"},
+                "formula": {"foreground": "#81ecec"},
+                "ref": {"foreground": "#dfe6e9", "font": ("Consolas", 10, "italic")},
+                "matrix": {"foreground": "#b2bec3", "font": ("Consolas", 9)},
+            }
+        )
 
         self._show_welcome()
 
@@ -168,7 +183,7 @@ class GeometryTab:
         self._out.writeln("═" * 60)
         self._out.writeln()
         self._out.writeln("Bab II-D, Chapters 29–31", "ref")
-        self._out.writeln("Central question: \"How far apart are two letters?\"", "dim")
+        self._out.writeln('Central question: "How far apart are two letters?"', "dim")
         self._out.writeln()
         self._out.writeln("  Three distance metrics:", "sub")
         self._out.writeln("    d₂  Euclidean  — standard geometric distance", "dim")
@@ -209,19 +224,18 @@ class GeometryTab:
 
         elapsed = (time.perf_counter() - start) * 1000
         self._out.writeln(f"  Analysis completed in {elapsed:.1f} ms", "dim")
-        self._status_var.set(f"d₂({e1.char},{e2.char}) = {geo.euclidean(e1,e2):.4f}")
+        self._status_var.set(f"d₂({e1.char},{e2.char}) = {geo.euclidean(e1, e2):.4f}")
 
     # ── Section renderers ────────────────────────────────────────
 
-    def _render_header(self, e1: CodexEntry, e2: CodexEntry,
-                       v1: List[int], v2: List[int]) -> None:
+    def _render_header(self, e1: CodexEntry, e2: CodexEntry, v1: List[int], v2: List[int]) -> None:
         w = self._out
         if w is None:
             return
 
-        w.writeln(f"╔{'═'*60}╗", "dim")
+        w.writeln(f"╔{'═' * 60}╗", "dim")
         w.writeln(f"║  CODEX DISTANCE: {e1.char} ({e1.name})  ↔  {e2.char} ({e2.name})", "title")
-        w.writeln(f"╚{'═'*60}╝", "dim")
+        w.writeln(f"╚{'═' * 60}╝", "dim")
         w.writeln()
 
         w.writeln(f"  v₁₄({e1.char}) = ({', '.join(str(v1[i]) for i in range(14))})", "value")
@@ -229,12 +243,19 @@ class GeometryTab:
         w.writeln()
 
         # Quick stats
-        w.writeln(f"  ‖{e1.char}‖² = {vec.norm2(e1):>4d}    Θ̂({e1.char}) = {v1[0]}  ({v1[0]*90}°)", "dim")
-        w.writeln(f"  ‖{e2.char}‖² = {vec.norm2(e2):>4d}    Θ̂({e2.char}) = {v2[0]}  ({v2[0]*90}°)", "dim")
+        w.writeln(
+            f"  ‖{e1.char}‖² = {vec.norm2(e1):>4d}    Θ̂({e1.char}) = {v1[0]}  ({v1[0] * 90}°)",
+            "dim",
+        )
+        w.writeln(
+            f"  ‖{e2.char}‖² = {vec.norm2(e2):>4d}    Θ̂({e2.char}) = {v2[0]}  ({v2[0] * 90}°)",
+            "dim",
+        )
         w.writeln()
 
-    def _render_three_metrics(self, e1: CodexEntry, e2: CodexEntry,
-                               v1: List[int], v2: List[int]) -> None:
+    def _render_three_metrics(
+        self, e1: CodexEntry, e2: CodexEntry, v1: List[int], v2: List[int]
+    ) -> None:
         w = self._out
         if w is None:
             return
@@ -288,8 +309,9 @@ class GeometryTab:
             w.writeln(f"   → Moderate distance — {pct_diam:.0f}% of diameter", "dim")
         w.writeln()
 
-    def _render_decomposition(self, e1: CodexEntry, e2: CodexEntry,
-                               v1: List[int], v2: List[int]) -> None:
+    def _render_decomposition(
+        self, e1: CodexEntry, e2: CodexEntry, v1: List[int], v2: List[int]
+    ) -> None:
         w = self._out
         if w is None:
             return
@@ -339,8 +361,9 @@ class GeometryTab:
                 w.writeln("   → Same total turning, different body structure", "dim")
         w.writeln()
 
-    def _render_polarization(self, e1: CodexEntry, e2: CodexEntry,
-                              v1: List[int], v2: List[int]) -> None:
+    def _render_polarization(
+        self, e1: CodexEntry, e2: CodexEntry, v1: List[int], v2: List[int]
+    ) -> None:
         w = self._out
         if w is None:
             return
@@ -360,13 +383,16 @@ class GeometryTab:
         w.writeln()
         w.writeln(f"   Right side:  ‖{e1.char}‖²   = {n1_sq}", "value")
         w.writeln(f"              + ‖{e2.char}‖²   = {n2_sq}", "value")
-        w.writeln(f"              − 2⟨{e1.char},{e2.char}⟩ = −2×{ip} = {-2*ip}", "value")
-        w.writeln(f"              ─────────────", "dim")
-        w.writeln(f"              = {n1_sq} + {n2_sq} + ({-2*ip}) = {pol['polar']}", "value")
+        w.writeln(f"              − 2⟨{e1.char},{e2.char}⟩ = −2×{ip} = {-2 * ip}", "value")
+        w.writeln("              ─────────────", "dim")
+        w.writeln(f"              = {n1_sq} + {n2_sq} + ({-2 * ip}) = {pol['polar']}", "value")
         w.writeln()
 
         ok = pol["pass"]
-        w.writeln(f"   {pol['d2_sq']} = {pol['polar']}  {'✓ VERIFIED' if ok else '✗ VIOLATION'}", "pass" if ok else "fail")
+        w.writeln(
+            f"   {pol['d2_sq']} = {pol['polar']}  {'✓ VERIFIED' if ok else '✗ VIOLATION'}",
+            "pass" if ok else "fail",
+        )
         w.writeln()
 
         # Inner product interpretation
@@ -374,13 +400,14 @@ class GeometryTab:
         w.writeln(f"   Inner product: ⟨{e1.char},{e2.char}⟩ = {ip}", "dim")
         w.writeln(f"   Cosine similarity: cos θ = {cos_sim:.6f}", "dim")
         if cos_sim > 0.9:
-            w.writeln(f"   → Highly similar structural profiles", "dim")
+            w.writeln("   → Highly similar structural profiles", "dim")
         elif cos_sim < 0.1:
-            w.writeln(f"   → Nearly orthogonal structures", "dim")
+            w.writeln("   → Nearly orthogonal structures", "dim")
         w.writeln()
 
-    def _render_component_diff(self, e1: CodexEntry, e2: CodexEntry,
-                                v1: List[int], v2: List[int]) -> None:
+    def _render_component_diff(
+        self, e1: CodexEntry, e2: CodexEntry, v1: List[int], v2: List[int]
+    ) -> None:
         w = self._out
         if w is None:
             return
@@ -393,9 +420,20 @@ class GeometryTab:
         w.writeln()
 
         slot_names = [
-            "Θ̂", "Na", "Nb", "Nd",
-            "Kp", "Kx", "Ks", "Ka", "Kc",
-            "Qp", "Qx", "Qs", "Qa", "Qc",
+            "Θ̂",
+            "Na",
+            "Nb",
+            "Nd",
+            "Kp",
+            "Kx",
+            "Ks",
+            "Ka",
+            "Kc",
+            "Qp",
+            "Qx",
+            "Qs",
+            "Qa",
+            "Qc",
         ]
         group_labels = {
             0: "─ Inḥinā' ─",
@@ -465,8 +503,7 @@ class GeometryTab:
 
                 v_e = list(entry.vector)
                 v_o = list(other.vector)
-                if (v_e[0] == v_o[0] and
-                    all(v_e[k] == v_o[k] for k in range(4, 14))):
+                if v_e[0] == v_o[0] and all(v_e[k] == v_o[k] for k in range(4, 14)):
                     rel = "dot-variant"
                 elif d2_sq == 1:
                     rel = "minimal dist"
@@ -485,7 +522,7 @@ class GeometryTab:
             w.writeln()
 
         # Mutual position
-        d_mutual = geo.euclidean(e1, e2)
+        geo.euclidean(e1, e2)
         knn1 = geo.k_nearest(e1, 28)
         rank_in_1 = 0
         for r, (ch, _) in enumerate(knn1, 1):
@@ -500,18 +537,19 @@ class GeometryTab:
                 rank_in_2 = r
                 break
 
-        w.writeln(f"   Mutual position:", "field")
+        w.writeln("   Mutual position:", "field")
         w.writeln(f"     {e2.char} is #{rank_in_1} nearest to {e1.char}", "value")
         w.writeln(f"     {e1.char} is #{rank_in_2} nearest to {e2.char}", "value")
         w.writeln()
 
-    def _render_orthogonality_pair(self, e1: CodexEntry, e2: CodexEntry,
-                                    v1: List[int], v2: List[int]) -> None:
+    def _render_orthogonality_pair(
+        self, e1: CodexEntry, e2: CodexEntry, v1: List[int], v2: List[int]
+    ) -> None:
         w = self._out
         if w is None:
             return
 
-        orth = geo.is_orthogonal(e1, e2)
+        geo.is_orthogonal(e1, e2)
         ip = vec.inner(e1, e2)
 
         w.writeln("⑥ SUPPORT ORTHOGONALITY", "section")
@@ -527,26 +565,42 @@ class GeometryTab:
         shared = supp1 & supp2
 
         slot_names = [
-            "Θ̂","Na","Nb","Nd","Kp","Kx","Ks","Ka","Kc","Qp","Qx","Qs","Qa","Qc",
+            "Θ̂",
+            "Na",
+            "Nb",
+            "Nd",
+            "Kp",
+            "Kx",
+            "Ks",
+            "Ka",
+            "Kc",
+            "Qp",
+            "Qx",
+            "Qs",
+            "Qa",
+            "Qc",
         ]
 
-        w.writeln(f"   supp({e1.char}) = {{{', '.join(slot_names[k] for k in sorted(supp1))}}}", "value")
-        w.writeln(f"   supp({e2.char}) = {{{', '.join(slot_names[k] for k in sorted(supp2))}}}", "value")
+        w.writeln(
+            f"   supp({e1.char}) = {{{', '.join(slot_names[k] for k in sorted(supp1))}}}", "value"
+        )
+        w.writeln(
+            f"   supp({e2.char}) = {{{', '.join(slot_names[k] for k in sorted(supp2))}}}", "value"
+        )
         w.writeln()
 
         if shared:
             shared_names = ", ".join(slot_names[k] for k in sorted(shared))
             w.writeln(f"   Intersection: {{{shared_names}}}  (non-empty)", "warn")
             w.writeln(f"   ⟨{e1.char},{e2.char}⟩ = {ip} ≠ 0", "value")
-            w.writeln(f"   Result: NOT orthogonal", "dim")
+            w.writeln("   Result: NOT orthogonal", "dim")
         else:
-            w.writeln(f"   Intersection: ∅  (empty)", "pass")
+            w.writeln("   Intersection: ∅  (empty)", "pass")
             w.writeln(f"   ⟨{e1.char},{e2.char}⟩ = {ip} = 0", "value")
-            w.writeln(f"   Result: ORTHOGONAL ✓ — structurally disjoint", "pass")
+            w.writeln("   Result: ORTHOGONAL ✓ — structurally disjoint", "pass")
         w.writeln()
 
-    def _render_context(self, e1: CodexEntry, e2: CodexEntry,
-                        v1: List[int], v2: List[int]) -> None:
+    def _render_context(self, e1: CodexEntry, e2: CodexEntry, v1: List[int], v2: List[int]) -> None:
         w = self._out
         if w is None:
             return
@@ -557,13 +611,13 @@ class GeometryTab:
         w.writeln()
 
         d = geo.euclidean(e1, e2)
-        d2 = geo.euclidean_sq(e1, e2)
+        geo.euclidean_sq(e1, e2)
         diam = geo.diameter()
         diam_sq = geo.diameter_sq()
 
         w.writeln(f"   d₂({e1.char},{e2.char}) = {d:.6f}", "value")
         w.writeln(f"   diam(H₂₈) = {diam:.6f}  (√{diam_sq})", "value")
-        w.writeln(f"   d / diam  = {d/diam:.4f}  ({d/diam*100:.1f}% of diameter)", "value")
+        w.writeln(f"   d / diam  = {d / diam:.4f}  ({d / diam * 100:.1f}% of diameter)", "value")
         w.writeln()
 
         # Metric axioms
@@ -571,12 +625,15 @@ class GeometryTab:
         w.writeln(f"     M1 (non-negativity): d₂ = {d:.6f} ≥ 0  ✓", "pass")
 
         if e1.char == e2.char:
-            w.writeln(f"     M1 (identity):       d₂ = 0 iff h₁ = h₂  ✓", "pass")
+            w.writeln("     M1 (identity):       d₂ = 0 iff h₁ = h₂  ✓", "pass")
         else:
             w.writeln(f"     M1 (discernibility): d₂ = {d:.6f} > 0  ✓  (h₁ ≠ h₂)", "pass")
 
         d_reverse = geo.euclidean(e2, e1)
-        w.writeln(f"     M2 (symmetry):       d({e1.char},{e2.char}) = d({e2.char},{e1.char}) = {d_reverse:.6f}  ✓", "pass")
+        w.writeln(
+            f"     M2 (symmetry):       d({e1.char},{e2.char}) = d({e2.char},{e1.char}) = {d_reverse:.6f}  ✓",
+            "pass",
+        )
 
         # Triangle inequality with a third letter
         third = self._table.get_by_char("ج")
@@ -590,7 +647,7 @@ class GeometryTab:
                 "pass" if tri_ok else "fail",
             )
             w.writeln(
-                f"                          {d12:.4f} ≤ {d13:.4f} + {d32:.4f} = {d13+d32:.4f}  "
+                f"                          {d12:.4f} ≤ {d13:.4f} + {d32:.4f} = {d13 + d32:.4f}  "
                 f"{'✓' if tri_ok else '✗'}",
                 "dim",
             )
@@ -616,18 +673,33 @@ class GeometryTab:
         self._out.writeln("  DIAMETER (Proposition 31.1.1)", "section")
         self._out.writeln("  " + "─" * 45, "dim")
         self._out.writeln(f"  diam(H₂₈) = √{d2} = {d:.6f}", "value")
-        self._out.writeln(f"  Achieved by pair: ا (Alif) ↔ هـ (Hā')", "value")
-        self._out.writeln(f"  Alif: simplest letter (‖v₁₄‖² = 1)", "dim")
-        self._out.writeln(f"  Hā':  most complex (‖v₁₄‖² = 69)", "dim")
+        self._out.writeln("  Achieved by pair: ا (Alif) ↔ هـ (Hā')", "value")
+        self._out.writeln("  Alif: simplest letter (‖v₁₄‖² = 1)", "dim")
+        self._out.writeln("  Hā':  most complex (‖v₁₄‖² = 69)", "dim")
         self._out.writeln()
 
         # Centroid
         cent = geo.alphabet_centroid()
-        slot_names = ["Θ̂","Na","Nb","Nd","Kp","Kx","Ks","Ka","Kc","Qp","Qx","Qs","Qa","Qc"]
+        slot_names = [
+            "Θ̂",
+            "Na",
+            "Nb",
+            "Nd",
+            "Kp",
+            "Kx",
+            "Ks",
+            "Ka",
+            "Kc",
+            "Qp",
+            "Qx",
+            "Qs",
+            "Qa",
+            "Qc",
+        ]
 
         self._out.writeln("  CENTROID — Mean Letter (Definition 31.2.1)", "section")
         self._out.writeln("  " + "─" * 45, "dim")
-        self._out.writeln(f"  v̄ = (1/28) Σ v₁₄(hᵢ)", "formula")
+        self._out.writeln("  v̄ = (1/28) Σ v₁₄(hᵢ)", "formula")
         self._out.writeln()
 
         self._out.writeln(f"  {'Component':<12} {'Mean':<10} {'Interpretation'}", "field")
@@ -636,11 +708,11 @@ class GeometryTab:
             val = cent[k]
             interp = ""
             if k == 0:
-                interp = f"≈ {val*90:.0f}° average turning"
+                interp = f"≈ {val * 90:.0f}° average turning"
             self._out.writeln(f"  {name:<12} {val:<10.4f} {interp}", "value")
 
         self._out.writeln()
-        self._out.writeln(f"  Mean Θ̂ = {cent[0]:.4f} quadrants ≈ {cent[0]*90:.1f}°", "field")
+        self._out.writeln(f"  Mean Θ̂ = {cent[0]:.4f} quadrants ≈ {cent[0] * 90:.1f}°", "field")
         self._out.writeln()
 
         # Extreme letters
@@ -650,8 +722,14 @@ class GeometryTab:
         norms = [(e, vec.norm2(e)) for e in self._entries]
         norms.sort(key=lambda x: x[1])
 
-        self._out.writeln(f"  Smallest norm: {norms[0][0].char} ({norms[0][0].name}) ‖v₁₄‖² = {norms[0][1]}", "value")
-        self._out.writeln(f"  Largest norm:  {norms[-1][0].char} ({norms[-1][0].name}) ‖v₁₄‖² = {norms[-1][1]}", "value")
+        self._out.writeln(
+            f"  Smallest norm: {norms[0][0].char} ({norms[0][0].name}) ‖v₁₄‖² = {norms[0][1]}",
+            "value",
+        )
+        self._out.writeln(
+            f"  Largest norm:  {norms[-1][0].char} ({norms[-1][0].name}) ‖v₁₄‖² = {norms[-1][1]}",
+            "value",
+        )
 
         self._status_var.set("Topology displayed")
 
@@ -684,7 +762,7 @@ class GeometryTab:
             self._out.writeln(row_str, "matrix")
 
         self._out.writeln()
-        self._out.writeln(f"  rank(G) = rank(M₁₄) = 14", "dim")
+        self._out.writeln("  rank(G) = rank(M₁₄) = 14", "dim")
         self._status_var.set("Gram matrix displayed")
 
     def _show_distance_matrix(self) -> None:
@@ -722,7 +800,7 @@ class GeometryTab:
             self._out.writeln(row_str, "matrix")
 
         self._out.writeln()
-        self._out.writeln(f"  Minimum non-zero d₂² = 1  (dot-variant pairs)", "dim")
+        self._out.writeln("  Minimum non-zero d₂² = 1  (dot-variant pairs)", "dim")
         self._out.writeln(f"  Maximum d₂² = {geo.diameter_sq()}  (ا ↔ هـ)", "dim")
         self._status_var.set("Distance matrix displayed")
 
@@ -769,8 +847,10 @@ class GeometryTab:
 
         self._out.writeln()
         self._out.writeln(f"  Orthogonal pairs: {orth_count}", "value")
-        self._out.writeln(f"  Total pairs: {n*(n-1)//2}", "dim")
-        self._out.writeln(f"  Orthogonality rate: {orth_count/(n*(n-1)//2)*100:.1f}%", "dim")
+        self._out.writeln(f"  Total pairs: {n * (n - 1) // 2}", "dim")
+        self._out.writeln(
+            f"  Orthogonality rate: {orth_count / (n * (n - 1) // 2) * 100:.1f}%", "dim"
+        )
 
         # List all orthogonal pairs
         if orth_count > 0 and orth_count <= 20:

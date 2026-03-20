@@ -247,81 +247,189 @@ generic_type    = identifier , '<' , type_expr , { ',' , type_expr } , '>' ;
 
 # ── Hybit component slot names ───────────────────────────────────
 
-SLOT_NAMES: FrozenSet[str] = frozenset({
-    # Primary names (matching book notation)
-    "theta", "Na", "Nb", "Nd",
-    "Kp", "Kx", "Ks", "Ka", "Kc",
-    "Qp", "Qx", "Qs", "Qa", "Qc",
-    "AN", "AK", "AQ", "Hstar",
-    # Lowercase aliases
-    "na", "nb", "nd",
-    "kp", "kx", "ks", "ka", "kc",
-    "qp", "qx", "qs", "qa", "qc",
-    "an", "ak", "aq", "hstar",
-})
+SLOT_NAMES: FrozenSet[str] = frozenset(
+    {
+        # Primary names (matching book notation)
+        "theta",
+        "Na",
+        "Nb",
+        "Nd",
+        "Kp",
+        "Kx",
+        "Ks",
+        "Ka",
+        "Kc",
+        "Qp",
+        "Qx",
+        "Qs",
+        "Qa",
+        "Qc",
+        "AN",
+        "AK",
+        "AQ",
+        "Hstar",
+        # Lowercase aliases
+        "na",
+        "nb",
+        "nd",
+        "kp",
+        "kx",
+        "ks",
+        "ka",
+        "kc",
+        "qp",
+        "qx",
+        "qs",
+        "qa",
+        "qc",
+        "an",
+        "ak",
+        "aq",
+        "hstar",
+    }
+)
 
 # Slot name → v18 index mapping
 SLOT_INDEX: Dict[str, int] = {
     "theta": 0,
-    "Na": 1, "Nb": 2, "Nd": 3,
-    "Kp": 4, "Kx": 5, "Ks": 6, "Ka": 7, "Kc": 8,
-    "Qp": 9, "Qx": 10, "Qs": 11, "Qa": 12, "Qc": 13,
-    "AN": 14, "AK": 15, "AQ": 16, "Hstar": 17,
+    "Na": 1,
+    "Nb": 2,
+    "Nd": 3,
+    "Kp": 4,
+    "Kx": 5,
+    "Ks": 6,
+    "Ka": 7,
+    "Kc": 8,
+    "Qp": 9,
+    "Qx": 10,
+    "Qs": 11,
+    "Qa": 12,
+    "Qc": 13,
+    "AN": 14,
+    "AK": 15,
+    "AQ": 16,
+    "Hstar": 17,
     # lowercase
-    "na": 1, "nb": 2, "nd": 3,
-    "kp": 4, "kx": 5, "ks": 6, "ka": 7, "kc": 8,
-    "qp": 9, "qx": 10, "qs": 11, "qa": 12, "qc": 13,
-    "an": 14, "ak": 15, "aq": 16, "hstar": 17,
+    "na": 1,
+    "nb": 2,
+    "nd": 3,
+    "kp": 4,
+    "kx": 5,
+    "ks": 6,
+    "ka": 7,
+    "kc": 8,
+    "qp": 9,
+    "qx": 10,
+    "qs": 11,
+    "qa": 12,
+    "qc": 13,
+    "an": 14,
+    "ak": 15,
+    "aq": 16,
+    "hstar": 17,
 }
 
 # ── Latin transliteration names ──────────────────────────────────
 
-LATIN_NAMES: FrozenSet[str] = frozenset({
-    "alif", "ba", "ta", "tsa", "jim", "ha", "kha",
-    "dal", "dzal", "ra", "zay", "sin", "syin",
-    "shad", "dhad", "tha", "zha", "ain", "ghain",
-    "fa", "qaf", "kaf", "lam", "mim", "nun",
-    "waw", "haa", "ya",
-})
+LATIN_NAMES: FrozenSet[str] = frozenset(
+    {
+        "alif",
+        "ba",
+        "ta",
+        "tsa",
+        "jim",
+        "ha",
+        "kha",
+        "dal",
+        "dzal",
+        "ra",
+        "zay",
+        "sin",
+        "syin",
+        "shad",
+        "dhad",
+        "tha",
+        "zha",
+        "ain",
+        "ghain",
+        "fa",
+        "qaf",
+        "kaf",
+        "lam",
+        "mim",
+        "nun",
+        "waw",
+        "haa",
+        "ya",
+    }
+)
 
 # Latin name → Hijaiyyah character mapping
 LATIN_TO_CHAR: Dict[str, str] = {
-    "alif": "ا", "ba": "ب", "ta": "ت", "tsa": "ث",
-    "jim": "ج", "ha": "ح", "kha": "خ",
-    "dal": "د", "dzal": "ذ", "ra": "ر", "zay": "ز",
-    "sin": "س", "syin": "ش",
-    "shad": "ص", "dhad": "ض", "tha": "ط", "zha": "ظ",
-    "ain": "ع", "ghain": "غ",
-    "fa": "ف", "qaf": "ق", "kaf": "ك",
-    "lam": "ل", "mim": "م", "nun": "ن",
-    "waw": "و", "haa": "هـ", "ya": "ي",
+    "alif": "ا",
+    "ba": "ب",
+    "ta": "ت",
+    "tsa": "ث",
+    "jim": "ج",
+    "ha": "ح",
+    "kha": "خ",
+    "dal": "د",
+    "dzal": "ذ",
+    "ra": "ر",
+    "zay": "ز",
+    "sin": "س",
+    "syin": "ش",
+    "shad": "ص",
+    "dhad": "ض",
+    "tha": "ط",
+    "zha": "ظ",
+    "ain": "ع",
+    "ghain": "غ",
+    "fa": "ف",
+    "qaf": "ق",
+    "kaf": "ك",
+    "lam": "ل",
+    "mim": "م",
+    "nun": "ن",
+    "waw": "و",
+    "haa": "هـ",
+    "ya": "ي",
 }
 
 # ── Group accessor names ─────────────────────────────────────────
 
-GROUP_NAMES: FrozenSet[str] = frozenset({
-    "N", "K", "Q",       # Primitive group vectors
-    "n", "k", "q",       # lowercase aliases
-    "v14", "v18",         # Full codex vectors
-    "codex",              # Alias for v18
-    "checksum",           # (AN, AK, AQ) tuple
-    "nuqtah", "khatt", "qaws",  # Full Arabic names
-})
+GROUP_NAMES: FrozenSet[str] = frozenset(
+    {
+        "N",
+        "K",
+        "Q",  # Primitive group vectors
+        "n",
+        "k",
+        "q",  # lowercase aliases
+        "v14",
+        "v18",  # Full codex vectors
+        "codex",  # Alias for v18
+        "checksum",  # (AN, AK, AQ) tuple
+        "nuqtah",
+        "khatt",
+        "qaws",  # Full Arabic names
+    }
+)
 
 # Group name → slot indices mapping
 GROUP_SLOTS: Dict[str, List[int]] = {
-    "N":        [1, 2, 3],
-    "n":        [1, 2, 3],
-    "nuqtah":   [1, 2, 3],
-    "K":        [4, 5, 6, 7, 8],
-    "k":        [4, 5, 6, 7, 8],
-    "khatt":    [4, 5, 6, 7, 8],
-    "Q":        [9, 10, 11, 12, 13],
-    "q":        [9, 10, 11, 12, 13],
-    "qaws":     [9, 10, 11, 12, 13],
-    "v14":      list(range(14)),
-    "v18":      list(range(18)),
-    "codex":    list(range(18)),
+    "N": [1, 2, 3],
+    "n": [1, 2, 3],
+    "nuqtah": [1, 2, 3],
+    "K": [4, 5, 6, 7, 8],
+    "k": [4, 5, 6, 7, 8],
+    "khatt": [4, 5, 6, 7, 8],
+    "Q": [9, 10, 11, 12, 13],
+    "q": [9, 10, 11, 12, 13],
+    "qaws": [9, 10, 11, 12, 13],
+    "v14": list(range(14)),
+    "v18": list(range(18)),
+    "codex": list(range(18)),
     "checksum": [14, 15, 16],
 }
 
@@ -331,75 +439,153 @@ GROUP_SLOTS: Dict[str, List[int]] = {
 # ══════════════════════════════════════════════════════════════════
 
 # Methods available on hybit objects (h.method_name)
-HYBIT_METHODS: FrozenSet[str] = frozenset({
-    # Component access (also handled by SLOT_NAMES)
-    "theta", "Na", "Nb", "Nd",
-    "Kp", "Kx", "Ks", "Ka", "Kc",
-    "Qp", "Qx", "Qs", "Qa", "Qc",
-    "AN", "AK", "AQ", "Hstar",
-
-    # Structural
-    "U", "rho", "total", "array",
-    "guard", "guard_detail",
-
-    # Algebraic
-    "norm2", "norm", "dot", "cosine",
-
-    # Metric
-    "dist2", "dist", "manhattan", "hamming",
-
-    # Projection
-    "proj_theta", "proj_N", "proj_K", "proj_Q",
-
-    # Ratios
-    "r_N", "r_K", "r_Q", "r_U", "r_rho", "r_loop",
-
-    # Compositional
-    "alpha",
-
-    # Exomatrix
-    "exomatrix", "phi",
-
-    # Crypto
-    "hash",
-})
+HYBIT_METHODS: FrozenSet[str] = frozenset(
+    {
+        # Component access (also handled by SLOT_NAMES)
+        "theta",
+        "Na",
+        "Nb",
+        "Nd",
+        "Kp",
+        "Kx",
+        "Ks",
+        "Ka",
+        "Kc",
+        "Qp",
+        "Qx",
+        "Qs",
+        "Qa",
+        "Qc",
+        "AN",
+        "AK",
+        "AQ",
+        "Hstar",
+        # Structural
+        "U",
+        "rho",
+        "total",
+        "array",
+        "guard",
+        "guard_detail",
+        # Algebraic
+        "norm2",
+        "norm",
+        "dot",
+        "cosine",
+        # Metric
+        "dist2",
+        "dist",
+        "manhattan",
+        "hamming",
+        # Projection
+        "proj_theta",
+        "proj_N",
+        "proj_K",
+        "proj_Q",
+        # Ratios
+        "r_N",
+        "r_K",
+        "r_Q",
+        "r_U",
+        "r_rho",
+        "r_loop",
+        # Compositional
+        "alpha",
+        # Exomatrix
+        "exomatrix",
+        "phi",
+        # Crypto
+        "hash",
+    }
+)
 
 # Standard library module paths
 STDLIB_MODULES: Dict[str, List[str]] = {
     "hm::vectronometry": [
-        "project", "primitive_ratios", "turning_ratios", "comp_angle",
-        "norm2", "norm", "inner", "cosine", "pythagorean_check", "full_table",
+        "project",
+        "primitive_ratios",
+        "turning_ratios",
+        "comp_angle",
+        "norm2",
+        "norm",
+        "inner",
+        "cosine",
+        "pythagorean_check",
+        "full_table",
     ],
     "hm::differential": [
-        "diff", "norm_decomposition", "diff_theta", "diff_N", "diff_K", "diff_Q",
-        "dot_gradient", "u_gradient", "all_dot_variants", "second_diff", "distance_table",
+        "diff",
+        "norm_decomposition",
+        "diff_theta",
+        "diff_N",
+        "diff_K",
+        "diff_Q",
+        "dot_gradient",
+        "u_gradient",
+        "all_dot_variants",
+        "second_diff",
+        "distance_table",
     ],
     "hm::integral": [
-        "string_integral", "add_codex", "layer_integrals", "layer_integrals_from_cod",
-        "centroid", "cumulative", "energy_integral", "mean_theta",
-        "min_component_theta", "max_component_theta",
+        "string_integral",
+        "add_codex",
+        "layer_integrals",
+        "layer_integrals_from_cod",
+        "centroid",
+        "cumulative",
+        "energy_integral",
+        "mean_theta",
+        "min_component_theta",
+        "max_component_theta",
     ],
     "hm::geometry": [
-        "euclidean", "euclidean_sq", "manhattan", "hamming",
-        "distance_decomposition", "gram_matrix", "is_orthogonal",
-        "diameter_sq", "diameter", "alphabet_centroid",
-        "nearest", "k_nearest", "polarization_check",
+        "euclidean",
+        "euclidean_sq",
+        "manhattan",
+        "hamming",
+        "distance_decomposition",
+        "gram_matrix",
+        "is_orthogonal",
+        "diameter_sq",
+        "diameter",
+        "alphabet_centroid",
+        "nearest",
+        "k_nearest",
+        "polarization_check",
     ],
     "hm::exomatrix": [
-        "build", "audit", "row_sums", "grand_sum", "phi", "phi_decomposition",
-        "string_exomatrix", "rank_M14", "rank_M", "energy_table", "reconstruct",
+        "build",
+        "audit",
+        "row_sums",
+        "grand_sum",
+        "phi",
+        "phi_decomposition",
+        "string_exomatrix",
+        "rank_M14",
+        "rank_M",
+        "energy_table",
+        "reconstruct",
     ],
 }
 
 # Built-in global functions
-BUILTIN_FUNCTIONS: FrozenSet[str] = frozenset({
-    "println", "print",
-    "assert", "assert_approx",
-    "load", "load_id", "zero",
-    "is_hijaiyyah", "identify",
-    "abs", "sqrt", "len",
-    "now",
-})
+BUILTIN_FUNCTIONS: FrozenSet[str] = frozenset(
+    {
+        "println",
+        "print",
+        "assert",
+        "assert_approx",
+        "load",
+        "load_id",
+        "zero",
+        "is_hijaiyyah",
+        "identify",
+        "abs",
+        "sqrt",
+        "len",
+        "now",
+    }
+)
 
 
 # ══════════════════════════════════════════════════════════════════
@@ -408,14 +594,19 @@ BUILTIN_FUNCTIONS: FrozenSet[str] = frozenset({
 
 EXAMPLES: List[Tuple[str, str, str]] = [
     # (name, description, source_code)
-
-    ("hello", "Minimal HC program", '''\
+    (
+        "hello",
+        "Minimal HC program",
+        """\
 let h = 'ب';
 println("Hello from HC v1.0!");
 println("Letter Ba:", h.theta(), h.guard());
-'''),
-
-    ("guard_all", "Verify all 28 letters pass guard", '''\
+""",
+    ),
+    (
+        "guard_all",
+        "Verify all 28 letters pass guard",
+        """\
 for i in 0..27 {
     let h = load_id(i);
     if !h.guard() {
@@ -423,16 +614,22 @@ for i in 0..27 {
     }
 }
 println("All guards verified.");
-'''),
-
-    ("string_integral", "Compute string codex for بسم", '''\
+""",
+    ),
+    (
+        "string_integral",
+        "Compute string codex for بسم",
+        """\
 let cod = hm::integral::string_integral("بسم");
 println("Cod18(bsm):", cod);
 let layers = hm::integral::layer_integrals("بسم");
 println("Theta:", layers);
-'''),
-
-    ("five_fields", "Complete five-field analysis", '''\
+""",
+    ),
+    (
+        "five_fields",
+        "Complete five-field analysis",
+        """\
 let h = 'ج';
 println("=== Vectronometry ===");
 println("Norm2:", hm::vectronometry::norm2(h));
@@ -457,60 +654,73 @@ let E = hm::exomatrix::build('هـ');
 println("Phi(Ha):", hm::exomatrix::phi(E));
 println("Audit:", hm::exomatrix::audit(E));
 println("=== DONE ===");
-'''),
-
-    ("comparison", "Compare two strings", '''\
+""",
+    ),
+    (
+        "comparison",
+        "Compare two strings",
+        """\
 let bsm = hm::integral::string_integral("بسم");
 let allah = hm::integral::string_integral("اللہ");
 println("bsm Theta:", bsm);
 println("allah Theta:", allah);
 println("Same total turning: both = 10 quadrants");
-'''),
-
-    ("distance", "Compute distances between letters", '''\
+""",
+    ),
+    (
+        "distance",
+        "Compute distances between letters",
+        """\
 let alif = 'ا';
 let ha = 'هـ';
 let d = hm::geometry::euclidean(alif, ha);
 println("d(Alif, Ha) =", d);
 println("d^2 =", hm::geometry::euclidean_sq(alif, ha));
 println("Diameter =", hm::geometry::diameter());
-'''),
-
-    ("energy_table", "Display energy rankings", '''\
+""",
+    ),
+    (
+        "energy_table",
+        "Display energy rankings",
+        """\
 let table = hm::exomatrix::energy_table();
 println("Energy table (28 letters by Phi):");
 println(table);
-'''),
-
-    ("dot_variants", "Find all dot-variant pairs", '''\
+""",
+    ),
+    (
+        "dot_variants",
+        "Find all dot-variant pairs",
+        """\
 let pairs = hm::differential::all_dot_variants();
 println("Dot-variant pairs:");
 println(pairs);
-'''),
-
-    ("banking", "Banking transaction integrity demo", '''\
+""",
+    ),
+    (
+        "banking",
+        "Banking transaction integrity demo",
+        """\
 let text = "TX-001-BANK-A";
 let seal = hm::integral::string_integral(text);
 println("Transaction seal:", seal);
 // Guard check on seal
 println("Integrity:", seal);
-'''),
+""",
+    ),
 ]
 
 # Example lookup by name
-EXAMPLE_BY_NAME: Dict[str, str] = {
-    name: source for name, _desc, source in EXAMPLES
-}
+EXAMPLE_BY_NAME: Dict[str, str] = {name: source for name, _desc, source in EXAMPLES}
 
 # Example descriptions
-EXAMPLE_DESCRIPTIONS: Dict[str, str] = {
-    name: desc for name, desc, _source in EXAMPLES
-}
+EXAMPLE_DESCRIPTIONS: Dict[str, str] = {name: desc for name, desc, _source in EXAMPLES}
 
 
 # ══════════════════════════════════════════════════════════════════
 #  SECTION 5 — GRAMMAR VALIDATION HELPERS
 # ══════════════════════════════════════════════════════════════════
+
 
 def is_slot_name(name: str) -> bool:
     """Check if a name is a valid hybit component slot."""

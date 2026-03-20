@@ -14,11 +14,11 @@ from __future__ import annotations
 
 import tkinter as tk
 from tkinter import ttk
-from typing import Any, Dict, List, Optional
+from typing import Dict, Optional
 
-from ...core.master_table import MasterTable, MASTER_TABLE
+from ...core.master_table import MASTER_TABLE
 from ...hisa.machine import HISAMachine
-from ...hisa.opcodes import OpCode, InstructionWord
+from ...hisa.opcodes import InstructionWord
 from ...hisa.assembler import assemble
 from ..theme import THEME
 from ..widgets import OutputWriter, make_text
@@ -35,7 +35,6 @@ VCHK  0 0 0 0
 PRINT 0 0 0 0
 HALT  0 0 0 0
 """,
-
     "Add Ba + Sin": """\
 ; Load Ba into H0, Sin into H1
 ; Add them into H2
@@ -47,7 +46,6 @@ VCHK  0 2 0 0
 PRINT 2 0 0 0
 HALT  0 0 0 0
 """,
-
     "String bsm": """\
 ; Compute Cod18("بسم") = v18(ب) + v18(س) + v18(م)
 ; Ba=1, Sin=11, Mim=23
@@ -61,7 +59,6 @@ VRHO  0 2 0 0
 PRINT 2 0 0 0
 HALT  0 0 0 0
 """,
-
     "All 28 Guard Check": """\
 ; Load and guard-check each of the 28 letters
 CLOAD 0 0 0 0
@@ -86,7 +83,6 @@ CLOAD 0 0 0 9
 VCHK  0 0 0 0
 HALT  0 0 0 0
 """,
-
     "Norm + Distance": """\
 ; Load Alif (0) and Ha (26)
 ; Compute norms and distance
@@ -159,7 +155,8 @@ class HISAMachineTab:
         header = ttk.Frame(parent)
         header.pack(fill=tk.X)
         ttk.Label(
-            header, text="H-ISA Assembly Program",
+            header,
+            text="H-ISA Assembly Program",
             font=THEME.font_ui_bold,
         ).pack(side=tk.LEFT)
 
@@ -189,16 +186,24 @@ class HISAMachineTab:
         btn_frame.pack(fill=tk.X, pady=5)
 
         ttk.Button(
-            btn_frame, text="▶ Run All", command=self._run_all,
+            btn_frame,
+            text="▶ Run All",
+            command=self._run_all,
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            btn_frame, text="⏭ Step", command=self._step_one,
+            btn_frame,
+            text="⏭ Step",
+            command=self._step_one,
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            btn_frame, text="⟳ Reset", command=self._reset,
+            btn_frame,
+            text="⟳ Reset",
+            command=self._reset,
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            btn_frame, text="📋 Load Program", command=self._load_program,
+            btn_frame,
+            text="📋 Load Program",
+            command=self._load_program,
         ).pack(side=tk.LEFT, padx=2)
 
         # Demo program selector
@@ -215,41 +220,51 @@ class HISAMachineTab:
     def _build_registers(self, parent: ttk.Frame) -> None:
         """Build the register visualization panel."""
         ttk.Label(
-            parent, text="Machine State",
+            parent,
+            text="Machine State",
             font=THEME.font_ui_bold,
         ).pack(anchor=tk.W)
 
         self._reg_display, _ = make_text(
-            parent, font=THEME.font_mono, wrap=tk.NONE,
+            parent,
+            font=THEME.font_mono,
+            wrap=tk.NONE,
         )
         self._reg_out = OutputWriter(self._reg_display)
-        self._reg_out.add_tags({
-            "header": {"foreground": THEME.hijaiyyah_fg, "font": (*THEME.font_mono, "bold")},
-            "value":  {"foreground": THEME.number_fg},
-            "pass":   {"foreground": THEME.success},
-            "fail":   {"foreground": THEME.error},
-            "dim":    {"foreground": THEME.dim_fg},
-        })
+        self._reg_out.add_tags(
+            {
+                "header": {"foreground": THEME.hijaiyyah_fg, "font": (*THEME.font_mono, "bold")},
+                "value": {"foreground": THEME.number_fg},
+                "pass": {"foreground": THEME.success},
+                "fail": {"foreground": THEME.error},
+                "dim": {"foreground": THEME.dim_fg},
+            }
+        )
 
         self._refresh_registers()
 
     def _build_trace(self, parent: ttk.Frame) -> None:
         """Build the execution trace panel."""
         ttk.Label(
-            parent, text="Execution Trace",
+            parent,
+            text="Execution Trace",
             font=THEME.font_ui_bold,
         ).pack(anchor=tk.W)
 
         self._trace_display, _ = make_text(
-            parent, font=THEME.font_mono_sm, bg="#0a0a0a",
+            parent,
+            font=THEME.font_mono_sm,
+            bg="#0a0a0a",
         )
         self._trace_out = OutputWriter(self._trace_display)
-        self._trace_out.add_tags({
-            "cycle": {"foreground": THEME.dim_fg},
-            "op":    {"foreground": "#81ecec"},
-            "pass":  {"foreground": THEME.success},
-            "fail":  {"foreground": THEME.error},
-        })
+        self._trace_out.add_tags(
+            {
+                "cycle": {"foreground": THEME.dim_fg},
+                "op": {"foreground": "#81ecec"},
+                "pass": {"foreground": THEME.success},
+                "fail": {"foreground": THEME.error},
+            }
+        )
 
     # ── Actions ──────────────────────────────────────────────────
 
@@ -303,7 +318,8 @@ class HISAMachineTab:
             if "FAIL" in entry.description:
                 tag = "fail"
             self._trace_out.writeln(
-                f"  [{entry.cycle:04d}] {entry.description}", tag,
+                f"  [{entry.cycle:04d}] {entry.description}",
+                tag,
             )
 
         self._refresh_registers()
@@ -328,7 +344,8 @@ class HISAMachineTab:
                 if "FAIL" in entry.description:
                     tag = "fail"
                 self._trace_out.writeln(
-                    f"  [{entry.cycle:04d}] {entry.description}", tag,
+                    f"  [{entry.cycle:04d}] {entry.description}",
+                    tag,
                 )
 
             if "HALT" in entry.description:
@@ -338,12 +355,14 @@ class HISAMachineTab:
 
         if cycle >= max_cycles and self._trace_out:
             self._trace_out.writeln(
-                f"\n  ⚠ Execution limit reached ({max_cycles} cycles)", "fail",
+                f"\n  ⚠ Execution limit reached ({max_cycles} cycles)",
+                "fail",
             )
 
         if self._trace_out:
             self._trace_out.writeln(
-                f"\n  Done: {self._machine.cycle} cycles executed", "pass",
+                f"\n  Done: {self._machine.cycle} cycles executed",
+                "pass",
             )
 
         self._refresh_registers()
@@ -417,10 +436,24 @@ class HISAMachineTab:
         self._reg_out.writeln("CODEX REGISTERS (H0–H3)", "header")
 
         slot_names = [
-            "Θ̂", "Na", "Nb", "Nd",
-            "Kp", "Kx", "Ks", "Ka", "Kc",
-            "Qp", "Qx", "Qs", "Qa", "Qc",
-            "AN", "AK", "AQ", "H*",
+            "Θ̂",
+            "Na",
+            "Nb",
+            "Nd",
+            "Kp",
+            "Kx",
+            "Ks",
+            "Ka",
+            "Kc",
+            "Qp",
+            "Qx",
+            "Qs",
+            "Qa",
+            "Qc",
+            "AN",
+            "AK",
+            "AQ",
+            "H*",
         ]
 
         for i in range(min(4, len(hreg))):
@@ -449,8 +482,7 @@ class HISAMachineTab:
                     U = h[10] + h[11] + h[12] + 4 * h[13]
                     rho = h[0] - U
                     self._reg_out.writeln(
-                        f"    Θ̂={h[0]} U={U} ρ={rho} "
-                        f"(mod4={h[0] % 4})",
+                        f"    Θ̂={h[0]} U={U} ρ={rho} (mod4={h[0] % 4})",
                         "dim",
                     )
 

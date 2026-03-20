@@ -20,10 +20,8 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 
 from ...core.master_table import MasterTable, MASTER_TABLE
 from ...core.codex_entry import CodexEntry
-from ...core.guards import guard_check, guard_detail, compute_U, compute_rho
-from ...core.exomatrix import build_exomatrix
+from ...core.guards import guard_check, guard_detail, compute_U
 from ...algebra import vectronometry as vec
-from ...algebra import differential as diff
 from ...algebra import integral as integ
 from ...algebra import geometry as geo
 from ...algebra import exomatrix_analysis as exo
@@ -34,6 +32,7 @@ from ..widgets import OutputWriter, make_text
 # ══════════════════════════════════════════════════════════════════
 #  SECTION 1 — THEOREM DEFINITIONS
 # ══════════════════════════════════════════════════════════════════
+
 
 class TheoremDef:
     """Definition of a single theorem test with documentation."""
@@ -61,6 +60,7 @@ def _all() -> List[CodexEntry]:
 
 # ── Test implementations ─────────────────────────────────────────
 
+
 def _test_guard() -> Tuple[bool, str]:
     """Test 1: All 28 letters pass 4 structural guards."""
     entries = _all()
@@ -70,7 +70,7 @@ def _test_guard() -> Tuple[bool, str]:
             failed.append(e.char)
     if failed:
         return False, f"Guard FAIL on: {', '.join(failed)}"
-    return True, f"All 28/28 letters pass G1–G4 (60 additions + 112 comparisons total)"
+    return True, "All 28/28 letters pass G1–G4 (60 additions + 112 comparisons total)"
 
 
 def _test_injectivity() -> Tuple[bool, str]:
@@ -82,13 +82,12 @@ def _test_injectivity() -> Tuple[bool, str]:
         if key in seen:
             return False, f"Collision: {e.char} = {seen[key]}"
         seen[key] = e.char
-    return True, f"28/28 unique vectors confirmed (378 pairwise checks)"
+    return True, "28/28 unique vectors confirmed (378 pairwise checks)"
 
 
 def _test_turning() -> Tuple[bool, str]:
     """Test 3: Θ̂ = U + ρ and ρ ≥ 0 for all 28 letters."""
     entries = _all()
-    details: List[str] = []
     for e in entries:
         v = list(e.vector)
         U = compute_U(v)
@@ -110,7 +109,7 @@ def _test_integral_add() -> Tuple[bool, str]:
     bsm = integ.string_integral("بسم")
     combined = integ.add_codex(bs, m)
     if combined["cod18"] != bsm["cod18"]:
-        return False, f"∫(بس)+∫(م) ≠ ∫(بسم)"
+        return False, "∫(بس)+∫(م) ≠ ∫(بسم)"
     cod = bsm["cod18"]
     return True, f"∫(بس)+∫(م) = ∫(بسم) = ({cod[0]}, ...) ✓  Θ̂=10, U=6, ρ=4"
 
@@ -140,7 +139,10 @@ def _test_phi_gt_norm() -> Tuple[bool, str]:
             return False, f"{e.char}: Φ={phi_val} not > ‖v₁₄‖²={n2}"
         min_surplus = min(min_surplus, surplus)
         max_surplus = max(max_surplus, surplus)
-    return True, f"Strict inequality holds 28/28. Surplus range: [{int(min_surplus)}, {int(max_surplus)}]"
+    return (
+        True,
+        f"Strict inequality holds 28/28. Surplus range: [{int(min_surplus)}, {int(max_surplus)}]",
+    )
 
 
 def _test_diameter() -> Tuple[bool, str]:
@@ -194,9 +196,9 @@ def _test_exo_audit() -> Tuple[bool, str]:
         E = exo.build(e)
         r = exo.audit(E)
         if not r["all_pass"]:
-            failed = [k for k in ["R1","R2","R3","R4","R5"] if not r[k]]
+            failed = [k for k in ["R1", "R2", "R3", "R4", "R5"] if not r[k]]
             return False, f"{e.char}: {', '.join(failed)} failed"
-    return True, f"All 5 relations verified for 28/28 letters (140 checks total)"
+    return True, "All 5 relations verified for 28/28 letters (140 checks total)"
 
 
 def _test_exo_recon() -> Tuple[bool, str]:
@@ -208,7 +210,7 @@ def _test_exo_recon() -> Tuple[bool, str]:
         v_recon = exo.reconstruct(E)
         if v_orig != v_recon:
             return False, f"{e.char}: reconstruction mismatch"
-    return True, f"Faithful reconstruction confirmed 28/28 (E(h₁)=E(h₂) ⟹ h₁=h₂)"
+    return True, "Faithful reconstruction confirmed 28/28 (E(h₁)=E(h₂) ⟹ h₁=h₂)"
 
 
 def _test_anagram() -> Tuple[bool, str]:
@@ -220,7 +222,7 @@ def _test_anagram() -> Tuple[bool, str]:
         return False, "∫(بسم) ≠ ∫(سبم)"
     if c1["cod18"] != c3["cod18"]:
         return False, "∫(بسم) ≠ ∫(مسب)"
-    return True, f"Three permutations produce identical Cod₁₈ (commutativity of vector addition)"
+    return True, "Three permutations produce identical Cod₁₈ (commutativity of vector addition)"
 
 
 def _test_guard_detail() -> Tuple[bool, str]:
@@ -233,12 +235,13 @@ def _test_guard_detail() -> Tuple[bool, str]:
                 return False, f"{e.char}: {key} = False"
         if not d["all_pass"]:
             return False, f"{e.char}: all_pass = False"
-    return True, f"All 5 detailed audit relations pass for 28/28 letters"
+    return True, "All 5 detailed audit relations pass for 28/28 letters"
 
 
 # ══════════════════════════════════════════════════════════════════
 #  SECTION 2 — TAB CLASS
 # ══════════════════════════════════════════════════════════════════
+
 
 class TheoremTab:
     """
@@ -400,46 +403,62 @@ class TheoremTab:
         toolbar.pack(fill=tk.X, padx=8, pady=5)
 
         ttk.Button(
-            toolbar, text="▶ Run All 13 Tests", command=self._run_all,
+            toolbar,
+            text="▶ Run All 13 Tests",
+            command=self._run_all,
         ).pack(side=tk.LEFT, padx=2)
 
         ttk.Separator(toolbar, orient=tk.VERTICAL).pack(side=tk.LEFT, fill=tk.Y, padx=8)
 
         ttk.Button(
-            toolbar, text="Guard Only", command=lambda: self._run_single(0),
+            toolbar,
+            text="Guard Only",
+            command=lambda: self._run_single(0),
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            toolbar, text="Injectivity", command=lambda: self._run_single(1),
+            toolbar,
+            text="Injectivity",
+            command=lambda: self._run_single(1),
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            toolbar, text="Mod-4 Analysis", command=self._run_mod4_detail,
+            toolbar,
+            text="Mod-4 Analysis",
+            command=self._run_mod4_detail,
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            toolbar, text="R1–R5 Detail", command=self._run_r1r5_detail,
+            toolbar,
+            text="R1–R5 Detail",
+            command=self._run_r1r5_detail,
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            toolbar, text="📖 Reference", command=self._show_reference,
+            toolbar,
+            text="📖 Reference",
+            command=self._show_reference,
         ).pack(side=tk.LEFT, padx=2)
 
         # Progress
         ttk.Label(
-            toolbar, textvariable=self._progress_var, foreground=THEME.dim_fg,
+            toolbar,
+            textvariable=self._progress_var,
+            foreground=THEME.dim_fg,
         ).pack(side=tk.RIGHT, padx=10)
 
         # ── Result display ───────────────────────────────────────
         self._text, _ = make_text(self._tab, font=("Consolas", 11))
         self._out = OutputWriter(self._text)
-        self._out.add_tags({
-            "title":   {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 14, "bold")},
-            "section": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 11, "bold")},
-            "pass":    {"foreground": THEME.success, "font": ("Consolas", 11, "bold")},
-            "fail":    {"foreground": THEME.error, "font": ("Consolas", 11, "bold")},
-            "warn":    {"foreground": THEME.warning},
-            "dim":     {"foreground": THEME.dim_fg},
-            "value":   {"foreground": THEME.number_fg},
-            "ref":     {"foreground": "#ffeaa7"},
-            "formula": {"foreground": "#81ecec"},
-        })
+        self._out.add_tags(
+            {
+                "title": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 14, "bold")},
+                "section": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 11, "bold")},
+                "pass": {"foreground": THEME.success, "font": ("Consolas", 11, "bold")},
+                "fail": {"foreground": THEME.error, "font": ("Consolas", 11, "bold")},
+                "warn": {"foreground": THEME.warning},
+                "dim": {"foreground": THEME.dim_fg},
+                "value": {"foreground": THEME.number_fg},
+                "ref": {"foreground": "#ffeaa7"},
+                "formula": {"foreground": "#81ecec"},
+            }
+        )
 
         self._show_welcome()
 
@@ -534,7 +553,9 @@ class TheoremTab:
             )
             self._out.writeln()
             self._out.writeln("  The mathematical integrity of the dataset is confirmed.", "pass")
-            self._out.writeln("  All identities from Chapters I–III hold on HM-28-v1.0-HC18D.", "dim")
+            self._out.writeln(
+                "  All identities from Chapters I–III hold on HM-28-v1.0-HC18D.", "dim"
+            )
         else:
             self._out.writeln(
                 f"  RESULT: {passed}/{len(self._theorems)} passed, {failed} FAILED ✗",
@@ -549,7 +570,9 @@ class TheoremTab:
 
         self._out.writeln()
         self._out.writeln(f"  Total time: {total_elapsed:.1f} ms", "dim")
-        self._out.writeln(f"  Average:    {total_elapsed/len(self._theorems):.1f} ms per test", "dim")
+        self._out.writeln(
+            f"  Average:    {total_elapsed / len(self._theorems):.1f} ms per test", "dim"
+        )
 
         self._progress_var.set(
             f"{'All PASS' if failed == 0 else f'{failed} FAIL'} — {total_elapsed:.0f}ms"
@@ -625,7 +648,7 @@ class TheoremTab:
                 tag = "pass"
 
             self._out.writeln(
-                f"  {e.char:<4} {e.name:<8} {theta:<5} {theta*90:<6} {mod4:<5} {path:<20} {wind}",
+                f"  {e.char:<4} {e.name:<8} {theta:<5} {theta * 90:<6} {mod4:<5} {path:<20} {wind}",
                 tag,
             )
 

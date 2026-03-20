@@ -2,20 +2,19 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 from typing import List, Optional
 
-from .registers import RegisterFile, StatusFlags
+from .registers import RegisterFile
 from .opcodes import OpCode, InstructionWord
 from ..core.master_table import MasterTable
 from ..core.guards import guard_check, compute_U
-
-import math
 
 
 @dataclass
 class TraceEntry:
     """One line in the execution trace."""
+
     cycle: int
     description: str
 

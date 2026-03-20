@@ -5,7 +5,7 @@ from __future__ import annotations
 import os
 import tkinter as tk
 from tkinter import ttk, messagebox
-from typing import Any, Optional, Tuple
+from typing import Any, Optional
 
 from ...core.master_table import MasterTable
 from ..theme import THEME, APP_VERSION
@@ -15,6 +15,7 @@ try:
     import numpy as np
     from PIL import Image, ImageTk
     from scipy import ndimage
+
     HAS_DEPS = True
 except ImportError:
     HAS_DEPS = False
@@ -58,14 +59,17 @@ class CSGiTab:
         ttk.Label(ctrl, text="Glyph:").pack(side=tk.LEFT)
         entries = self._table.all_entries()
         self._names = [f"{e.char} ({e.name})" for e in entries]
-        self._var = tk.StringVar(
-            value=self._names[1] if len(self._names) > 1 else ""
-        )
+        self._var = tk.StringVar(value=self._names[1] if len(self._names) > 1 else "")
         ttk.Combobox(
-            ctrl, textvariable=self._var, values=self._names, width=15,
+            ctrl,
+            textvariable=self._var,
+            values=self._names,
+            width=15,
         ).pack(side=tk.LEFT, padx=5)
         ttk.Button(
-            ctrl, text="▶ Process", command=self._process,
+            ctrl,
+            text="▶ Process",
+            command=self._process,
         ).pack(side=tk.LEFT, padx=2)
 
         workspace = ttk.PanedWindow(self._tab, orient=tk.VERTICAL)
@@ -98,10 +102,10 @@ class CSGiTab:
             return
 
         # Resolve relative to the location of this file (src/hijaiyyah/gui/tabs)
-        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__)))))
-        glyph_path = os.path.join(
-            base_dir, "data", "kfgqpc", "glyphs", f"{letter.index}.png"
+        base_dir = os.path.dirname(
+            os.path.dirname(os.path.dirname(os.path.dirname(os.path.dirname(__file__))))
         )
+        glyph_path = os.path.join(base_dir, "data", "kfgqpc", "glyphs", f"{letter.index}.png")
         if not os.path.exists(glyph_path):
             messagebox.showerror("Error", f"Glyph not found: {glyph_path}")
             return
@@ -126,9 +130,7 @@ class CSGiTab:
             num_features: int = int(label_result[1])
 
             if num_features > 1:
-                component_sizes_arr: Any = ndimage.sum(
-                    binary, labeled, range(1, num_features + 1)
-                )
+                component_sizes_arr: Any = ndimage.sum(binary, labeled, range(1, num_features + 1))
                 component_sizes: list = list(component_sizes_arr)
                 largest = int(np.argmax(component_sizes)) + 1
                 binary_body = (labeled == largest).astype(np.uint8)

@@ -20,7 +20,7 @@ import tkinter as tk
 from tkinter import ttk
 from typing import Any, Dict, List, Optional, Tuple
 
-from ...core.master_table import MasterTable, MASTER_TABLE
+from ...core.master_table import MasterTable
 from ...core.codex_entry import CodexEntry
 from ...core.guards import guard_check, guard_detail, compute_U, compute_rho
 from ...core.exomatrix import build_exomatrix
@@ -31,6 +31,7 @@ from ..theme import THEME
 
 
 # ── Color utilities ──────────────────────────────────────────────
+
 
 def _lerp_color(val: float, low: str = "#2d3436", high: str = "#00cec9") -> str:
     """Linearly interpolate between two hex colors based on val (0..1)."""
@@ -115,13 +116,15 @@ class LetterExplorerTab:
 
     def _build_grid(self, parent: ttk.Frame) -> None:
         ttk.Label(
-            parent, text="𝓗₂₈",
+            parent,
+            text="𝓗₂₈",
             font=("Segoe UI", 14, "bold"),
             foreground=THEME.hijaiyyah_fg,
         ).pack(pady=(5, 2))
 
         ttk.Label(
-            parent, text="Select a letter:",
+            parent,
+            text="Select a letter:",
             foreground=THEME.dim_fg,
             font=("Segoe UI", 9),
         ).pack(pady=(0, 5))
@@ -135,7 +138,8 @@ class LetterExplorerTab:
                 grid_frame,
                 text=entry.char,
                 font=("Simplified Arabic", 18),
-                width=3, height=1,
+                width=3,
+                height=1,
                 bg=THEME.accent,
                 fg=THEME.hijaiyyah_fg,
                 activebackground=THEME.highlight,
@@ -184,16 +188,26 @@ class LetterExplorerTab:
         info_col = ttk.Frame(header)
         info_col.pack(side=tk.LEFT, fill=tk.X, expand=True)
 
-        ttk.Label(info_col, textvariable=self._header_name,
-                  font=("Segoe UI", 16, "bold")).pack(anchor=tk.W)
-        ttk.Label(info_col, textvariable=self._header_index,
-                  foreground=THEME.dim_fg).pack(anchor=tk.W)
-        ttk.Label(info_col, textvariable=self._header_theta,
-                  foreground=THEME.number_fg, font=("Consolas", 11)).pack(anchor=tk.W)
+        ttk.Label(info_col, textvariable=self._header_name, font=("Segoe UI", 16, "bold")).pack(
+            anchor=tk.W
+        )
+        ttk.Label(info_col, textvariable=self._header_index, foreground=THEME.dim_fg).pack(
+            anchor=tk.W
+        )
+        ttk.Label(
+            info_col,
+            textvariable=self._header_theta,
+            foreground=THEME.number_fg,
+            font=("Consolas", 11),
+        ).pack(anchor=tk.W)
 
-        ttk.Label(header, textvariable=self._header_vec,
-                  font=("Consolas", 9), foreground=THEME.dim_fg,
-                  wraplength=400).pack(side=tk.RIGHT, padx=10)
+        ttk.Label(
+            header,
+            textvariable=self._header_vec,
+            font=("Consolas", 9),
+            foreground=THEME.dim_fg,
+            wraplength=400,
+        ).pack(side=tk.RIGHT, padx=10)
 
         ttk.Separator(parent, orient=tk.HORIZONTAL).pack(fill=tk.X)
 
@@ -205,7 +219,10 @@ class LetterExplorerTab:
         comp_frame = ttk.LabelFrame(row1, text="  Component Distribution  ")
         comp_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 3))
         self._component_canvas = tk.Canvas(
-            comp_frame, bg=THEME.text_bg, highlightthickness=0, height=180,
+            comp_frame,
+            bg=THEME.text_bg,
+            highlightthickness=0,
+            height=180,
         )
         self._component_canvas.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
@@ -213,7 +230,10 @@ class LetterExplorerTab:
         turn_frame = ttk.LabelFrame(row1, text="  Turning Decomposition  ")
         turn_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(3, 0))
         self._turning_canvas = tk.Canvas(
-            turn_frame, bg=THEME.text_bg, highlightthickness=0, height=180,
+            turn_frame,
+            bg=THEME.text_bg,
+            highlightthickness=0,
+            height=180,
         )
         self._turning_canvas.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
@@ -227,7 +247,10 @@ class LetterExplorerTab:
 
         columns = ("slot", "name", "value", "check")
         self._prop_tree = ttk.Treeview(
-            prop_frame, columns=columns, show="headings", height=12,
+            prop_frame,
+            columns=columns,
+            show="headings",
+            height=12,
         )
         self._prop_tree.heading("slot", text="#")
         self._prop_tree.heading("name", text="Component")
@@ -250,7 +273,10 @@ class LetterExplorerTab:
         exo_frame = ttk.LabelFrame(row2, text="  Exomatrix E(h)  ")
         exo_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(3, 0))
         self._exo_canvas = tk.Canvas(
-            exo_frame, bg=THEME.text_bg, highlightthickness=0, height=200,
+            exo_frame,
+            bg=THEME.text_bg,
+            highlightthickness=0,
+            height=200,
         )
         self._exo_canvas.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
@@ -261,15 +287,20 @@ class LetterExplorerTab:
         nb_frame = ttk.LabelFrame(row3, text="  Nearest Neighbors (d₂)  ")
         nb_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(0, 3))
         self._neighbor_canvas = tk.Canvas(
-            nb_frame, bg=THEME.text_bg, highlightthickness=0, height=100,
+            nb_frame,
+            bg=THEME.text_bg,
+            highlightthickness=0,
+            height=100,
         )
         self._neighbor_canvas.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
 
         class_frame = ttk.LabelFrame(row3, text="  Classification & Mod-4  ")
         class_frame.pack(side=tk.LEFT, fill=tk.BOTH, expand=True, padx=(3, 0))
         ttk.Label(
-            class_frame, textvariable=self._mod4_label,
-            font=("Consolas", 11), wraplength=300,
+            class_frame,
+            textvariable=self._mod4_label,
+            font=("Consolas", 11),
+            wraplength=300,
         ).pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
     # ══════════════════════════════════════════════════════════════
@@ -293,11 +324,9 @@ class LetterExplorerTab:
         self._header_name.set(f"{entry.name}")
         self._header_index.set(f"#{entry.index} of 28")
         self._header_theta.set(
-            f"Θ̂ = {v[0]} ({v[0]*90}°)  |  U = {compute_U(v)}  |  ρ = {compute_rho(v)}"
+            f"Θ̂ = {v[0]} ({v[0] * 90}°)  |  U = {compute_U(v)}  |  ρ = {compute_rho(v)}"
         )
-        self._header_vec.set(
-            f"v₁₈ = ({', '.join(str(x) for x in v)})"
-        )
+        self._header_vec.set(f"v₁₈ = ({', '.join(str(x) for x in v)})")
 
         guard_ok = guard_check(v)
         self._header_guard.set(f"Guard: {'ALL PASS ✓' if guard_ok else 'FAIL ✗'}")
@@ -325,8 +354,7 @@ class LetterExplorerTab:
             w, h = 400, 180
 
         # Data: 14 components + their names
-        names = ["Θ̂", "Nₐ", "Nᵦ", "Nᵈ", "Kₚ", "Kₓ", "Kₛ", "Kₐ", "Kc",
-                 "Qₚ", "Qₓ", "Qₛ", "Qₐ", "Qc"]
+        names = ["Θ̂", "Nₐ", "Nᵦ", "Nᵈ", "Kₚ", "Kₓ", "Kₛ", "Kₐ", "Kc", "Qₚ", "Qₓ", "Qₛ", "Qₐ", "Qc"]
         values = [v[i] for i in range(14)]
         max_val = max(max(values), 1)
 
@@ -342,9 +370,19 @@ class LetterExplorerTab:
         # Group colors
         group_colors = {
             0: "#00cec9",  # Theta
-            1: "#fdcb6e", 2: "#fdcb6e", 3: "#fdcb6e",  # N
-            4: "#74b9ff", 5: "#74b9ff", 6: "#74b9ff", 7: "#74b9ff", 8: "#74b9ff",  # K
-            9: "#a29bfe", 10: "#a29bfe", 11: "#a29bfe", 12: "#a29bfe", 13: "#a29bfe",  # Q
+            1: "#fdcb6e",
+            2: "#fdcb6e",
+            3: "#fdcb6e",  # N
+            4: "#74b9ff",
+            5: "#74b9ff",
+            6: "#74b9ff",
+            7: "#74b9ff",
+            8: "#74b9ff",  # K
+            9: "#a29bfe",
+            10: "#a29bfe",
+            11: "#a29bfe",
+            12: "#a29bfe",
+            13: "#a29bfe",  # Q
         }
 
         for i, val in enumerate(values):
@@ -362,21 +400,37 @@ class LetterExplorerTab:
             # Value on top
             if val > 0:
                 c.create_text(
-                    x + bar_w // 2, y_top - 6,
-                    text=str(val), fill="#ffffff", font=("Consolas", 8),
+                    x + bar_w // 2,
+                    y_top - 6,
+                    text=str(val),
+                    fill="#ffffff",
+                    font=("Consolas", 8),
                 )
 
             # Label at bottom
             c.create_text(
-                x + bar_w // 2, y_bot + 10,
-                text=names[i], fill=THEME.dim_fg, font=("Consolas", 7),
+                x + bar_w // 2,
+                y_bot + 10,
+                text=names[i],
+                fill=THEME.dim_fg,
+                font=("Consolas", 7),
             )
 
         # Y-axis scale
         for tick in range(0, max_val + 1):
-            y = h - margin_bottom - int((tick / max_val) * bar_area_h) if max_val > 0 else h - margin_bottom
-            c.create_text(margin_left - 5, y, text=str(tick), fill=THEME.dim_fg,
-                          font=("Consolas", 7), anchor=tk.E)
+            y = (
+                h - margin_bottom - int((tick / max_val) * bar_area_h)
+                if max_val > 0
+                else h - margin_bottom
+            )
+            c.create_text(
+                margin_left - 5,
+                y,
+                text=str(tick),
+                fill=THEME.dim_fg,
+                font=("Consolas", 7),
+                anchor=tk.E,
+            )
 
         # Legend
         legend_items = [("Θ̂", "#00cec9"), ("N", "#fdcb6e"), ("K", "#74b9ff"), ("Q", "#a29bfe")]
@@ -408,16 +462,23 @@ class LetterExplorerTab:
 
         # Background arc (full circle = 8 quadrants = 720°)
         max_theta = 8
-        c.create_oval(cx - radius, cy - radius, cx + radius, cy + radius,
-                      outline="#2d3436", width=15)
+        c.create_oval(
+            cx - radius, cy - radius, cx + radius, cy + radius, outline="#2d3436", width=15
+        )
 
         # U arc (red-orange)
         if theta > 0 and U > 0:
             u_extent = -(U / max_theta) * 360
             c.create_arc(
-                cx - radius, cy - radius, cx + radius, cy + radius,
-                start=90, extent=u_extent, style=tk.ARC,
-                outline="#e17055", width=15,
+                cx - radius,
+                cy - radius,
+                cx + radius,
+                cy + radius,
+                start=90,
+                extent=u_extent,
+                style=tk.ARC,
+                outline="#e17055",
+                width=15,
             )
 
         # Rho arc (teal, continuing from U)
@@ -425,32 +486,39 @@ class LetterExplorerTab:
             rho_start = 90 - (U / max_theta) * 360
             rho_extent = -(rho / max_theta) * 360
             c.create_arc(
-                cx - radius, cy - radius, cx + radius, cy + radius,
-                start=rho_start, extent=rho_extent, style=tk.ARC,
-                outline="#00cec9", width=15,
+                cx - radius,
+                cy - radius,
+                cx + radius,
+                cy + radius,
+                start=rho_start,
+                extent=rho_extent,
+                style=tk.ARC,
+                outline="#00cec9",
+                width=15,
             )
 
         # Center text
-        c.create_text(cx, cy - 15, text=f"Θ̂ = {theta}", fill="#ffffff",
-                      font=("Consolas", 16, "bold"))
-        c.create_text(cx, cy + 5, text=f"{theta * 90}°", fill=THEME.dim_fg,
-                      font=("Consolas", 12))
+        c.create_text(
+            cx, cy - 15, text=f"Θ̂ = {theta}", fill="#ffffff", font=("Consolas", 16, "bold")
+        )
+        c.create_text(cx, cy + 5, text=f"{theta * 90}°", fill=THEME.dim_fg, font=("Consolas", 12))
 
         # Legend
         c.create_rectangle(10, h - 35, 22, h - 25, fill="#e17055", outline="")
-        c.create_text(26, h - 30, text=f"U = {U}", fill=THEME.fg,
-                      font=("Consolas", 9), anchor=tk.W)
+        c.create_text(26, h - 30, text=f"U = {U}", fill=THEME.fg, font=("Consolas", 9), anchor=tk.W)
 
         c.create_rectangle(10, h - 18, 22, h - 8, fill="#00cec9", outline="")
-        c.create_text(26, h - 13, text=f"ρ = {rho}", fill=THEME.fg,
-                      font=("Consolas", 9), anchor=tk.W)
+        c.create_text(
+            26, h - 13, text=f"ρ = {rho}", fill=THEME.fg, font=("Consolas", 9), anchor=tk.W
+        )
 
         # Mod-4 indicator
         mod4 = theta % 4
         mod_text = "mod4=0 (closed?)" if mod4 == 0 else f"mod4={mod4} (open)"
         mod_color = THEME.warning if mod4 == 0 else THEME.success
-        c.create_text(w - 10, h - 13, text=mod_text, fill=mod_color,
-                      font=("Consolas", 9), anchor=tk.E)
+        c.create_text(
+            w - 10, h - 13, text=mod_text, fill=mod_color, font=("Consolas", 9), anchor=tk.E
+        )
 
     # ── Properties Treeview ──────────────────────────────────────
 
@@ -472,7 +540,7 @@ class LetterExplorerTab:
 
         # Components
         comp_data: List[Tuple[str, str, Any, str]] = [
-            ("0", "Θ̂ (Inḥinā')", v[0], f"{v[0]*90}°"),
+            ("0", "Θ̂ (Inḥinā')", v[0], f"{v[0] * 90}°"),
             ("1", "Nₐ (Ascender)", v[1], "●" * v[1] if v[1] else "—"),
             ("2", "Nᵦ (Body)", v[2], "●" * v[2] if v[2] else "—"),
             ("3", "Nᵈ (Descender)", v[3], "●" * v[3] if v[3] else "—"),
@@ -494,9 +562,9 @@ class LetterExplorerTab:
             ("—", "ρ (residue)", rho, "✓" if rho >= 0 else "✗"),
             ("—", "‖v₁₄‖²", n2, f"‖v₁₄‖ = {math.sqrt(n2):.3f}"),
             ("—", "Φ (energy)", phi_val, f"surplus = {phi_val - n2}"),
-            ("—", "r_N", f"{pr['r_N']:.4f}", f"{pr['r_N']*100:.1f}%"),
-            ("—", "r_K", f"{pr['r_K']:.4f}", f"{pr['r_K']*100:.1f}%"),
-            ("—", "r_Q", f"{pr['r_Q']:.4f}", f"{pr['r_Q']*100:.1f}%"),
+            ("—", "r_N", f"{pr['r_N']:.4f}", f"{pr['r_N'] * 100:.1f}%"),
+            ("—", "r_K", f"{pr['r_K']:.4f}", f"{pr['r_K'] * 100:.1f}%"),
+            ("—", "r_Q", f"{pr['r_Q']:.4f}", f"{pr['r_Q'] * 100:.1f}%"),
         ]
 
         for slot, name, value, check in comp_data:
@@ -540,14 +608,21 @@ class LetterExplorerTab:
         # Column headers
         for j in range(5):
             x = start_x + j * cell_w + cell_w // 2
-            c.create_text(x, start_y - 12, text=col_labels[j],
-                          fill=THEME.dim_fg, font=("Consolas", 8))
+            c.create_text(
+                x, start_y - 12, text=col_labels[j], fill=THEME.dim_fg, font=("Consolas", 8)
+            )
 
         # Row labels + cells
         for i in range(5):
             y = start_y + i * cell_h
-            c.create_text(start_x - 5, y + cell_h // 2, text=row_labels[i],
-                          fill=THEME.dim_fg, font=("Consolas", 8), anchor=tk.E)
+            c.create_text(
+                start_x - 5,
+                y + cell_h // 2,
+                text=row_labels[i],
+                fill=THEME.dim_fg,
+                font=("Consolas", 8),
+                anchor=tk.E,
+            )
 
             for j in range(5):
                 x = start_x + j * cell_w
@@ -557,8 +632,13 @@ class LetterExplorerTab:
 
                 c.create_rectangle(x, y, x + cell_w, y + cell_h, fill=bg, outline="#2d3436")
                 if val != 0:
-                    c.create_text(x + cell_w // 2, y + cell_h // 2, text=str(val),
-                                  fill="#ffffff", font=("Consolas", 10, "bold"))
+                    c.create_text(
+                        x + cell_w // 2,
+                        y + cell_h // 2,
+                        text=str(val),
+                        fill="#ffffff",
+                        font=("Consolas", 10, "bold"),
+                    )
 
         # Audit results
         audit_y = start_y + 5 * cell_h + 15
@@ -567,13 +647,20 @@ class LetterExplorerTab:
             passed = audit_result[key]
             color = _guard_color(passed)
             symbol = "✓" if passed else "✗"
-            c.create_text(ax + 20, audit_y, text=f"{key}:{symbol}",
-                          fill=color, font=("Consolas", 9))
+            c.create_text(
+                ax + 20, audit_y, text=f"{key}:{symbol}", fill=color, font=("Consolas", 9)
+            )
 
         # Phi
         phi_val = exo.phi(E)
-        c.create_text(start_x, audit_y + 18, text=f"Φ = {phi_val}",
-                      fill=THEME.number_fg, font=("Consolas", 10), anchor=tk.W)
+        c.create_text(
+            start_x,
+            audit_y + 18,
+            text=f"Φ = {phi_val}",
+            fill=THEME.number_fg,
+            font=("Consolas", 10),
+            anchor=tk.W,
+        )
 
     # ── Neighbor Bars ────────────────────────────────────────────
 
@@ -607,17 +694,24 @@ class LetterExplorerTab:
             color = _lerp_color(1.0 - d / max_d, "#636e72", "#00cec9")
 
             # Letter label
-            c.create_text(15, y + bar_h // 2, text=ch,
-                          fill=THEME.hijaiyyah_fg, font=("Simplified Arabic", 11))
+            c.create_text(
+                15, y + bar_h // 2, text=ch, fill=THEME.hijaiyyah_fg, font=("Simplified Arabic", 11)
+            )
 
             # Bar
-            c.create_rectangle(margin_left, y, margin_left + bar_w, y + bar_h,
-                               fill=color, outline="")
+            c.create_rectangle(
+                margin_left, y, margin_left + bar_w, y + bar_h, fill=color, outline=""
+            )
 
             # Distance value
-            c.create_text(margin_left + bar_w + 5, y + bar_h // 2,
-                          text=f"{d:.3f}", fill=THEME.dim_fg,
-                          font=("Consolas", 8), anchor=tk.W)
+            c.create_text(
+                margin_left + bar_w + 5,
+                y + bar_h // 2,
+                text=f"{d:.3f}",
+                fill=THEME.dim_fg,
+                font=("Consolas", 8),
+                anchor=tk.W,
+            )
 
     # ── Classification ───────────────────────────────────────────
 

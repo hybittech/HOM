@@ -16,21 +16,19 @@ Professional release information panel with:
 
 from __future__ import annotations
 
-import hashlib
 import os
 import platform
 import sys
 import time
 import tkinter as tk
 from tkinter import ttk, filedialog
-from typing import Any, Dict, List, Optional
+from typing import Dict, List, Optional
 
-from ...core.master_table import MasterTable, MASTER_TABLE
+from ...core.master_table import MasterTable
 from ...core.rom import pack_rom, rom_sha256
 from ...core.guards import guard_check
 from ...integrity.injectivity import InjectivityVerifier
-from ...release.synchronizer import SyncSynchronizer
-from ..theme import THEME, APP_VERSION
+from ..theme import THEME
 from ..widgets import OutputWriter, make_text
 
 
@@ -45,17 +43,62 @@ COPYRIGHT = f"© {RELEASE_DATE} Hijaiyyah Mathematics Computational Laboratory (
 LICENSE_TYPE = "Proprietary — All Rights Reserved"
 
 COMPONENTS: List[Dict[str, str]] = [
-    {"id": "L0", "name": "Master Table", "desc": "28×18 sealed dataset (252 bytes ROM)", "status": "SEALED"},
-    {"id": "L0", "name": "CSGI", "desc": "Canonical Skeleton Graph Interface", "status": "OPERATIONAL"},
-    {"id": "L1", "name": "HC Language", "desc": "Hijaiyyah Codex Programming Language v1.0", "status": "OPERATIONAL"},
-    {"id": "L1", "name": "HL-18E", "desc": "18-EBNF Formal Grammar Specification", "status": "SPECIFIED"},
-    {"id": "L2", "name": "H-ISA", "desc": "Hijaiyyah Instruction Set Architecture", "status": "OPERATIONAL"},
-    {"id": "L3", "name": "CMM-18C", "desc": "Codex Multi-dimensional Machine Model", "status": "SPECIFIED"},
-    {"id": "L4", "name": "HCPU", "desc": "18D Processor Architecture (Verilog)", "status": "DESIGNED"},
-    {"id": "L5", "name": "HCVM", "desc": "Hijaiyyah Codex Virtual Machine", "status": "OPERATIONAL"},
+    {
+        "id": "L0",
+        "name": "Master Table",
+        "desc": "28×18 sealed dataset (252 bytes ROM)",
+        "status": "SEALED",
+    },
+    {
+        "id": "L0",
+        "name": "CSGI",
+        "desc": "Canonical Skeleton Graph Interface",
+        "status": "OPERATIONAL",
+    },
+    {
+        "id": "L1",
+        "name": "HC Language",
+        "desc": "Hijaiyyah Codex Programming Language v1.0",
+        "status": "OPERATIONAL",
+    },
+    {
+        "id": "L1",
+        "name": "HL-18E",
+        "desc": "18-EBNF Formal Grammar Specification",
+        "status": "SPECIFIED",
+    },
+    {
+        "id": "L2",
+        "name": "H-ISA",
+        "desc": "Hijaiyyah Instruction Set Architecture",
+        "status": "OPERATIONAL",
+    },
+    {
+        "id": "L3",
+        "name": "CMM-18C",
+        "desc": "Codex Multi-dimensional Machine Model",
+        "status": "SPECIFIED",
+    },
+    {
+        "id": "L4",
+        "name": "HCPU",
+        "desc": "18D Processor Architecture (Verilog)",
+        "status": "DESIGNED",
+    },
+    {
+        "id": "L5",
+        "name": "HCVM",
+        "desc": "Hijaiyyah Codex Virtual Machine",
+        "status": "OPERATIONAL",
+    },
     {"id": "L6", "name": "HGSS", "desc": "Guard + Signature System", "status": "OPERATIONAL"},
     {"id": "L7", "name": "HC18DC", "desc": "Canonical Data Exchange Format", "status": "SPECIFIED"},
-    {"id": "GUI", "name": "HOM", "desc": "Hijaiyyah Operating Machine (GUI)", "status": "OPERATIONAL"},
+    {
+        "id": "GUI",
+        "name": "HOM",
+        "desc": "Hijaiyyah Operating Machine (GUI)",
+        "status": "OPERATIONAL",
+    },
 ]
 
 PILLARS: List[Dict[str, str]] = [
@@ -125,45 +168,61 @@ class ReleaseTab:
         toolbar.pack(fill=tk.X, padx=8, pady=5)
 
         ttk.Button(
-            toolbar, text="▶ Verify Release", command=self._verify_release,
+            toolbar,
+            text="▶ Verify Release",
+            command=self._verify_release,
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            toolbar, text="📜 Full Certificate", command=self._show_certificate,
+            toolbar,
+            text="📜 Full Certificate",
+            command=self._show_certificate,
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            toolbar, text="📦 Build Manifest", command=self._show_manifest,
+            toolbar,
+            text="📦 Build Manifest",
+            command=self._show_manifest,
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            toolbar, text="📋 Citation Info", command=self._show_citation,
+            toolbar,
+            text="📋 Citation Info",
+            command=self._show_citation,
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            toolbar, text="🏛 Architecture", command=self._show_architecture,
+            toolbar,
+            text="🏛 Architecture",
+            command=self._show_architecture,
         ).pack(side=tk.LEFT, padx=2)
         ttk.Button(
-            toolbar, text="💾 Export Certificate", command=self._export_certificate,
+            toolbar,
+            text="💾 Export Certificate",
+            command=self._export_certificate,
         ).pack(side=tk.LEFT, padx=2)
 
         ttk.Label(
-            toolbar, textvariable=self._status_var, foreground=THEME.dim_fg,
+            toolbar,
+            textvariable=self._status_var,
+            foreground=THEME.dim_fg,
         ).pack(side=tk.RIGHT, padx=5)
 
         # ── Output ───────────────────────────────────────────────
         self._text, _ = make_text(self._tab, font=("Consolas", 11), wrap=tk.NONE)
         self._out = OutputWriter(self._text)
-        self._out.add_tags({
-            "title":   {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 14, "bold")},
-            "section": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 12, "bold")},
-            "sub":     {"foreground": "#74b9ff", "font": ("Consolas", 11, "bold")},
-            "value":   {"foreground": THEME.number_fg},
-            "pass":    {"foreground": THEME.success, "font": ("Consolas", 11, "bold")},
-            "fail":    {"foreground": THEME.error, "font": ("Consolas", 11, "bold")},
-            "dim":     {"foreground": THEME.dim_fg},
-            "warn":    {"foreground": THEME.warning},
-            "field":   {"foreground": "#ffeaa7"},
-            "copy":    {"foreground": "#dfe6e9", "font": ("Consolas", 10)},
-            "border":  {"foreground": "#636e72"},
-            "seal":    {"foreground": "#00cec9", "font": ("Consolas", 11, "bold")},
-        })
+        self._out.add_tags(
+            {
+                "title": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 14, "bold")},
+                "section": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 12, "bold")},
+                "sub": {"foreground": "#74b9ff", "font": ("Consolas", 11, "bold")},
+                "value": {"foreground": THEME.number_fg},
+                "pass": {"foreground": THEME.success, "font": ("Consolas", 11, "bold")},
+                "fail": {"foreground": THEME.error, "font": ("Consolas", 11, "bold")},
+                "dim": {"foreground": THEME.dim_fg},
+                "warn": {"foreground": THEME.warning},
+                "field": {"foreground": "#ffeaa7"},
+                "copy": {"foreground": "#dfe6e9", "font": ("Consolas", 10)},
+                "border": {"foreground": "#636e72"},
+                "seal": {"foreground": "#00cec9", "font": ("Consolas", 11, "bold")},
+            }
+        )
 
         self._show_certificate()
 
@@ -184,8 +243,12 @@ class ReleaseTab:
         self._out.writeln("║" + " " * 62 + "║", "border")
         self._out.writeln("║     HIJAIYYAH MATHEMATICS — RELEASE CERTIFICATE            ║", "title")
         self._out.writeln("║" + " " * 62 + "║", "border")
-        self._out.writeln("║     Formal Computational Framework for                      ║", "border")
-        self._out.writeln("║     Hijaiyyah Letterform Geometry                           ║", "border")
+        self._out.writeln(
+            "║     Formal Computational Framework for                      ║", "border"
+        )
+        self._out.writeln(
+            "║     Hijaiyyah Letterform Geometry                           ║", "border"
+        )
         self._out.writeln("║" + " " * 62 + "║", "border")
         self._out.writeln("╠" + "═" * 62 + "╣", "border")
         self._out.writeln("║" + " " * 62 + "║", "border")
@@ -201,15 +264,15 @@ class ReleaseTab:
         self._out.writeln("  DATASET SEAL", "section")
         self._out.writeln("  " + "─" * 55, "dim")
         self._out.writeln()
-        self._out.writeln(f"  Dataset:     HM-28-v1.0-HC18D", "value")
-        self._out.writeln(f"  Letters:     28", "value")
-        self._out.writeln(f"  Dimensions:  18 (14 independent + 3 parity + 1 marker)", "value")
-        self._out.writeln(f"  ROM Size:    252 bytes (nibble-packed)", "value")
+        self._out.writeln("  Dataset:     HM-28-v1.0-HC18D", "value")
+        self._out.writeln("  Letters:     28", "value")
+        self._out.writeln("  Dimensions:  18 (14 independent + 3 parity + 1 marker)", "value")
+        self._out.writeln("  ROM Size:    252 bytes (nibble-packed)", "value")
         self._out.writeln()
-        self._out.writeln(f"  SHA-256:", "field")
+        self._out.writeln("  SHA-256:", "field")
         self._out.writeln(f"    {sha}", "seal")
         self._out.writeln()
-        self._out.writeln(f"  Integrity:   SEALED — any byte change invalidates this hash", "dim")
+        self._out.writeln("  Integrity:   SEALED — any byte change invalidates this hash", "dim")
         self._out.writeln()
 
         # ── Author
@@ -275,12 +338,12 @@ class ReleaseTab:
         self._out.writeln("  MATHEMATICAL VERIFICATION", "section")
         self._out.writeln("  " + "─" * 55, "dim")
         self._out.writeln()
-        self._out.writeln(f"  Theorem tests:        13/13 PASS", "pass")
-        self._out.writeln(f"  Guard checks (G1–G4): 28/28 PASS", "pass")
-        self._out.writeln(f"  Audit (R1–R5):        140/140 PASS", "pass")
-        self._out.writeln(f"  Injectivity:          378/378 unique pairs", "pass")
-        self._out.writeln(f"  Diameter:             √70 ≈ 8.367 VERIFIED", "pass")
-        self._out.writeln(f"  Energy inequality:    28/28 strict Φ > ‖v₁₄‖²", "pass")
+        self._out.writeln("  Theorem tests:        13/13 PASS", "pass")
+        self._out.writeln("  Guard checks (G1–G4): 28/28 PASS", "pass")
+        self._out.writeln("  Audit (R1–R5):        140/140 PASS", "pass")
+        self._out.writeln("  Injectivity:          378/378 unique pairs", "pass")
+        self._out.writeln("  Diameter:             √70 ≈ 8.367 VERIFIED", "pass")
+        self._out.writeln("  Energy inequality:    28/28 strict Φ > ‖v₁₄‖²", "pass")
         self._out.writeln()
 
         # ── Signature block
@@ -339,7 +402,9 @@ class ReleaseTab:
             tag = "pass" if ok else "fail"
             status = "PASS ✓" if ok else "FAIL ✗"
             dots = "." * max(1, 40 - len(name))
-            self._out.writeln(f"  [{checks_total:02d}] {name} {dots} {status}  ({elapsed:.0f}ms)", tag)
+            self._out.writeln(
+                f"  [{checks_total:02d}] {name} {dots} {status}  ({elapsed:.0f}ms)", tag
+            )
             if detail:
                 self._out.writeln(f"       {detail}", "dim" if ok else "fail")
 
@@ -347,15 +412,11 @@ class ReleaseTab:
         self._out.writeln("  LAYER 1: FILE INTEGRITY", "section")
         self._out.writeln("  " + "─" * 45, "dim")
 
-        check("Dataset SHA-256", lambda: (
-            True, f"{self._table.compute_sha256()[:32]}..."
-        ))
-        check("Letter count", lambda: (
-            len(entries) == 28, f"{len(entries)} letters"
-        ))
-        check("Dimension check", lambda: (
-            all(len(e.vector) == 18 for e in entries), "18D per letter"
-        ))
+        check("Dataset SHA-256", lambda: (True, f"{self._table.compute_sha256()[:32]}..."))
+        check("Letter count", lambda: (len(entries) == 28, f"{len(entries)} letters"))
+        check(
+            "Dimension check", lambda: (all(len(e.vector) == 18 for e in entries), "18D per letter")
+        )
         check("ROM integrity", lambda: self._verify_rom())
 
         # ── Layer 2: Mathematical Consistency
@@ -363,14 +424,14 @@ class ReleaseTab:
         self._out.writeln("  LAYER 2: MATHEMATICAL CONSISTENCY", "section")
         self._out.writeln("  " + "─" * 45, "dim")
 
-        check("Guard check (G1–G4)", lambda: (
-            all(guard_check(e) for e in entries),
-            f"28/28 pass (112 checks)"
-        ))
-        check("Injectivity (v₁₈)", lambda: (
-            InjectivityVerifier().verify(),
-            "378 pairwise uniqueness checks"
-        ))
+        check(
+            "Guard check (G1–G4)",
+            lambda: (all(guard_check(e) for e in entries), "28/28 pass (112 checks)"),
+        )
+        check(
+            "Injectivity (v₁₈)",
+            lambda: (InjectivityVerifier().verify(), "378 pairwise uniqueness checks"),
+        )
         check("Turning identity", lambda: self._verify_turning(entries))
         check("Residue non-negativity", lambda: self._verify_rho(entries))
 
@@ -379,15 +440,9 @@ class ReleaseTab:
         self._out.writeln("  LAYER 3: SYNCHRONIZATION", "section")
         self._out.writeln("  " + "─" * 45, "dim")
 
-        check("Release identifier", lambda: (
-            True, RELEASE_ID
-        ))
-        check("Author signature", lambda: (
-            True, f"{AUTHOR_NAME} [{AUTHOR_KEY_ID}]"
-        ))
-        check("Copyright status", lambda: (
-            True, COPYRIGHT
-        ))
+        check("Release identifier", lambda: (True, RELEASE_ID))
+        check("Author signature", lambda: (True, f"{AUTHOR_NAME} [{AUTHOR_KEY_ID}]"))
+        check("Copyright status", lambda: (True, COPYRIGHT))
 
         # ── Summary
         elapsed = (time.perf_counter() - start) * 1000
@@ -428,6 +483,7 @@ class ReleaseTab:
 
     def _verify_turning(self, entries):
         from ...core.guards import compute_U
+
         total_t = sum(e.vector[0] for e in entries)
         total_u = sum(compute_U(list(e.vector)) for e in entries)
         total_r = total_t - total_u
@@ -436,6 +492,7 @@ class ReleaseTab:
 
     def _verify_rho(self, entries):
         from ...core.guards import compute_rho
+
         for e in entries:
             rho = compute_rho(list(e.vector))
             if rho < 0:
@@ -470,11 +527,11 @@ class ReleaseTab:
         # Dataset manifest
         self._out.writeln("  DATASET MANIFEST", "section")
         self._out.writeln("  " + "─" * 45, "dim")
-        self._out.writeln(f"  File:       HM-28-v1.0-HC18D (in-memory)", "value")
-        self._out.writeln(f"  Letters:    28", "value")
-        self._out.writeln(f"  Dimensions: 18", "value")
+        self._out.writeln("  File:       HM-28-v1.0-HC18D (in-memory)", "value")
+        self._out.writeln("  Letters:    28", "value")
+        self._out.writeln("  Dimensions: 18", "value")
         self._out.writeln(f"  Total values: {28 * 18} integers", "value")
-        self._out.writeln(f"  ROM size:   252 bytes", "value")
+        self._out.writeln("  ROM size:   252 bytes", "value")
         self._out.writeln(f"  SHA-256:    {sha}", "seal")
         self._out.writeln()
 
@@ -545,11 +602,11 @@ class ReleaseTab:
         self._out.writeln("  Primary Reference:", "sub")
         self._out.writeln()
         self._out.writeln(
-            f"  {AUTHOR_NAME}. \"Hijaiyyah Mathematics: Formal Foundations,",
+            f'  {AUTHOR_NAME}. "Hijaiyyah Mathematics: Formal Foundations,',
             "copy",
         )
         self._out.writeln(
-            f"  Five Operational Fields, and Photonic Integration.\"",
+            '  Five Operational Fields, and Photonic Integration."',
             "copy",
         )
         self._out.writeln(
@@ -564,10 +621,12 @@ class ReleaseTab:
         self._out.writeln("  @book{hijaiyyah_mathematics_2026,", "copy")
         self._out.writeln(f"    author    = {{{AUTHOR_NAME}}},", "copy")
         self._out.writeln("    title     = {Hijaiyyah Mathematics: Formal Foundations,", "copy")
-        self._out.writeln("                 Five Operational Fields, and Photonic Integration},", "copy")
+        self._out.writeln(
+            "                 Five Operational Fields, and Photonic Integration},", "copy"
+        )
         self._out.writeln(f"    year      = {{{RELEASE_DATE}}},", "copy")
         self._out.writeln(f"    note      = {{Release {RELEASE_ID}}},", "copy")
-        self._out.writeln(f"    publisher = {{HMCL}},", "copy")
+        self._out.writeln("    publisher = {HMCL},", "copy")
         self._out.writeln("  }", "copy")
         self._out.writeln()
 
@@ -575,11 +634,11 @@ class ReleaseTab:
         self._out.writeln("  Dataset Citation:", "sub")
         self._out.writeln()
         self._out.writeln(
-            f"  {AUTHOR_NAME}. \"Master Table HM-28-v1.0-HC18D: 28-Letter",
+            f'  {AUTHOR_NAME}. "Master Table HM-28-v1.0-HC18D: 28-Letter',
             "copy",
         )
         self._out.writeln(
-            f"  18-Dimensional Hijaiyyah Codex Dataset.\" {RELEASE_DATE}.",
+            f'  18-Dimensional Hijaiyyah Codex Dataset." {RELEASE_DATE}.',
             "copy",
         )
         self._out.writeln(
@@ -664,8 +723,12 @@ class ReleaseTab:
         self._out.writeln("  HYBIT CONCEPT", "section")
         self._out.writeln("  " + "─" * 45, "dim")
         self._out.writeln()
-        self._out.writeln("  Hybit = Hijaiyyah Hyperdimensional Bit Integration Technology", "value")
-        self._out.writeln("  v₁₈(h) ∈ ℕ₀¹⁸ — 18D integer vector with 4 structural guards", "formula")
+        self._out.writeln(
+            "  Hybit = Hijaiyyah Hyperdimensional Bit Integration Technology", "value"
+        )
+        self._out.writeln(
+            "  v₁₈(h) ∈ ℕ₀¹⁸ — 18D integer vector with 4 structural guards", "formula"
+        )
         self._out.writeln()
         self._out.writeln("  ┌────────┬────────────────┬────────────────────────┐", "border")
         self._out.writeln("  │ Unit   │ State Space    │ Self-Verification      │", "field")
@@ -701,9 +764,9 @@ class ReleaseTab:
             self._show_certificate()
             content = self._text.get("1.0", tk.END)
             with open(path, "w", encoding="utf-8") as f:
-                f.write(f"HIJAIYYAH MATHEMATICS — RELEASE CERTIFICATE\n")
+                f.write("HIJAIYYAH MATHEMATICS — RELEASE CERTIFICATE\n")
                 f.write(f"Generated: {time.strftime('%Y-%m-%d %H:%M:%S')}\n")
-                f.write(f"{'='*60}\n\n")
+                f.write(f"{'=' * 60}\n\n")
                 f.write(content)
             self._status_var.set(f"Exported: {os.path.basename(path)}")
 

@@ -16,20 +16,16 @@ Professional multi-layer audit with:
 
 from __future__ import annotations
 
-import hashlib
 import math
 import time
 import tkinter as tk
 from tkinter import ttk, filedialog
 from typing import Any, Callable, Dict, List, Optional, Tuple
 
-from ...core.master_table import MasterTable, MASTER_TABLE
+from ...core.master_table import MasterTable
 from ...core.codex_entry import CodexEntry
-from ...core.guards import guard_check, guard_detail, compute_U, compute_rho
-from ...core.exomatrix import build_exomatrix
-from ...integrity.injectivity import InjectivityVerifier
+from ...core.guards import guard_check, compute_U, compute_rho
 from ...algebra import vectronometry as vec
-from ...algebra import differential as diff
 from ...algebra import geometry as geo
 from ...algebra import exomatrix_analysis as exo
 from ..theme import THEME
@@ -86,56 +82,66 @@ class AuditTab:
         toolbar.pack(fill=tk.X, padx=8, pady=5)
 
         ttk.Button(
-            toolbar, text="▶ Full System Audit (11 checks)",
+            toolbar,
+            text="▶ Full System Audit (11 checks)",
             command=self._run_full_audit,
         ).pack(side=tk.LEFT, padx=2)
 
         ttk.Separator(toolbar, orient=tk.VERTICAL).pack(side=tk.LEFT, fill=tk.Y, padx=8)
 
         ttk.Button(
-            toolbar, text="R1–R5 Exomatrix (28 letters)",
+            toolbar,
+            text="R1–R5 Exomatrix (28 letters)",
             command=self._run_exomatrix_audit,
         ).pack(side=tk.LEFT, padx=2)
 
         ttk.Button(
-            toolbar, text="G1–G4 Guards (28 letters)",
+            toolbar,
+            text="G1–G4 Guards (28 letters)",
             command=self._run_guard_audit,
         ).pack(side=tk.LEFT, padx=2)
 
         ttk.Button(
-            toolbar, text="Global Statistics",
+            toolbar,
+            text="Global Statistics",
             command=self._run_global_stats,
         ).pack(side=tk.LEFT, padx=2)
 
         ttk.Button(
-            toolbar, text="Topological Guards",
+            toolbar,
+            text="Topological Guards",
             command=self._run_topological_guards,
         ).pack(side=tk.LEFT, padx=2)
 
         ttk.Button(
-            toolbar, text="💾 Export Report",
+            toolbar,
+            text="💾 Export Report",
             command=self._export_report,
         ).pack(side=tk.LEFT, padx=2)
 
         # Status
         ttk.Label(
-            toolbar, textvariable=self._status_var, foreground=THEME.dim_fg,
+            toolbar,
+            textvariable=self._status_var,
+            foreground=THEME.dim_fg,
         ).pack(side=tk.RIGHT, padx=10)
 
         # ── Output ───────────────────────────────────────────────
         self._text, _ = make_text(self._tab, font=("Consolas", 11), wrap=tk.NONE)
         self._out = OutputWriter(self._text)
-        self._out.add_tags({
-            "title":   {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 14, "bold")},
-            "section": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 11, "bold")},
-            "pass":    {"foreground": THEME.success, "font": ("Consolas", 11, "bold")},
-            "fail":    {"foreground": THEME.error, "font": ("Consolas", 11, "bold")},
-            "warn":    {"foreground": THEME.warning},
-            "dim":     {"foreground": THEME.dim_fg},
-            "value":   {"foreground": THEME.number_fg},
-            "field":   {"foreground": "#ffeaa7"},
-            "formula": {"foreground": "#81ecec"},
-        })
+        self._out.add_tags(
+            {
+                "title": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 14, "bold")},
+                "section": {"foreground": THEME.hijaiyyah_fg, "font": ("Consolas", 11, "bold")},
+                "pass": {"foreground": THEME.success, "font": ("Consolas", 11, "bold")},
+                "fail": {"foreground": THEME.error, "font": ("Consolas", 11, "bold")},
+                "warn": {"foreground": THEME.warning},
+                "dim": {"foreground": THEME.dim_fg},
+                "value": {"foreground": THEME.number_fg},
+                "field": {"foreground": "#ffeaa7"},
+                "formula": {"foreground": "#81ecec"},
+            }
+        )
 
         self._show_welcome()
 
@@ -185,9 +191,9 @@ class AuditTab:
         self._out.writeln("FORMAL SYSTEM AUDIT — HM-28-v1.0-HC18D", "title")
         self._out.writeln("═" * 60)
         self._out.writeln()
-        self._out.writeln(f"  Release:    HM-28-v1.0-HC18D", "dim")
+        self._out.writeln("  Release:    HM-28-v1.0-HC18D", "dim")
         self._out.writeln(f"  Letters:    {len(entries)}", "dim")
-        self._out.writeln(f"  Dimensions: 18", "dim")
+        self._out.writeln("  Dimensions: 18", "dim")
         self._out.writeln(f"  Timestamp:  {time.strftime('%Y-%m-%d %H:%M:%S')}", "dim")
         self._out.writeln()
 
@@ -341,7 +347,7 @@ class AuditTab:
         dims_ok = all(len(e.vector) == 18 for e in entries)
         if not dims_ok:
             return False, "Not all vectors have 18 dimensions"
-        return True, f"28 letters × 18 dimensions = 504 values"
+        return True, "28 letters × 18 dimensions = 504 values"
 
     def _check_injectivity(self, entries: List[CodexEntry]) -> Tuple[bool, str]:
         seen: Dict[tuple, str] = {}
@@ -350,7 +356,7 @@ class AuditTab:
             if key in seen:
                 return False, f"Collision: {e.char} = {seen[key]}"
             seen[key] = e.char
-        return True, f"28 unique vectors, 378 pairwise comparisons — zero collisions"
+        return True, "28 unique vectors, 378 pairwise comparisons — zero collisions"
 
     def _check_guards(self, entries: List[CodexEntry]) -> Tuple[bool, str]:
         failed: List[str] = []
@@ -359,7 +365,7 @@ class AuditTab:
                 failed.append(e.char)
         if failed:
             return False, f"Guard FAIL: {', '.join(failed)}"
-        return True, f"All 28 letters pass 4 guards (112 checks)"
+        return True, "All 28 letters pass 4 guards (112 checks)"
 
     def _check_turning(self, entries: List[CodexEntry]) -> Tuple[bool, str]:
         for e in entries:
@@ -387,7 +393,7 @@ class AuditTab:
             r = vec.pythagorean_check(e)
             if not r["pass"]:
                 return False, f"{e.char}: LHS={r['lhs']} ≠ RHS={r['rhs']}"
-        return True, f"‖h‖² = ‖Π_Θ‖²+‖Π_N‖²+‖Π_K‖²+‖Π_Q‖² verified 28/28"
+        return True, "‖h‖² = ‖Π_Θ‖²+‖Π_N‖²+‖Π_K‖²+‖Π_Q‖² verified 28/28"
 
     def _check_energy_norm(self, entries: List[CodexEntry]) -> Tuple[bool, str]:
         min_surplus = float("inf")
@@ -406,9 +412,9 @@ class AuditTab:
             E = exo.build(e)
             r = exo.audit(E)
             if not r["all_pass"]:
-                failed = [k for k in ("R1","R2","R3","R4","R5") if not r[k]]
+                failed = [k for k in ("R1", "R2", "R3", "R4", "R5") if not r[k]]
                 return False, f"{e.char}: {', '.join(failed)} failed"
-        return True, f"5 relations × 28 letters = 140 checks — all pass"
+        return True, "5 relations × 28 letters = 140 checks — all pass"
 
     def _check_topological(self, entries: List[CodexEntry]) -> Tuple[bool, str]:
         issues: List[str] = []
@@ -455,7 +461,9 @@ class AuditTab:
         self._out.writeln("  R2: E[1][4] = E[1][0] + E[1][1] + E[1][2]    (Aₙ = ΣN)", "formula")
         self._out.writeln("  R3: E[4][3] = Σ E[2][c]                      (Aₖ = ΣK)", "formula")
         self._out.writeln("  R4: E[4][4] = Σ E[3][c]                      (AQ = ΣQ)", "formula")
-        self._out.writeln("  R5: E[0][1] = E[3][1]+E[3][2]+E[3][3]+4·E[3][4]  (U formula)", "formula")
+        self._out.writeln(
+            "  R5: E[0][1] = E[3][1]+E[3][2]+E[3][3]+4·E[3][4]  (U formula)", "formula"
+        )
         self._out.writeln()
         self._out.writeln("─" * 60, "dim")
         self._out.writeln(
@@ -565,8 +573,7 @@ class AuditTab:
             tag = "pass" if ok else "fail"
             status = "PASS" if ok else "FAIL"
             self._out.writeln(
-                f"  {i:<4} {e.char:<4} {e.name:<8} {v[0]:<4} {U:<4} {rho:<5} "
-                f"{guards}{status}",
+                f"  {i:<4} {e.char:<4} {e.name:<8} {v[0]:<4} {U:<4} {rho:<5} {guards}{status}",
                 tag,
             )
 
@@ -629,7 +636,7 @@ class AuditTab:
             bar = "█" * len(letters)
             letter_str = " ".join(letters)
             self._out.writeln(
-                f"  Θ̂={th} ({th*90:>4}°): {len(letters):>2} letters  {bar}  {letter_str}",
+                f"  Θ̂={th} ({th * 90:>4}°): {len(letters):>2} letters  {bar}  {letter_str}",
                 "value",
             )
         self._out.writeln()
@@ -658,8 +665,12 @@ class AuditTab:
         norms = [(e.char, e.name, vec.norm2(e)) for e in entries]
         norms.sort(key=lambda x: x[2])
 
-        self._out.writeln(f"  Minimum: {norms[0][0]} ({norms[0][1]})  ‖v₁₄‖² = {norms[0][2]}", "value")
-        self._out.writeln(f"  Maximum: {norms[-1][0]} ({norms[-1][1]})  ‖v₁₄‖² = {norms[-1][2]}", "value")
+        self._out.writeln(
+            f"  Minimum: {norms[0][0]} ({norms[0][1]})  ‖v₁₄‖² = {norms[0][2]}", "value"
+        )
+        self._out.writeln(
+            f"  Maximum: {norms[-1][0]} ({norms[-1][1]})  ‖v₁₄‖² = {norms[-1][2]}", "value"
+        )
         mean_norm = sum(n for _, _, n in norms) / len(norms)
         self._out.writeln(f"  Mean:    {mean_norm:.2f}", "dim")
         self._out.writeln(f"  Diameter: √70 ≈ {math.sqrt(70):.6f}  (ا ↔ هـ)", "value")
@@ -689,8 +700,12 @@ class AuditTab:
         self._out.writeln("  PRIMITIVE COMPOSITION", "section")
         self._out.writeln("  " + "─" * 45, "dim")
 
-        pure_line = sum(1 for e in entries if e.vector[15] > 0 and e.vector[16] == 0 and e.vector[14] == 0)
-        pure_curve = sum(1 for e in entries if e.vector[16] > 0 and e.vector[15] == 0 and e.vector[14] == 0)
+        pure_line = sum(
+            1 for e in entries if e.vector[15] > 0 and e.vector[16] == 0 and e.vector[14] == 0
+        )
+        pure_curve = sum(
+            1 for e in entries if e.vector[16] > 0 and e.vector[15] == 0 and e.vector[14] == 0
+        )
         has_dots = sum(1 for e in entries if e.vector[14] > 0)
         has_loops = sum(1 for e in entries if e.vector[13] > 0)
         has_hamzah = sum(1 for e in entries if e.vector[17] > 0)

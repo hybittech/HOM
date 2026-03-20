@@ -14,10 +14,9 @@ from __future__ import annotations
 
 import tkinter as tk
 from tkinter import ttk
-from typing import Any, Dict, List, Optional, Tuple
+from typing import Dict, Optional
 
-from ...hisa.opcodes import OpCode, InstructionWord
-from ...hisa.assembler import assemble_line
+from ...hisa.opcodes import InstructionWord
 from ...core.master_table import MASTER_TABLE
 from ..theme import THEME
 from ..widgets import OutputWriter, make_text
@@ -273,15 +272,17 @@ class BytecodeTab:
         # Result display
         self._result_text, _ = make_text(parent, font=THEME.font_mono)
         self._result_out = OutputWriter(self._result_text)
-        self._result_out.add_tags({
-            "header":  {"foreground": THEME.hijaiyyah_fg, "font": (*THEME.font_mono, "bold")},
-            "value":   {"foreground": THEME.number_fg},
-            "field":   {"foreground": "#ffeaa7"},
-            "dim":     {"foreground": THEME.dim_fg},
-            "pass":    {"foreground": THEME.success},
-            "error":   {"foreground": THEME.error},
-            "bit":     {"foreground": "#fd79a8", "font": ("Consolas", 12, "bold")},
-        })
+        self._result_out.add_tags(
+            {
+                "header": {"foreground": THEME.hijaiyyah_fg, "font": (*THEME.font_mono, "bold")},
+                "value": {"foreground": THEME.number_fg},
+                "field": {"foreground": "#ffeaa7"},
+                "dim": {"foreground": THEME.dim_fg},
+                "pass": {"foreground": THEME.success},
+                "error": {"foreground": THEME.error},
+                "bit": {"foreground": "#fd79a8", "font": ("Consolas", 12, "bold")},
+            }
+        )
 
     def _set_hex(self, hex_val: str) -> None:
         """Set the hex input to a specific value."""
@@ -329,16 +330,20 @@ class BytecodeTab:
         # ── Bit field breakdown
         self._result_out.writeln("BIT FIELD BREAKDOWN", "header")
         self._result_out.writeln(
-            "  ┌────────────┬──────┬──────┬──────┬──────────────┐", "dim",
+            "  ┌────────────┬──────┬──────┬──────┬──────────────┐",
+            "dim",
         )
         self._result_out.writeln(
-            "  │  OPCODE    │ DST  │ SRC1 │ SRC2 │     IMM      │", "dim",
+            "  │  OPCODE    │ DST  │ SRC1 │ SRC2 │     IMM      │",
+            "dim",
         )
         self._result_out.writeln(
-            "  │  bits 31-24│ 23-20│ 19-16│ 15-12│   bits 11-0  │", "dim",
+            "  │  bits 31-24│ 23-20│ 19-16│ 15-12│   bits 11-0  │",
+            "dim",
         )
         self._result_out.writeln(
-            "  ├────────────┼──────┼──────┼──────┼──────────────┤", "dim",
+            "  ├────────────┼──────┼──────┼──────┼──────────────┤",
+            "dim",
         )
 
         op_bits = f"{iw.opcode:08b}"
@@ -356,7 +361,8 @@ class BytecodeTab:
             "value",
         )
         self._result_out.writeln(
-            "  └────────────┴──────┴──────┴──────┴──────────────┘", "dim",
+            "  └────────────┴──────┴──────┴──────┴──────────────┘",
+            "dim",
         )
         self._result_out.writeln()
 
@@ -388,10 +394,11 @@ class BytecodeTab:
                 letter_info = _LETTER_NAMES[iw.imm]
                 self._result_out.writeln()
                 self._result_out.writeln(
-                    f"  Letter:   index {iw.imm} → {letter_info}", "pass",
+                    f"  Letter:   index {iw.imm} → {letter_info}",
+                    "pass",
                 )
         else:
-            self._result_out.writeln(f"  (Unknown opcode — not in H-ISA spec)", "error")
+            self._result_out.writeln("  (Unknown opcode — not in H-ISA spec)", "error")
 
     # ══════════════════════════════════════════════════════════════
     #  SECTION 2 — INSTRUCTION BUILDER
@@ -446,9 +453,12 @@ class BytecodeTab:
             col.pack(side=tk.LEFT, padx=5)
             ttk.Label(col, text=label).pack(anchor=tk.W)
             entry = tk.Entry(
-                col, textvariable=var, width=6,
+                col,
+                textvariable=var,
+                width=6,
                 font=("Consolas", 12),
-                bg=THEME.text_bg, fg=THEME.number_fg,
+                bg=THEME.text_bg,
+                fg=THEME.number_fg,
             )
             entry.pack()
             ttk.Label(col, text=hint, foreground=THEME.dim_fg).pack(anchor=tk.W)
@@ -497,18 +507,21 @@ class BytecodeTab:
             textvariable=self._build_hex_var,
             font=("Consolas", 18, "bold"),
             width=12,
-            bg=THEME.text_bg, fg=THEME.number_fg,
+            bg=THEME.text_bg,
+            fg=THEME.number_fg,
             state="readonly",
         )
         hex_result.pack(side=tk.LEFT, padx=5)
 
         ttk.Button(
-            hex_frame, text="📋 Copy Hex",
+            hex_frame,
+            text="📋 Copy Hex",
             command=lambda: self._copy_to_clipboard(self._build_hex_var.get()),
         ).pack(side=tk.LEFT, padx=5)
 
         ttk.Button(
-            hex_frame, text="→ Send to Decoder",
+            hex_frame,
+            text="→ Send to Decoder",
             command=lambda: self._hex_var.set(self._build_hex_var.get().replace("0x", "")),
         ).pack(side=tk.LEFT, padx=5)
 
@@ -520,7 +533,8 @@ class BytecodeTab:
             textvariable=self._build_asm_var,
             font=("Consolas", 14),
             width=30,
-            bg=THEME.text_bg, fg="#81ecec",
+            bg=THEME.text_bg,
+            fg="#81ecec",
             state="readonly",
         ).pack(side=tk.LEFT, padx=5)
 
@@ -597,11 +611,18 @@ class BytecodeTab:
         paned.add(left, weight=1)
         ttk.Label(left, text="Hex Input (one per line):").pack(anchor=tk.W)
         self._batch_input = tk.Text(
-            left, font=THEME.font_mono, bg=THEME.text_bg, fg=THEME.number_fg,
-            insertbackground=THEME.number_fg, height=15, width=15,
+            left,
+            font=THEME.font_mono,
+            bg=THEME.text_bg,
+            fg=THEME.number_fg,
+            insertbackground=THEME.number_fg,
+            height=15,
+            width=15,
         )
         self._batch_input.pack(fill=tk.BOTH, expand=True)
-        self._batch_input.insert("1.0", "01000001\n01100001\n02201000\n04020000\n0E200000\n0F000000")
+        self._batch_input.insert(
+            "1.0", "01000001\n01100001\n02201000\n04020000\n0E200000\n0F000000"
+        )
 
         btn = ttk.Frame(left)
         btn.pack(fill=tk.X, pady=5)
@@ -614,14 +635,16 @@ class BytecodeTab:
         ttk.Label(right, text="Decoded Output:").pack(anchor=tk.W)
         self._batch_output, _ = make_text(right, font=THEME.font_mono_sm)
         self._batch_out = OutputWriter(self._batch_output)
-        self._batch_out.add_tags({
-            "addr":  {"foreground": THEME.dim_fg},
-            "hex":   {"foreground": THEME.number_fg},
-            "asm":   {"foreground": "#81ecec"},
-            "desc":  {"foreground": THEME.fg},
-            "pass":  {"foreground": THEME.success},
-            "error": {"foreground": THEME.error},
-        })
+        self._batch_out.add_tags(
+            {
+                "addr": {"foreground": THEME.dim_fg},
+                "hex": {"foreground": THEME.number_fg},
+                "asm": {"foreground": "#81ecec"},
+                "desc": {"foreground": THEME.fg},
+                "pass": {"foreground": THEME.success},
+                "error": {"foreground": THEME.error},
+            }
+        )
 
     def _batch_decode(self) -> None:
         """Decode all hex values from batch input."""
@@ -635,7 +658,8 @@ class BytecodeTab:
         self._batch_out.clear()
         self._batch_out.writeln("BATCH DECODE", "pass")
         self._batch_out.writeln(
-            f"{'Addr':<6} {'Hex':<12} {'Assembly':<35} {'Description'}", "addr",
+            f"{'Addr':<6} {'Hex':<12} {'Assembly':<35} {'Description'}",
+            "addr",
         )
         self._batch_out.writeln("-" * 80, "addr")
 
@@ -697,14 +721,17 @@ class BytecodeTab:
 
         ref_text, _ = make_text(parent, font=THEME.font_mono_sm, wrap=tk.NONE)
         ref_out = OutputWriter(ref_text)
-        ref_out.add_tags({
-            "header": {"foreground": THEME.hijaiyyah_fg, "font": (*THEME.font_mono, "bold")},
-            "value":  {"foreground": THEME.number_fg},
-            "dim":    {"foreground": THEME.dim_fg},
-        })
+        ref_out.add_tags(
+            {
+                "header": {"foreground": THEME.hijaiyyah_fg, "font": (*THEME.font_mono, "bold")},
+                "value": {"foreground": THEME.number_fg},
+                "dim": {"foreground": THEME.dim_fg},
+            }
+        )
 
         ref_out.writeln(
-            f"{'Hex':<6} {'Name':<10} {'Syntax':<25} {'Description'}", "header",
+            f"{'Hex':<6} {'Name':<10} {'Syntax':<25} {'Description'}",
+            "header",
         )
         ref_out.writeln("=" * 85, "dim")
 

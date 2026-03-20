@@ -16,8 +16,8 @@ from __future__ import annotations
 
 import time
 import tkinter as tk
-from tkinter import ttk, filedialog, messagebox
-from typing import Any, Callable, Dict, List, Optional, Tuple
+from tkinter import ttk, filedialog
+from typing import Any, Dict, Optional
 
 from ...language.lexer import Lexer
 from ...language.parser import Parser
@@ -33,8 +33,7 @@ from ..widgets import OutputWriter, make_text
 EXAMPLES: Dict[str, Dict[str, str]] = {
     # ── Basics ───────────────────────────────────────────────────
     "📘 Basics": {
-
-        "Hello Hybit": '''\
+        "Hello Hybit": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Hello Hybit
 // Your first HC program
@@ -51,9 +50,8 @@ println("  Norm²:", h.norm2());
 
 // Every hybit has 18 integer components
 println("  Full vector:", h.array());
-''',
-
-        "Variables & Arithmetic": '''\
+""",
+        "Variables & Arithmetic": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Variables and Arithmetic
 // HC uses let for immutable, let mut for mutable
@@ -82,9 +80,8 @@ let is_valid = true;
 let is_empty = false;
 println("valid:", is_valid);
 println("empty:", is_empty);
-''',
-
-        "Hybit Components": '''\
+""",
+        "Hybit Components": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Hybit Component Access
 // Each hybit has 18 named components
@@ -117,9 +114,8 @@ println();
 println("U (non-primary budget):", h.U());
 println("ρ (primary residue):", h.rho());
 println("Guard check:", h.guard());
-''',
-
-        "Control Flow": '''\
+""",
+        "Control Flow": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Control Flow
 // if/else, for loops, match expressions
@@ -153,9 +149,8 @@ match theta {
     8 => println("Maximum turning (8 quadrants = 720°)"),
     _ => println("Other"),
 }
-''',
-
-        "Functions": '''\
+""",
+        "Functions": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Functions
 // fn name(params) -> return_type { body }
@@ -199,13 +194,11 @@ fn word_theta(text: string) -> int {
 
 println();
 println("Total theta of بسم:", word_theta("بسم"));
-''',
+""",
     },
-
     # ── Five Fields ──────────────────────────────────────────────
     "📗 Five Fields (Bab II)": {
-
-        "Vectronometry": '''\
+        "Vectronometry": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Field 1: Vectronometry (Ch 17-21)
 // Measuring the structure of individual letters
@@ -235,9 +228,8 @@ println("Norm:", hm::vectronometry::norm(h));
 let cos = hm::vectronometry::cosine('ب', 'ت');
 println();
 println("Cosine(Ba, Ta):", cos);
-''',
-
-        "Differential Calculus": '''\
+""",
+        "Differential Calculus": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Field 2: Differential (Ch 22-24)
 // Measuring differences between letters
@@ -264,9 +256,8 @@ println();
 println("All dot-variant pairs in H₂₈:");
 let pairs = hm::differential::all_dot_variants();
 println(pairs);
-''',
-
-        "Integral Calculus": '''\
+""",
+        "Integral Calculus": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Field 3: Integral (Ch 25-28)
 // Accumulating structure across strings
@@ -305,9 +296,8 @@ println("  Equal:", a1);
 let cent = hm::integral::centroid("بسم");
 println();
 println("Centroid (mean v₁₈):", cent);
-''',
-
-        "Codex Geometry": '''\
+""",
+        "Codex Geometry": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Field 4: Geometry (Ch 29-31)
 // Distances and topology of the alphabet
@@ -342,9 +332,8 @@ println("5 nearest to Jim (ج):", nn);
 let orth = hm::geometry::is_orthogonal('ا', 'ب');
 println();
 println("Alif ⊥ Ba?", orth, "(disjoint support)");
-''',
-
-        "Exomatrix Analysis": '''\
+""",
+        "Exomatrix Analysis": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Field 5: Exomatrix (Ch 32-36)
 // The 5×5 structured audit matrix
@@ -386,13 +375,11 @@ println("  Recovered:", reconstructed);
 println();
 println("rank(M₁₄) =", hm::exomatrix::rank_M14());
 println("rank(M)   =", hm::exomatrix::rank_M());
-''',
+""",
     },
-
     # ── Applications ─────────────────────────────────────────────
     "📕 Applications": {
-
-        "String Comparison": '''\
+        "String Comparison": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Compare Two Strings
 // Same total turning, different profiles
@@ -417,9 +404,8 @@ println("Both have ∫Θ̂ = 10 (900°)");
 println("But different profiles:");
 println("  بسم:  dominated by ρ (primary curves)");
 println("  الله: dominated by U (loops of هـ)");
-''',
-
-        "Guard Verification": '''\
+""",
+        "Guard Verification": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Verify All 28 Letters Pass Guard
 // O(1) per letter — 15 ADD + 4 CMP
@@ -449,9 +435,8 @@ println("Detailed R1-R5 audit:");
 let h = 'ب';
 let detail = h.guard_detail();
 println("  Ba audit:", detail);
-''',
-
-        "All 28 Analysis": '''\
+""",
+        "All 28 Analysis": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Analyze All 28 Letters
 // Complete structural profile
@@ -494,9 +479,8 @@ for i in 0..27 {
         println("  Θ̂ ≡ 0 (mod 4) — possibly closed");
     }
 }
-''',
-
-        "Data Integrity": '''\
+""",
+        "Data Integrity": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Data Integrity Pipeline
 // Guard → Verify → Hash
@@ -528,13 +512,11 @@ println("  SHA-256(Ba):", hash);
 println();
 println("Pipeline: Guard(O(1)) → Crypto(O(hash)) → Process");
 println("  Invalid data rejected BEFORE expensive crypto");
-''',
+""",
     },
-
     # ── Reference ────────────────────────────────────────────────
     "📙 Quick Reference": {
-
-        "Syntax Cheat Sheet": '''\
+        "Syntax Cheat Sheet": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Syntax Quick Reference
 // ═══════════════════════════════════════════════
@@ -580,9 +562,8 @@ let h = 'ب';
 
 println("Syntax reference loaded ✓");
 println("Edit this code and press ▶ Evaluate");
-''',
-
-        "All Hybit Methods": '''\
+""",
+        "All Hybit Methods": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Complete Hybit Method Reference
 // ═══════════════════════════════════════════════
@@ -631,9 +612,8 @@ println("  phi:", h.phi());
 println();
 println("[Crypto]");
 println("  hash:", h.hash());
-''',
-
-        "Module Functions": '''\
+""",
+        "Module Functions": """\
 // ═══════════════════════════════════════════════
 // HC v1.0 — Standard Library Module Functions
 // ═══════════════════════════════════════════════
@@ -680,7 +660,7 @@ println("  phi(E)           → Frobenius energy");
 println("  energy_table()   → 28 rows sorted by Φ");
 println("  reconstruct(E)   → recovered v₁₈");
 println("  rank_M14() / rank_M()");
-''',
+""",
     },
 }
 
@@ -688,6 +668,7 @@ println("  rank_M14() / rank_M()");
 # ══════════════════════════════════════════════════════════════════
 #  SECTION 2 — IDE TAB CLASS
 # ══════════════════════════════════════════════════════════════════
+
 
 class IDETab:
     """
@@ -727,14 +708,22 @@ class IDETab:
         toolbar.pack(fill=tk.X, padx=5, pady=(5, 0))
 
         ttk.Button(toolbar, text="▶ Evaluate", command=self._run).pack(side=tk.LEFT, padx=2)
-        ttk.Button(toolbar, text="⟳ Clear Output", command=self._clear_output).pack(side=tk.LEFT, padx=2)
-        ttk.Button(toolbar, text="🗑 Clear Editor", command=self._clear_editor).pack(side=tk.LEFT, padx=2)
+        ttk.Button(toolbar, text="⟳ Clear Output", command=self._clear_output).pack(
+            side=tk.LEFT, padx=2
+        )
+        ttk.Button(toolbar, text="🗑 Clear Editor", command=self._clear_editor).pack(
+            side=tk.LEFT, padx=2
+        )
         ttk.Button(toolbar, text="💾 Save .hc", command=self._save_file).pack(side=tk.LEFT, padx=2)
         ttk.Button(toolbar, text="📂 Open .hc", command=self._open_file).pack(side=tk.LEFT, padx=2)
 
         # Status
-        ttk.Label(toolbar, textvariable=self._status_var, foreground=THEME.dim_fg).pack(side=tk.RIGHT, padx=10)
-        ttk.Label(toolbar, textvariable=self._line_count_var, foreground=THEME.dim_fg).pack(side=tk.RIGHT, padx=5)
+        ttk.Label(toolbar, textvariable=self._status_var, foreground=THEME.dim_fg).pack(
+            side=tk.RIGHT, padx=10
+        )
+        ttk.Label(toolbar, textvariable=self._line_count_var, foreground=THEME.dim_fg).pack(
+            side=tk.RIGHT, padx=5
+        )
 
         # ── Quick-insert bar (Hijaiyyah characters) ──────────────
         insert_bar = ttk.Frame(self._tab)
@@ -742,13 +731,16 @@ class IDETab:
         ttk.Label(insert_bar, text="Insert:", foreground=THEME.dim_fg).pack(side=tk.LEFT)
 
         from ...core.master_table import MASTER_TABLE
+
         for entry in MASTER_TABLE.all_entries():
             tk.Button(
                 insert_bar,
                 text=entry.char,
                 font=("Simplified Arabic", 12),
-                width=2, height=1,
-                bg=THEME.accent, fg=THEME.hijaiyyah_fg,
+                width=2,
+                height=1,
+                bg=THEME.accent,
+                fg=THEME.hijaiyyah_fg,
                 relief=tk.FLAT,
                 command=lambda ch=entry.char: self._insert_char(ch),
             ).pack(side=tk.LEFT, padx=1)
@@ -844,14 +836,16 @@ class IDETab:
 
         self._output, _ = make_text(right_frame, font=("Consolas", 12), bg="#0d1117")
         self._out = OutputWriter(self._output)
-        self._out.add_tags({
-            "header":  {"foreground": "#58a6ff", "font": ("Consolas", 12, "bold")},
-            "result":  {"foreground": "#7ee787"},
-            "error":   {"foreground": "#f85149"},
-            "warning": {"foreground": "#d29922"},
-            "dim":     {"foreground": "#8b949e"},
-            "time":    {"foreground": "#8b949e", "font": ("Consolas", 10)},
-        })
+        self._out.add_tags(
+            {
+                "header": {"foreground": "#58a6ff", "font": ("Consolas", 12, "bold")},
+                "result": {"foreground": "#7ee787"},
+                "error": {"foreground": "#f85149"},
+                "warning": {"foreground": "#d29922"},
+                "dim": {"foreground": "#8b949e"},
+                "time": {"foreground": "#8b949e", "font": ("Consolas", 10)},
+            }
+        )
 
         # Load default example
         self._load_example("📘 Basics", "Hello Hybit")
@@ -900,18 +894,18 @@ class IDETab:
             elapsed = time.perf_counter() - start_time
             self._out.writeln()
             self._out.writeln("─" * 50, "dim")
-            self._out.writeln(f"✓ Completed successfully", "header")
+            self._out.writeln("✓ Completed successfully", "header")
             self._out.writeln(f"  Source: {line_count} lines", "time")
             self._out.writeln(f"  Output: {output_lines} lines", "time")
-            self._out.writeln(f"  Time:   {elapsed*1000:.1f} ms", "time")
-            self._status_var.set(f"Done ({elapsed*1000:.0f}ms)")
+            self._out.writeln(f"  Time:   {elapsed * 1000:.1f} ms", "time")
+            self._status_var.set(f"Done ({elapsed * 1000:.0f}ms)")
 
         except Exception as e:
             elapsed = time.perf_counter() - start_time
             self._out.writeln()
             self._out.writeln("─" * 50, "dim")
             self._out.writeln(f"✗ Error: {e}", "error")
-            self._out.writeln(f"  Time: {elapsed*1000:.1f} ms", "time")
+            self._out.writeln(f"  Time: {elapsed * 1000:.1f} ms", "time")
             self._status_var.set("Error")
 
     def _load_example(self, category: str, name: str) -> None:

@@ -1,78 +1,101 @@
 """Complete 13-test theorem suite (HC Spec v1.0)."""
+
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import List
 from ..core.master_table import MASTER_TABLE
-from ..core.guards import guard_check, guard_detail, compute_U, compute_rho
-from ..algebra import vectronometry, differential, integral, geometry, exomatrix_analysis
+from ..core.guards import guard_check, guard_detail, compute_U
+from ..algebra import vectronometry, integral, geometry, exomatrix_analysis
+
 
 @dataclass
 class TestResult:
-    ref: str; name: str; passed: bool; message: str = ""
+    ref: str
+    name: str
+    passed: bool
+    message: str = ""
+
 
 class TheoremTestSuite:
     def run_all(self) -> List[TestResult]:
         tests = [
-            ("Axiom 9.4","Guard check 28",self._guard),
-            ("Thm 11.1","Injectivity",self._inject),
-            ("Ch 12","Θ̂=U+ρ, ρ≥0",self._turning),
-            ("Thm 25.2.1","∫(uv)=∫u+∫v",self._integral_add),
-            ("Thm 20.2.1","Pythagorean",self._pyth),
-            ("Thm 34.3.1","Φ>‖v₁₄‖²",self._phi),
-            ("Prop 31.1.1","diam²=70",self._diam),
-            ("Thm 18.2.1","rN+rK+rQ=1",self._ratios),
-            ("Thm 29.3.1","Polarization",self._polar),
-            ("Id 33.1.1","Exomatrix R1-R5",self._exo),
-            ("Thm 36.2.1","Reconstruction",self._recon),
-            ("Commut.","Anagram",self._anagram),
-            ("Axiom 9.4+","Guard detail",self._guard_d),
+            ("Axiom 9.4", "Guard check 28", self._guard),
+            ("Thm 11.1", "Injectivity", self._inject),
+            ("Ch 12", "Θ̂=U+ρ, ρ≥0", self._turning),
+            ("Thm 25.2.1", "∫(uv)=∫u+∫v", self._integral_add),
+            ("Thm 20.2.1", "Pythagorean", self._pyth),
+            ("Thm 34.3.1", "Φ>‖v₁₄‖²", self._phi),
+            ("Prop 31.1.1", "diam²=70", self._diam),
+            ("Thm 18.2.1", "rN+rK+rQ=1", self._ratios),
+            ("Thm 29.3.1", "Polarization", self._polar),
+            ("Id 33.1.1", "Exomatrix R1-R5", self._exo),
+            ("Thm 36.2.1", "Reconstruction", self._recon),
+            ("Commut.", "Anagram", self._anagram),
+            ("Axiom 9.4+", "Guard detail", self._guard_d),
         ]
         results = []
-        for ref,name,fn in tests:
-            try: fn(); results.append(TestResult(ref,name,True))
-            except AssertionError as e: results.append(TestResult(ref,name,False,str(e)))
-            except Exception as e: results.append(TestResult(ref,name,False,f"ERROR: {e}"))
+        for ref, name, fn in tests:
+            try:
+                fn()
+                results.append(TestResult(ref, name, True))
+            except AssertionError as e:
+                results.append(TestResult(ref, name, False, str(e)))
+            except Exception as e:
+                results.append(TestResult(ref, name, False, f"ERROR: {e}"))
         return results
 
-    def _entries(self): return MASTER_TABLE.all_entries()
+    def _entries(self):
+        return MASTER_TABLE.all_entries()
 
     def _guard(self):
-        for e in self._entries(): assert guard_check(e), f"FAIL: {e.char}"
+        for e in self._entries():
+            assert guard_check(e), f"FAIL: {e.char}"
 
     def _inject(self):
         seen = {}
         for e in self._entries():
-            k = tuple(e.vector); assert k not in seen, f"Collision: {e.char}"; seen[k]=e.char
+            k = tuple(e.vector)
+            assert k not in seen, f"Collision: {e.char}"
+            seen[k] = e.char
 
     def _turning(self):
         for e in self._entries():
-            v=list(e.vector); U=compute_U(v); rho=v[0]-U
-            assert rho>=0 and v[0]==U+rho
+            v = list(e.vector)
+            U = compute_U(v)
+            rho = v[0] - U
+            assert rho >= 0 and v[0] == U + rho
 
     def _integral_add(self):
-        bs=integral.string_integral("بس"); m=integral.string_integral("م"); bsm=integral.string_integral("بسم")
-        assert integral.add_codex(bs,m)["cod18"]==bsm["cod18"]
+        bs = integral.string_integral("بس")
+        m = integral.string_integral("م")
+        bsm = integral.string_integral("بسم")
+        assert integral.add_codex(bs, m)["cod18"] == bsm["cod18"]
 
     def _pyth(self):
-        for e in self._entries(): assert vectronometry.pythagorean_check(e)["pass"]
+        for e in self._entries():
+            assert vectronometry.pythagorean_check(e)["pass"]
 
     def _phi(self):
         for e in self._entries():
-            E=exomatrix_analysis.build(e)
-            assert exomatrix_analysis.phi(E)>vectronometry.norm2(e)
+            E = exomatrix_analysis.build(e)
+            assert exomatrix_analysis.phi(E) > vectronometry.norm2(e)
 
-    def _diam(self): assert geometry.diameter_sq()==70
+    def _diam(self):
+        assert geometry.diameter_sq() == 70
+
     def _ratios(self):
         for e in self._entries():
-            v=list(e.vector)
-            if v[14]+v[15]+v[16]==0: continue
-            r=vectronometry.primitive_ratios(e)
-            assert abs(r["r_N"]+r["r_K"]+r["r_Q"]-1.0)<1e-9
+            v = list(e.vector)
+            if v[14] + v[15] + v[16] == 0:
+                continue
+            r = vectronometry.primitive_ratios(e)
+            assert abs(r["r_N"] + r["r_K"] + r["r_Q"] - 1.0) < 1e-9
 
     def _polar(self):
         es = self._entries()
-        for i,e1 in enumerate(es):
-            for e2 in es[i+1:]: assert geometry.polarization_check(e1,e2)["pass"]
+        for i, e1 in enumerate(es):
+            for e2 in es[i + 1 :]:
+                assert geometry.polarization_check(e1, e2)["pass"]
 
     def _exo(self):
         for e in self._entries():
@@ -80,13 +103,14 @@ class TheoremTestSuite:
 
     def _recon(self):
         for e in self._entries():
-            v=list(e.vector); v2=exomatrix_analysis.reconstruct(exomatrix_analysis.build(e))
-            assert v==v2, f"{e.char}"
+            v = list(e.vector)
+            v2 = exomatrix_analysis.reconstruct(exomatrix_analysis.build(e))
+            assert v == v2, f"{e.char}"
 
     def _anagram(self):
-        assert integral.string_integral("بسم")["cod18"]==integral.string_integral("سبم")["cod18"]
+        assert integral.string_integral("بسم")["cod18"] == integral.string_integral("سبم")["cod18"]
 
     def _guard_d(self):
         for e in self._entries():
-            d=guard_detail(e)
+            d = guard_detail(e)
             assert d["all_pass"], f"{e.char}"

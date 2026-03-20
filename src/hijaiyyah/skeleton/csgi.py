@@ -14,6 +14,7 @@ class NumpySafeEncoder(json.JSONEncoder):
         # Handle numpy integer types
         try:
             import numpy as np
+
             if isinstance(obj, (np.integer,)):
                 return int(obj)
             if isinstance(obj, (np.floating,)):
@@ -29,6 +30,7 @@ def _to_native(obj: Any) -> Any:
     """Recursively convert numpy types to native Python types."""
     try:
         import numpy as np
+
         if isinstance(obj, (np.integer,)):
             return int(obj)
         if isinstance(obj, (np.floating,)):
@@ -48,6 +50,7 @@ def _to_native(obj: Any) -> Any:
 @dataclass
 class CSGINode:
     """A node in the skeleton graph."""
+
     id: int
     x: int
     y: int
@@ -63,6 +66,7 @@ class CSGINode:
 @dataclass
 class CSGIEdge:
     """An edge in the skeleton graph."""
+
     id: int
     u: int
     v: int
@@ -78,6 +82,7 @@ class CSGIEdge:
 @dataclass
 class CSGIGraph:
     """Complete skeleton graph for a letter."""
+
     letter: str
     name: str
     nodes: List[CSGINode]

@@ -6,7 +6,6 @@ from typing import Any, Dict, List
 
 from ..core.codex_entry import CodexEntry
 from ..core.exomatrix import build_exomatrix
-from ..core.guards import compute_U
 from ..core.master_table import MASTER_TABLE
 
 
@@ -37,7 +36,11 @@ def audit(E: List[List[int]]) -> Dict[str, bool]:
     R4 = E[4][4] == E[3][0] + E[3][1] + E[3][2] + E[3][3] + E[3][4]
     R5 = E[0][1] == E[3][1] + E[3][2] + E[3][3] + 4 * E[3][4]
     return {
-        "R1": R1, "R2": R2, "R3": R3, "R4": R4, "R5": R5,
+        "R1": R1,
+        "R2": R2,
+        "R3": R3,
+        "R4": R4,
+        "R5": R5,
         "all_pass": R1 and R2 and R3 and R4 and R5,
     }
 
@@ -96,14 +99,16 @@ def energy_table() -> List[Dict[str, Any]]:
         E = build_exomatrix(v)
         phi_val = sum(E[r][c] ** 2 for r in range(5) for c in range(5))
         norm2_val = _n2(v)
-        rows.append({
-            "letter":    e.char,
-            "name":      e.name,
-            "phi":       phi_val,
-            "norm2":     norm2_val,
-            "surplus":   phi_val - norm2_val,
-            "phi_theta": E[0][0] ** 2 + E[0][1] ** 2 + E[0][2] ** 2,
-        })
+        rows.append(
+            {
+                "letter": e.char,
+                "name": e.name,
+                "phi": phi_val,
+                "norm2": norm2_val,
+                "surplus": phi_val - norm2_val,
+                "phi_theta": E[0][0] ** 2 + E[0][1] ** 2 + E[0][2] ** 2,
+            }
+        )
     rows.sort(key=lambda x: x["phi"], reverse=True)
     for i, row in enumerate(rows):
         row["rank"] = i + 1
@@ -121,6 +126,22 @@ def reconstruct(E: List[List[int]]) -> List[int]:
     a_q = qp + qx + qs + qa + qc
     h_star = E[4][0]
     return [
-        theta, na, nb, nd, kp, kx, ks, ka, kc,
-        qp, qx, qs, qa, qc, a_n, a_k, a_q, h_star,
+        theta,
+        na,
+        nb,
+        nd,
+        kp,
+        kx,
+        ks,
+        ka,
+        kc,
+        qp,
+        qx,
+        qs,
+        qa,
+        qc,
+        a_n,
+        a_k,
+        a_q,
+        h_star,
     ]

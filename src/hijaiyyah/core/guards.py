@@ -17,7 +17,7 @@ Audit relations R1–R5 (Identity 33.1.1):
 
 from __future__ import annotations
 
-from typing import Any, Dict, List, Union
+from typing import Any, Dict, List
 
 
 def _to_vec(v: Any) -> List[int]:
@@ -83,7 +83,12 @@ def guard_detail(v: Any) -> Dict[str, Any]:
     R5 = U == vec[10] + vec[11] + vec[12] + 4 * vec[13]
 
     return {
-        "R1": R1, "R2": R2, "R3": R3, "R4": R4, "R5": R5,
-        "U": U, "rho": rho,
+        "R1": R1,
+        "R2": R2,
+        "R3": R3,
+        "R4": R4,
+        "R5": R5,
+        "U": U,
+        "rho": rho,
         "all_pass": R1 and R2 and R3 and R4 and R5,
     }
