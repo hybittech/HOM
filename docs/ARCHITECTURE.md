@@ -340,7 +340,7 @@ Module:       hm::vectronometry::norm2(h)
 hm::vectronometry    — rasio, norm, inner product, cosine
 hm::differential     — delta, decomposition, gradient
 hm::integral         — string integral, centroid, trajectory
-hm::geometry         — distance, nearest, diameter, Gram
+hm::geometry         — distance, nearest, diameter, gram
 hm::exomatrix        — build, audit, phi, reconstruct
 ```
 
