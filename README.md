@@ -12,6 +12,8 @@
 [![License](https://img.shields.io/badge/License-Proprietary-red)]()
 [![Tests](https://img.shields.io/badge/Tests-13%2F13%20PASS-brightgreen)]()
 [![Dataset](https://img.shields.io/badge/Dataset-28×18%20SEALED-orange)]()
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/hybittech/HOM)
+[![Run on Replit](https://replit.com/badge/github/hybittech/HOM)](https://replit.com/github/hybittech/HOM)
 
 **HOM** adalah sistem komputasi formal dan lingkungan kerja ilmiah terpadu untuk **Matematika Hijaiyyah** — sistem matematika murni yang memetakan 28 huruf Hijaiyyah kanonik ke dalam codex integer 18-dimensi melalui empat invarian geometri diskret.
 
