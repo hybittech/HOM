@@ -529,10 +529,22 @@ Lihat [`LICENSE`](LICENSE) untuk detail lengkap.
 
 ## Penulis
 
-Firman Arief Hidayatullah  
-Perancang & Perumus Matematika Hijaiyyah  
-Key ID: FAH-SIG  
-© 2026 HMCL
+```
+╔══════════════════════════════════════════════════════════╗
+║     AUTHOR SIGNATURE                                     ║
+╠══════════════════════════════════════════════════════════╣
+║                                                          ║
+║     Signed:     Firman Arief Hidayatullah                ║
+║                 Perancang & Perumus Matematika Hijaiyyah ║
+║     Key ID:     FAH-SIG                                  ║
+║     Release:    HM-28-v1.0-HC18D-B84D025                 ║
+║     Seal:       VERIFIED & SEALED                        ║
+║                                                          ║
+║     © 2026 (HMCL)                                        ║
+║     Hijaiyyah Mathematics Computational Laboratory       ║
+║                                                          ║
+╚══════════════════════════════════════════════════════════╝
+```
 
 ---
 
