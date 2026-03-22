@@ -465,33 +465,33 @@ fn main() {
 ## Release Certificate
 
 ```
-╔══════════════════════════════════════════════════════════════╗
-║     HIJAIYYAH MATHEMATICS — RELEASE CERTIFICATE              ║
-╠══════════════════════════════════════════════════════════════╣
-║                                                              ║
-║     Release:    HM-28-v1.0-HC18D-B84D025                     ║
-║     Version:    1.0.0                                        ║
-║     Date:       2026                                         ║
-║     Status:     VERIFIED & SEALED                            ║
-║                                                              ║
-║     Dataset:    28 letters × 18 dimensions                   ║
-║     ROM:        252 bytes (nibble-packed)                    ║
-║                                                              ║
-║     SHA-256:                                                 ║
-║     f82d385917ffe32ae2b5711409b1341e90934c52172a              ║
-║     e9d0fa68888e3b9c51c8                                     ║
-║                                                              ║
-║     Integrity:  SEALED                                       ║
-║                                                              ║
-║  ── HISAB Protocol (Bab IV) ───────────────────────────────  ║
-║     Standard:   HISAB v1.0 — Auditable Bridging              ║
-║     Magic:      0x4842 ("HB")                                ║
-║     Frames:     LETTER · STRING · MATRIX · DELTA · TABLE     ║
-║     Validation: 3-level (Structural + Guard + Semantic)      ║
-║     Round-trip: D(S(h*)) = h* ∀h* ∈ V  VERIFIED              ║
-║     Compliance: HC-2 (Standard)                              ║
-║                                                              ║
-╚══════════════════════════════════════════════════════════════╝
+╔══════════════════════════════════════════════════════════╗
+║     HIJAIYYAH MATHEMATICS — RELEASE CERTIFICATE          ║
+╠══════════════════════════════════════════════════════════╣
+║                                                          ║
+║     Release:    HM-28-v1.0-HC18D-B84D025                 ║
+║     Version:    1.0.0                                    ║
+║     Date:       2026                                     ║
+║     Status:     VERIFIED & SEALED                        ║
+║                                                          ║
+║     Dataset:    28 letters × 18 dimensions               ║
+║     ROM:        252 bytes (nibble-packed)                ║
+║                                                          ║
+║     SHA-256:                                             ║
+║     f82d385917ffe32ae2b5711409b1341e90934c52172a         ║
+║     e9d0fa68888e3b9c51c8                                 ║
+║                                                          ║
+║     Integrity:  SEALED                                   ║
+║                                                          ║
+║  ── HISAB Protocol ────────────────────────────────────  ║
+║     Standard:   HISAB v1.0 — Auditable Bridging          ║
+║     Magic:      0x4842 ("HB")                            ║
+║     Frames:     LETTER · STRING · MATRIX · DELTA · TABLE ║
+║     Validation: 3-level (Structural + Guard + Semantic)  ║
+║     Round-trip: D(S(h*)) = h* ∀h* ∈ V  VERIFIED          ║
+║     Compliance: HC-2 (Standard)                          ║
+║                                                          ║
+╚══════════════════════════════════════════════════════════╝
 ```
 
 ---
@@ -529,16 +529,10 @@ Lihat [`LICENSE`](LICENSE) untuk detail lengkap.
 
 ## Penulis
 
-<table>
-  <tr>
-    <td align="center">
-      <strong>Firman Arief Hidayatullah</strong><br>
-      Perancang & Perumus Matematika Hijaiyyah<br>
-      Key ID: FAH-SIG<br>
-      © 2026 HMCL
-    </td>
-  </tr>
-</table>
+Firman Arief Hidayatullah  
+Perancang & Perumus Matematika Hijaiyyah  
+Key ID: FAH-SIG  
+© 2026 HMCL
 
 ---
 

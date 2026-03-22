@@ -268,15 +268,20 @@ class ReleaseTab:
         self._out.writeln(f"║     Date:       {RELEASE_DATE:<44s}║", "value")
         self._out.writeln(f"║     Status:     VERIFIED & SEALED{'':>28s}║", "pass")
         self._out.writeln("║" + " " * 62 + "║", "border")
-        self._out.writeln("║  ── HISAB Protocol (Bab IV) " + "─" * 31 + "  ║", "seal")
-        self._out.writeln("║     Standard:   HISAB v1.0 — Auditable Bridging              ║", "value")
-        self._out.writeln("║     Magic:      0x4842 ('HB')                                ║", "value")
-        self._out.writeln("║     Frames:     LETTER · STRING · MATRIX · DELTA · TABLE     ║", "value")
-        self._out.writeln("║     Validation: 3-level (Structural + Guard + Semantic)      ║", "value")
-        self._out.writeln("║     Round-trip: D(S(h*)) = h* ∀h* ∈ V  VERIFIED              ║", "pass")
-        self._out.writeln("║     Compliance: HC-2 (Standard)                              ║", "value")
-        self._out.writeln("║" + " " * 62 + "║", "border")
         self._out.writeln("╚" + "═" * 62 + "╝", "border")
+        self._out.writeln()
+
+        # ── HISAB Protocol
+        self._out.writeln("  HISAB PROTOCOL", "section")
+        self._out.writeln("  " + "─" * 55, "dim")
+        self._out.writeln()
+        self._out.writeln("  Standard:    HISAB v1.0 — Auditable Bridging", "value")
+        self._out.writeln("  Magic:       0x4842 ('HB')", "value")
+        self._out.writeln("  Frames:      LETTER · STRING · MATRIX · DELTA · TABLE", "value")
+        self._out.writeln("  Validation:  3-level (Structural + Guard + Semantic)", "value")
+        self._out.writeln("  Round-trip:  D(S(h*)) = h*  ∀h* ∈ V  VERIFIED", "pass")
+        self._out.writeln("  Compliance:  HC-2 (Standard)", "value")
+        self._out.writeln("  Footprint:   18 bytes/LETTER frame", "value")
         self._out.writeln()
 
         # ── Dataset Seal
