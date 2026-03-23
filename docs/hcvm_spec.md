@@ -1313,7 +1313,7 @@ while not vm.state.halted:
 | `src/hijaiyyah/gui/tabs/hcvm.py` | GUI integration |
 | `src/hijaiyyah/hisa/machine.py` | H-ISA machine core |
 | Bab I–II | Fondasi dan operasi Matematika Hijaiyyah |
-| | Hijaiyyah Technology Stack |
+| Bab IV | Hijaiyyah Technology Stack |
 
 ---
 
