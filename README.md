@@ -94,6 +94,27 @@ melalui empat invarian geometri diskret:
 
 Unit komputasi formal yang dihasilkan disebut **hybit** (*Hijaiyyah Hyperdimensional Bit Integration Technology*) — paradigma komputasi ketiga yang secara aljabar berbeda dari bit dan qubit.
 
+### Batas Domain (Scope & Boundaries)
+
+\[
+\boxed{
+\text{Matematika Hijaiyyah} = \text{formalisasi huruf skriptural kanonik, dengan Hijaiyyah sebagai inti resmi}
+}
+\]
+
+Sistem ini **harus tetap berpusat pada huruf sebagai bentuk skriptural kanonik**, dengan pedoman berikut:
+
+1. **Inti Resmi:** Domain inti dari sistem ini adalah **Hijaiyyah**. Matematika Hijaiyyah bukanlah framework generik untuk semua karakter Latin/ASCII atau simbol teknis utilitarian. Ekspansi ke alfabet lain di dalam sistem harus bersifat murni skriptural.
+2. **HAR (Alphabet Registry):** Ruang lingkup keanggotaan HAR dibatasi pada analisis geometri karakter sebagai objek formal skriptural. `HAR-001 (Hijaiyyah)` adalah satu-satunya inti yang akan selalu berstatus tersertifikasi resmi (CERTIFIED) sebagai referensi standar.
+3. **HC Language:** HC (Hijaiyyah Codex) adalah **alat komputasi hybit** (bahasa source tekstual dengan tokenizer/parser reguler), **bukan** proyek formalisasi visual di mana setiap token bahasanya harus menjadi hybit. Runtime hybit-aware hanya berlaku saat menangani objek codex Hijaiyyah.
+
+Dengan begitu, paradigma bahasa ditetapkan sebagai berikut:
+\[
+\boxed{
+\text{HC adalah bahasa untuk mengoperasikan hybit, bukan bahasa yang setiap tokennya harus menjadi hybit}
+}
+\]
+
 ---
 
 ## Changelog Update Terbaru
