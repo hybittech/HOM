@@ -456,6 +456,7 @@ fn main() {
 | Spesifikasi H-ISA | [`docs/hisa_spec.md`](docs/hisa_spec.md) |
 | Spesifikasi CSGI | [`docs/csgi_spec.md`](docs/csgi_spec.md) |
 | Spesifikasi HCVM | [`docs/hcvm_spec.md`](docs/hcvm_spec.md) |
+| **Spesifikasi Pipeline Hybit** | [`docs/hybit_pipeline_spec.md`](docs/hybit_pipeline_spec.md) — **Arsitektur file (.hc, .hasm, .hbc, .hgeo, HAR), kompilasi (HCC, HASM), runtime (HVM, Guard, HCHECK), dan OS (HOS, HFS, H-Kernel) — tanpa tumpang tindih** |
 | **Spesifikasi HISAB** | ** — Serialisasi, Validasi, Interoperabilitas** |
 | Kebijakan rilis | [`docs/release_policy.md`](docs/release_policy.md) |
 | Changelog | [`CHANGELOG.md`](CHANGELOG.md) |
