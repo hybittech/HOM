@@ -21,10 +21,10 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from ...core.master_table import MasterTable, MASTER_TABLE
 from ...core.codex_entry import CodexEntry
 from ...core.guards import guard_check, guard_detail, compute_U
-from ...algebra import vectronometry as vec
-from ...algebra import integral as integ
-from ...algebra import geometry as geo
-from ...algebra import exomatrix_analysis as exo
+from ...algebra import vektronometry as vec
+from ...algebra import aggregametric as integ
+from ...algebra import intrametric as geo
+from ...algebra import exometric as exo
 from ..theme import THEME
 from ..widgets import OutputWriter, make_text
 

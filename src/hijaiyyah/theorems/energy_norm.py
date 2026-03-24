@@ -1,7 +1,7 @@
 """Energy-norm inequality: Φ(h) > ‖v₁₄‖² (Theorem 34.3.1)."""
 
-from ..algebra.exomatrix_analysis import build, phi
-from ..algebra.vectronometry import norm2
+from ..algebra.exometric import build, phi
+from ..algebra.vektronometry import norm2
 from ..core.master_table import MASTER_TABLE
 
 

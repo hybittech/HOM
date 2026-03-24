@@ -352,7 +352,7 @@ har/
 │   │   ├── r1r5_report.json   ← 140/140 PASS
 │   │   └── rank_analysis.json ← rank = 14
 │   ├── glyphs/                ← .hgeo per huruf
-│   └── certificate.json       ← Release seal
+│── └── certificate.json       ← Release seal
 
 ```
 

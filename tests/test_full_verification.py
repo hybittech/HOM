@@ -21,11 +21,11 @@ from hijaiyyah.core.master_table import MASTER_TABLE
 from hijaiyyah.core.codex_entry import CodexEntry
 from hijaiyyah.core.guards import guard_check, guard_detail, compute_U, compute_rho
 from hijaiyyah.core.exomatrix import build_exomatrix
-from hijaiyyah.algebra import vectronometry as vec
-from hijaiyyah.algebra import differential as diff_mod
-from hijaiyyah.algebra import integral as integ
-from hijaiyyah.algebra import geometry as geo
-from hijaiyyah.algebra import exomatrix_analysis as exo
+from hijaiyyah.algebra import vektronometry as vec
+from hijaiyyah.algebra import normivektor as diff_mod
+from hijaiyyah.algebra import aggregametric as integ
+from hijaiyyah.algebra import intrametric as geo
+from hijaiyyah.algebra import exometric as exo
 
 
 # ── Helpers ────────────────────────────────────────────────────────

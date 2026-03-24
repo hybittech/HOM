@@ -23,8 +23,8 @@ from typing import Any, List, Optional, Tuple
 
 from ...core.master_table import MasterTable
 from ...core.codex_entry import CodexEntry
-from ...algebra import geometry as geo
-from ...algebra import vectronometry as vec
+from ...algebra import intrametric as geo
+from ...algebra import vektronometry as vec
 from ..theme import THEME
 from ..widgets import OutputWriter, make_text
 

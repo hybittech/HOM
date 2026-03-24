@@ -1,7 +1,7 @@
 from hijaiyyah.core.master_table import MASTER_TABLE
 from hijaiyyah.core.guards import guard_check
 from hijaiyyah.core.rom import pack_rom, unpack_rom
-from hijaiyyah.algebra.integral import string_integral
+from hijaiyyah.algebra.aggregametric import string_integral
 from hijaiyyah.integrity.injectivity import InjectivityVerifier
 
 def test_full_stack():

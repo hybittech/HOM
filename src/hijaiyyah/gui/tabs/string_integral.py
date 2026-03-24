@@ -24,8 +24,8 @@ from typing import Any, List, Optional, Tuple
 
 from ...core.master_table import MasterTable
 from ...core.guards import compute_U
-from ...algebra import integral as integ
-from ...algebra import exomatrix_analysis as exo
+from ...algebra import aggregametric as integ
+from ...algebra import exometric as exo
 from ..theme import THEME
 from ..widgets import OutputWriter, make_text
 

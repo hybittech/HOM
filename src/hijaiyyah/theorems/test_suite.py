@@ -5,7 +5,7 @@ from dataclasses import dataclass
 from typing import List
 from ..core.master_table import MASTER_TABLE
 from ..core.guards import guard_check, guard_detail, compute_U
-from ..algebra import vectronometry, integral, geometry, exomatrix_analysis
+from ..algebra import vektronometry, aggregametric, intrametric, exometric
 
 
 @dataclass
@@ -66,49 +66,49 @@ class TheoremTestSuite:
             assert rho >= 0 and v[0] == U + rho
 
     def _integral_add(self):
-        bs = integral.string_integral("بس")
-        m = integral.string_integral("م")
-        bsm = integral.string_integral("بسم")
-        assert integral.add_codex(bs, m)["cod18"] == bsm["cod18"]
+        bs = aggregametric.string_integral("بس")
+        m = aggregametric.string_integral("م")
+        bsm = aggregametric.string_integral("بسم")
+        assert aggregametric.add_codex(bs, m)["cod18"] == bsm["cod18"]
 
     def _pyth(self):
         for e in self._entries():
-            assert vectronometry.pythagorean_check(e)["pass"]
+            assert vektronometry.pythagorean_check(e)["pass"]
 
     def _phi(self):
         for e in self._entries():
-            E = exomatrix_analysis.build(e)
-            assert exomatrix_analysis.phi(E) > vectronometry.norm2(e)
+            E = exometric.build(e)
+            assert exometric.phi(E) > vektronometry.norm2(e)
 
     def _diam(self):
-        assert geometry.diameter_sq() == 70
+        assert intrametric.diameter_sq() == 70
 
     def _ratios(self):
         for e in self._entries():
             v = list(e.vector)
             if v[14] + v[15] + v[16] == 0:
                 continue
-            r = vectronometry.primitive_ratios(e)
+            r = vektronometry.primitive_ratios(e)
             assert abs(r["r_N"] + r["r_K"] + r["r_Q"] - 1.0) < 1e-9
 
     def _polar(self):
         es = self._entries()
         for i, e1 in enumerate(es):
             for e2 in es[i + 1 :]:
-                assert geometry.polarization_check(e1, e2)["pass"]
+                assert intrametric.polarization_check(e1, e2)["pass"]
 
     def _exo(self):
         for e in self._entries():
-            assert exomatrix_analysis.audit(exomatrix_analysis.build(e))["all_pass"]
+            assert exometric.audit(exometric.build(e))["all_pass"]
 
     def _recon(self):
         for e in self._entries():
             v = list(e.vector)
-            v2 = exomatrix_analysis.reconstruct(exomatrix_analysis.build(e))
+            v2 = exometric.reconstruct(exometric.build(e))
             assert v == v2, f"{e.char}"
 
     def _anagram(self):
-        assert integral.string_integral("بسم")["cod18"] == integral.string_integral("سبم")["cod18"]
+        assert aggregametric.string_integral("بسم")["cod18"] == aggregametric.string_integral("سبم")["cod18"]
 
     def _guard_d(self):
         for e in self._entries():

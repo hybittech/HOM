@@ -25,9 +25,9 @@ from typing import Any, Callable, Dict, List, Optional, Tuple
 from ...core.master_table import MasterTable
 from ...core.codex_entry import CodexEntry
 from ...core.guards import guard_check, compute_U, compute_rho
-from ...algebra import vectronometry as vec
-from ...algebra import geometry as geo
-from ...algebra import exomatrix_analysis as exo
+from ...algebra import vektronometry as vec
+from ...algebra import intrametric as geo
+from ...algebra import exometric as exo
 from ..theme import THEME
 from ..widgets import OutputWriter, make_text
 

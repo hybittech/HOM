@@ -1,4 +1,4 @@
-from hijaiyyah.algebra.integral import string_integral, add_codex
+from hijaiyyah.algebra.aggregametric import string_integral, add_codex
 def test_additivity():
     bs=string_integral("بس"); m=string_integral("م"); bsm=string_integral("بسم")
     assert add_codex(bs,m)["cod18"]==bsm["cod18"]

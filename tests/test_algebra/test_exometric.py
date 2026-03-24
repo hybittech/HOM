@@ -1,5 +1,5 @@
-from hijaiyyah.algebra.exomatrix_analysis import build, audit, phi, reconstruct
-from hijaiyyah.algebra.vectronometry import norm2
+from hijaiyyah.algebra.exometric import build, audit, phi, reconstruct
+from hijaiyyah.algebra.vektronometry import norm2
 from hijaiyyah.core.master_table import MASTER_TABLE
 def test_audit_all():
     for e in MASTER_TABLE.all_entries(): assert audit(build(e))["all_pass"]

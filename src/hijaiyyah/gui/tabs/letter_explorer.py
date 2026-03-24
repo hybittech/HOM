@@ -24,9 +24,9 @@ from ...core.master_table import MasterTable
 from ...core.codex_entry import CodexEntry
 from ...core.guards import guard_check, guard_detail, compute_U, compute_rho
 from ...core.exomatrix import build_exomatrix
-from ...algebra import vectronometry as vec
-from ...algebra import geometry as geo
-from ...algebra import exomatrix_analysis as exo
+from ...algebra import vektronometry as vec
+from ...algebra import intrametric as geo
+from ...algebra import exometric as exo
 from ..theme import THEME
 
 

@@ -1,6 +1,6 @@
 """Vectronometric Pythagorean theorem (Theorem 20.2.1)."""
 
-from ..algebra.vectronometry import pythagorean_check
+from ..algebra.vektronometry import pythagorean_check
 from ..core.master_table import MASTER_TABLE
 
 

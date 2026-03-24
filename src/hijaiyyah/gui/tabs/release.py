@@ -589,7 +589,7 @@ class ReleaseTab:
 
         modules = [
             ("hijaiyyah.core", "Core types and Master Table"),
-            ("hijaiyyah.algebra", "Five mathematical fields"),
+            ("hijaiyyah.algebra", "Metrik-Vektorial"),
             ("hijaiyyah.language", "HC v1.0 lexer/parser/evaluator"),
             ("hijaiyyah.hisa", "H-ISA instruction set"),
             ("hijaiyyah.hisab", "HISAB protocol"),
