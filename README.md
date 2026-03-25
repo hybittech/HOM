@@ -29,11 +29,7 @@ MATEMATIKA HIJAIYYAH
 
 ---
 
-</div>
 
-> **📦 Update Terakhir — v1.2.0-pipeline (2025-06)**
->
-> Codebase telah di-align dengan arsitektur Bab III (Hybit Pipeline) dan **seluruh terminologi Bab II diperbarui** dari "Lima Bidang" menjadi **Sistem Operasi Metrik-Vektorial** (Vektronometry · Normivektor · Aggregametric · Intrametric · Exometric). Verifikasi penuh: **1.611/1.611 pytest PASS** (termasuk 1.380-check framework formal). Lihat [Changelog Update](#changelog-update-terbaru) di bawah untuk detail lengkap.
 
 ---
 
