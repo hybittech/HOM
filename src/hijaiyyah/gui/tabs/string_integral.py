@@ -1,17 +1,17 @@
 """
-Tab: String Integral — Additive Codex Computation Engine
-==========================================================
+Tab: String Aggregametric — Additive Codex Computation Engine
+==============================================================
 Professional string analysis with:
   - Real-time codex computation (Cod₁₈)
   - Full 18-component breakdown with named slots
-  - Layer integrals (∫Θ̂, ∫U, ∫ρ) with identity verification
+  - Layer aggregation (ΣΘ̂, ΣU, Σρ) with identity verification
   - Cumulative trajectory visualization (S₀ → Sₙ)
   - Per-letter decomposition table
   - Centroid (mean v₁₈)
   - String comparison mode
   - Preset strings for quick analysis
   - Anagram verification
-  - Energy integral computation
+  - Energy aggregation computation
 """
 
 from __future__ import annotations
@@ -48,7 +48,7 @@ PRESETS: List[Tuple[str, str]] = [
 
 class StringIntegralTab:
     """
-    Tab: String Integral — Additive Codex Computation Engine
+    Tab: String Aggregametric — Additive Codex Computation Engine
 
     Layout:
     ┌──────────────────────────────────────────────────────┐
@@ -57,11 +57,11 @@ class StringIntegralTab:
     ├──────────────────────────────────────────────────────┤
     │                                                      │
     │  ① Cod₁₈ Vector (18 named components)               │
-    │  ② Layer Integrals (Θ̂, U, ρ with identity check)   │
+    │  ② Layer Aggregation (Θ̂, U, ρ with identity check)  │
     │  ③ Per-Letter Decomposition Table                    │
     │  ④ Cumulative Trajectory (S₀ → Sₙ)                 │
     │  ⑤ Centroid (mean v₁₈)                              │
-    │  ⑥ Energy Integral                                   │
+    │  ⑥ Energy Aggregation                                │
     │  ⑦ Comparison (if two strings)                       │
     │                                                      │
     └──────────────────────────────────────────────────────┘
@@ -75,7 +75,7 @@ class StringIntegralTab:
     ) -> None:
         self._table = table
         self._tab = ttk.Frame(notebook)
-        notebook.add(self._tab, text="  ∑ String Integral  ")
+        notebook.add(self._tab, text="  Σ String Aggregametric  ")
 
         self._text: Optional[tk.Text] = None
         self._out: Optional[OutputWriter] = None
@@ -174,22 +174,22 @@ class StringIntegralTab:
         if self._out is None:
             return
         self._out.clear()
-        self._out.writeln("STRING INTEGRAL ENGINE — ∫ₘ h⃗", "title")
+        self._out.writeln("STRING AGGREGAMETRIC ENGINE — Σₘ h⃗", "title")
         self._out.writeln("═" * 60)
         self._out.writeln()
-        self._out.writeln("Compute the additive codex integral for any Hijaiyyah string.", "dim")
+        self._out.writeln("Compute the additive codex aggregation for any Hijaiyyah string.", "dim")
         self._out.writeln()
-        self._out.writeln("  Cod₁₈(w) = Σᵢ v₁₈(xᵢ)   (Definition 25.1.1)", "formula")
-        self._out.writeln("  ∫_{uv} = ∫_u + ∫_v        (Theorem 25.2.1 — Additivity)", "formula")
-        self._out.writeln("  ∫_w Θ̂ = ∫_w U + ∫_w ρ    (Turning budget conservation)", "formula")
+        self._out.writeln("  Cod₁₈(w) = Σᵢ v₁₈(xᵢ)   (Definition §2.3.1)", "formula")
+        self._out.writeln("  Σ_{uv} = Σ_u + Σ_v        (Theorem §2.3.2 — Additivity)", "formula")
+        self._out.writeln("  Σ_w Θ̂ = Σ_w U + Σ_w ρ    (Turning budget conservation)", "formula")
         self._out.writeln()
         self._out.writeln("Features:", "dim")
         self._out.writeln("  ① Full 18D codex vector with named components", "dim")
-        self._out.writeln("  ② Layer integrals with identity verification", "dim")
+        self._out.writeln("  ② Layer aggregation with identity verification", "dim")
         self._out.writeln("  ③ Per-letter decomposition table", "dim")
         self._out.writeln("  ④ Cumulative trajectory S₀ → Sₙ", "dim")
         self._out.writeln("  ⑤ Centroid (mean letter profile)", "dim")
-        self._out.writeln("  ⑥ Energy integral Σ Φ(xᵢ)", "dim")
+        self._out.writeln("  ⑥ Energy aggregation Σ Φ(xᵢ)", "dim")
         self._out.writeln("  ⑦ Two-string comparison", "dim")
         self._out.writeln("  ⑧ Anagram invariance check", "dim")
         self._out.writeln()
@@ -400,16 +400,16 @@ class StringIntegralTab:
         w.writeln()
 
         # ── Section 2: Layer Integrals
-        w.writeln("② LAYER INTEGRALS — Turning Budget Conservation", "section")
+        w.writeln("② LAYER AGGREGATION — Turning Budget Conservation", "section")
         w.writeln("─" * 60, "dim")
         w.writeln()
-        w.writeln(f"  ∫ Θ̂ = {layers['theta']:>4d}  ({layers['theta'] * 90}°)", "value")
-        w.writeln(f"  ∫ U  = {U_total:>4d}  (non-primary turning budget)", "value")
-        w.writeln(f"  ∫ ρ  = {rho_total:>4d}  (primary turning residue)", "value")
+        w.writeln(f"  Σ Θ̂ = {layers['theta']:>4d}  ({layers['theta'] * 90}°)", "value")
+        w.writeln(f"  Σ U  = {U_total:>4d}  (non-primary turning budget)", "value")
+        w.writeln(f"  Σ ρ  = {rho_total:>4d}  (primary turning residue)", "value")
         w.writeln()
 
         identity_ok = layers["theta"] == U_total + rho_total
-        w.writeln("  Identity: ∫Θ̂ = ∫U + ∫ρ", "formula")
+        w.writeln("  Identity: ΣΘ̂ = ΣU + Σρ", "formula")
         w.writeln(
             f"           {layers['theta']} = {U_total} + {rho_total}  "
             f"{'✓ VERIFIED' if identity_ok else '✗ VIOLATION'}",
@@ -541,7 +541,7 @@ class StringIntegralTab:
             w.writeln()
 
         # ── Section 6: Energy
-        w.writeln("⑥ ENERGY INTEGRAL — Σ Φ(xᵢ)", "section")
+        w.writeln("⑥ ENERGY AGGREGATION — Σ Φ(xᵢ)", "section")
         w.writeln("─" * 60, "dim")
         w.writeln()
 

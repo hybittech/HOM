@@ -1,16 +1,16 @@
 """
-Tab: Five Fields Explorer — Comprehensive Per-Letter Analysis
-================================================================
-Professional multi-field analysis covering all five operational
-fields of Hijaiyyah Mathematics (Bab II, Chapters 17–36):
+Tab: Metrik-Vektorial Workbench — Comprehensive Per-Letter Analysis
+====================================================================
+Professional multi-operation analysis covering all five metrik-vektorial
+operations of Hijaiyyah Mathematics (Bab II, §2.1–§2.5):
 
-  Field 1: Vectronometry        — ratios, norms, Pythagorean
-  Field 2: Differential Calculus — differences, gradients
-  Field 3: Integral Calculus     — string integral, trajectory
-  Field 4: Codex Geometry        — distances, neighbors, topology
-  Field 5: Exomatrix Analysis    — 5×5 matrix, energy, audit
+  Operation 1: Vektronometry (VTM)  — ratios, norms, Pythagorean
+  Operation 2: Normivektor (NMV)    — differences, gradients
+  Operation 3: Aggregametric (AGM)  — string aggregation, trajectory
+  Operation 4: Intrametric (ITM)    — distances, neighbors, topology
+  Operation 5: Exometric (EXM)      — 5×5 matrix, energy, audit
 
-Each field includes theorem references, formula display,
+Each operation includes theorem references, formula display,
 computed values, verification checks, and interpretation.
 """
 
@@ -98,26 +98,26 @@ def _find_dot_family(entry: CodexEntry) -> List[Tuple[str, str, str]]:
 
 class FiveFieldsTab:
     """
-    Tab: Five Fields Explorer
+    Tab: Metrik-Vektorial Workbench
 
     Layout:
     ┌──────────────────────────────────────────────────────┐
     │  [Letter selector] [▶ Analyze] [Energy] [Vectro]    │
     ├──────────────────────────────────────────────────────┤
     │                                                      │
-    │  ① VECTRONOMETRY (Ch 17–21)                         │
+    │  ① VEKTRONOMETRY / VTM (§2.1)                       │
     │    Subspace decomposition, ratios, norms, Pythagoras │
     │                                                      │
-    │  ② DIFFERENTIAL CALCULUS (Ch 22–24)                  │
+    │  ② NORMIVEKTOR / NMV (§2.2)                         │
     │    Differences, dot-variants, U-gradient              │
     │                                                      │
-    │  ③ INTEGRAL CALCULUS (Ch 25–28)                      │
-    │    Single-letter integral, classification             │
+    │  ③ AGGREGAMETRIC / AGM (§2.3)                       │
+    │    Single-letter aggregation, classification          │
     │                                                      │
-    │  ④ CODEX GEOMETRY (Ch 29–31)                        │
+    │  ④ INTRAMETRIC / ITM (§2.4)                         │
     │    Nearest neighbors, distances, orthogonality        │
     │                                                      │
-    │  ⑤ EXOMATRIX ANALYSIS (Ch 32–36)                    │
+    │  ⑤ EXOMETRIC / EXM (§2.5)                           │
     │    5×5 matrix, R1–R5, energy, reconstruction         │
     │                                                      │
     └──────────────────────────────────────────────────────┘
@@ -131,7 +131,7 @@ class FiveFieldsTab:
     ) -> None:
         self._table = table
         self._tab = ttk.Frame(notebook)
-        notebook.add(self._tab, text="  ⬡ Five Fields  ")
+        notebook.add(self._tab, text="  ⬡ Metrik-Vektorial  ")
         self._entries = table.all_entries()
 
         self._text: Optional[tk.Text] = None
@@ -239,25 +239,25 @@ class FiveFieldsTab:
         if out is None:
             return
         out.clear()
-        out.writeln("FIVE FIELDS EXPLORER — Bab II Complete Analysis", "title")
+        out.writeln("METRIK-VEKTORIAL WORKBENCH — Bab II Complete Analysis", "title")
         out.writeln("═" * 60)
         out.writeln()
-        out.writeln("Analyze any letter through all five operational fields", "dim")
-        out.writeln("of Hijaiyyah Mathematics (Chapters 17–36):", "dim")
+        out.writeln("Analyze any letter through all five metrik-vektorial", "dim")
+        out.writeln("operations of Hijaiyyah Mathematics (§2.1–§2.5):", "dim")
         out.writeln()
-        out.writeln("  ① Vectronometry    — structure ratios, norms     (Ch 17–21)", "sub")
+        out.writeln("  ① Vektronometry (VTM) — structure ratios, norms    (§2.1)", "sub")
         out.writeln("     What is this letter made of?", "dim")
         out.writeln()
-        out.writeln("  ② Differential     — differences, gradients      (Ch 22–24)", "sub")
+        out.writeln("  ② Normivektor (NMV)   — differences, gradients     (§2.2)", "sub")
         out.writeln("     How does it differ from other letters?", "dim")
         out.writeln()
-        out.writeln("  ③ Integral         — string accumulation         (Ch 25–28)", "sub")
+        out.writeln("  ③ Aggregametric (AGM) — string accumulation        (§2.3)", "sub")
         out.writeln("     What does it contribute to a string?", "dim")
         out.writeln()
-        out.writeln("  ④ Geometry         — distances, neighbors        (Ch 29–31)", "sub")
+        out.writeln("  ④ Intrametric (ITM)   — distances, neighbors       (§2.4)", "sub")
         out.writeln("     Where does it sit in codex space?", "dim")
         out.writeln()
-        out.writeln("  ⑤ Exomatrix        — 5×5 audit matrix, energy    (Ch 32–36)", "sub")
+        out.writeln("  ⑤ Exometric (EXM)     — 5×5 audit matrix, energy   (§2.5)", "sub")
         out.writeln("     Is it internally consistent?", "dim")
         out.writeln()
         out.writeln("Select a letter and press ▶ Full Analysis.", "dim")
@@ -300,7 +300,7 @@ class FiveFieldsTab:
 
         w.writeln(f"╔{'═' * 60}╗", "dim")
         w.writeln(
-            f"║  FIVE-FIELD ANALYSIS: {entry.char}  ({entry.name})  — #{entry.index}/28", "title"
+            f"║  METRIK-VEKTORIAL ANALYSIS: {entry.char}  ({entry.name})  — #{entry.index}/28", "title"
         )
         w.writeln(f"╚{'═' * 60}╝", "dim")
         w.writeln()
@@ -315,8 +315,8 @@ class FiveFieldsTab:
         if w is None:
             return
 
-        w.writeln("①  VECTRONOMETRY — Structure Measurement", "section")
-        w.writeln('   Bab II-A, Chapters 17–21: "What is this letter made of?"', "ref")
+        w.writeln("①  VEKTRONOMETRY (VTM) — Structure Measurement", "section")
+        w.writeln('   Bab II §2.1: "What is this letter made of?"', "ref")
         w.writeln("─" * 60, "dim")
         w.writeln()
 
@@ -443,8 +443,8 @@ class FiveFieldsTab:
         if w is None:
             return
 
-        w.writeln("②  DIFFERENTIAL CALCULUS — Structural Differences", "section")
-        w.writeln('   Bab II-B, Chapters 22–24: "How does it differ from others?"', "ref")
+        w.writeln("②  NORMIVEKTOR (NMV) — Structural Differences", "section")
+        w.writeln('   Bab II §2.2: "How does it differ from others?"', "ref")
         w.writeln("─" * 60, "dim")
         w.writeln()
 
@@ -506,8 +506,8 @@ class FiveFieldsTab:
         if w is None:
             return
 
-        w.writeln("③  INTEGRAL CALCULUS — String Contribution", "section")
-        w.writeln('   Bab II-C, Chapters 25–28: "What does it contribute to a string?"', "ref")
+        w.writeln("③  AGGREGAMETRIC (AGM) — String Contribution", "section")
+        w.writeln('   Bab II §2.3: "What does it contribute to a string?"', "ref")
         w.writeln("─" * 60, "dim")
         w.writeln()
 
@@ -554,8 +554,8 @@ class FiveFieldsTab:
         if w is None:
             return
 
-        w.writeln("④  CODEX GEOMETRY — Position in Codex Space", "section")
-        w.writeln('   Bab II-D, Chapters 29–31: "Where does it sit in the space?"', "ref")
+        w.writeln("④  INTRAMETRIC (ITM) — Position in Codex Space", "section")
+        w.writeln('   Bab II §2.4: "Where does it sit in the space?"', "ref")
         w.writeln("─" * 60, "dim")
         w.writeln()
 
@@ -645,8 +645,8 @@ class FiveFieldsTab:
         if w is None:
             return
 
-        w.writeln("⑤  EXOMATRIX ANALYSIS — Structured Audit Matrix", "section")
-        w.writeln('   Bab II-E, Chapters 32–36: "Is it internally consistent?"', "ref")
+        w.writeln("⑤  EXOMETRIC (EXM) — Structured Audit Matrix", "section")
+        w.writeln('   Bab II §2.5: "Is it internally consistent?"', "ref")
         w.writeln("─" * 60, "dim")
         w.writeln()
 

@@ -1,7 +1,7 @@
 """
-Tab: Codex Geometry — Distance Metrics, Topology, and Spatial Analysis
-========================================================================
-Professional geometry analysis covering Bab II-D (Chapters 29–31):
+Tab: Codex Intrametric — Distance Metrics, Topology, and Spatial Analysis
+==========================================================================
+Professional intrametric analysis covering Bab II §2.4:
 
   - Three distance metrics (Euclidean, Manhattan, Hamming)
   - Layer-wise distance decomposition
@@ -31,7 +31,7 @@ from ..widgets import OutputWriter, make_text
 
 class GeometryTab:
     """
-    Tab: Codex Geometry — Spatial Analysis in ℝ¹⁴
+    Tab: Codex Intrametric — Spatial Analysis in ℝ¹⁴
 
     Layout:
     ┌──────────────────────────────────────────────────────┐
@@ -56,7 +56,7 @@ class GeometryTab:
     ) -> None:
         self._table = table
         self._tab = ttk.Frame(notebook)
-        notebook.add(self._tab, text="  △ Codex Geometry  ")
+        notebook.add(self._tab, text="  △ Codex Intrametric  ")
         self._entries = table.all_entries()
 
         self._text: Optional[tk.Text] = None
@@ -179,10 +179,10 @@ class GeometryTab:
         if self._out is None:
             return
         self._out.clear()
-        self._out.writeln("CODEX GEOMETRY — Distance, Topology, and Spatial Analysis", "title")
+        self._out.writeln("CODEX INTRAMETRIC — Distance, Topology, and Spatial Analysis", "title")
         self._out.writeln("═" * 60)
         self._out.writeln()
-        self._out.writeln("Bab II-D, Chapters 29–31", "ref")
+        self._out.writeln("Bab II §2.4", "ref")
         self._out.writeln('Central question: "How far apart are two letters?"', "dim")
         self._out.writeln()
         self._out.writeln("  Three distance metrics:", "sub")
