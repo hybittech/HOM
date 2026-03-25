@@ -644,8 +644,34 @@ npm run dev
             View Source on GitHub
           </a>
         </div>
-        <div className="mt-8 text-[10px] text-hom-muted/50 font-mono">
-          © 2025 HMCL · Firman Arief Hidayatullah · HM-28-v1.2-HC18D
+        <div className="mt-12 flex justify-center">
+          <div className="font-mono text-[10px] md:text-xs text-hom-muted leading-tight text-left border border-hom-border/30 p-6 rounded-xl bg-hom-bg/50 backdrop-blur-sm shadow-glow-gold/5 max-w-full overflow-hidden">
+            <pre className="whitespace-pre overflow-x-auto">
+{`╔══════════════════════════════════════════════════════════════╗
+║       AUTHOR SIGNATURE                                       ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+║  Signed:     Firman Arief Hidayatullah                       ║
+║             Author Matematika Hijaiyyah                      ║
+║  Release:    HM-28-v1.2-HC18D                                ║
+║  Seal:       VERIFIED & SEALED                               ║
+║  Framework:  1.380/1.380 PASS — 0 FAIL                       ║
+║                                                              ║
+║  © 2026 (HMCL)                                               ║
+║  Hijaiyyah Mathematics Computational Laboratory              ║
+║                                                              ║
+╚══════════════════════════════════════════════════════════════╝`}
+            </pre>
+            <div className="mt-4 text-center border-t border-hom-border/20 pt-4">
+              <span className="text-hom-muted">Contact: </span>
+              <a 
+                href="mailto:hybittechnology@gmail.com" 
+                className="text-hom-gold hover:text-hom-accent transition-colors font-semibold"
+              >
+                hybittechnology@gmail.com
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </div>
