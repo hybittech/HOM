@@ -17,7 +17,7 @@ Berikut README lengkap dengan **seluruh istilah Bab II diperbarui** dari "Lima B
 [![Release](https://img.shields.io/badge/Release-HM--28--v1.2--HC18D-blue)]()
 [![Python](https://img.shields.io/badge/Python-3.11+-green)]()
 [![License](https://img.shields.io/badge/License-Proprietary-red)]()
-[![Tests](https://img.shields.io/badge/Tests-1380%2F1380%20PASS-brightgreen)]()
+[![Tests](https://img.shields.io/badge/Tests-1607%2F1607%20PASS-brightgreen)]()
 [![Dataset](https://img.shields.io/badge/Dataset-28×18%20SEALED-orange)]()
 [![Pipeline](https://img.shields.io/badge/Pipeline-.hc→.hbc→HVM-purple)]()
 [![Paradigm](https://img.shields.io/badge/Paradigm-bit⊕qubit⊕hybit-gold)]()
@@ -34,7 +34,7 @@ Berikut README lengkap dengan **seluruh istilah Bab II diperbarui** dari "Lima B
 
 > **📦 Update Terakhir — v1.2.0-pipeline (2025-06)**
 >
-> Codebase telah di-align dengan arsitektur Bab III (Hybit Pipeline) dan **seluruh terminologi Bab II diperbarui** dari "Lima Bidang" menjadi **Sistem Operasi Metrik-Vektorial** (Vektronometry · Normivektor · Aggregametric · Intrametric · Exometric). Verifikasi penuh: **1.380/1.380 PASS**. Lihat [Changelog Update](#changelog-update-terbaru) di bawah untuk detail lengkap.
+> Codebase telah di-align dengan arsitektur Bab III (Hybit Pipeline) dan **seluruh terminologi Bab II diperbarui** dari "Lima Bidang" menjadi **Sistem Operasi Metrik-Vektorial** (Vektronometry · Normivektor · Aggregametric · Intrametric · Exometric). Verifikasi penuh: **1.607/1.607 pytest PASS** (termasuk 1.380-check framework formal). Lihat [Changelog Update](#changelog-update-terbaru) di bawah untuk detail lengkap.
 
 ---
 
@@ -195,7 +195,7 @@ $ python -m pytest tests/test_full_verification.py -v
 
 | Perubahan | Detail |
 |---|---|
-| **Test badge** | `88+` → `1380/1380 PASS` |
+| **Test badge** | `88+` → `1607/1607 PASS` |
 | **Release badge** | `HM-28-v1.0` → `HM-28-v1.2` |
 | **GUI `theorems.py`** | Referensi teorema diperbarui ke §2.x (Bab II) + konteks 1.380-check |
 | **GUI `audit.py`** | Welcome screen menampilkan ringkasan framework verifikasi |
