@@ -1,7 +1,7 @@
-# MATEMATIKA HIJAIYYAH
-
----
 <div align="center">
+
+# MATEMATIKA HIJAIYYAH
+---
   <img src="data/logo/matematika-hijaiyyah-logo.png" alt="Matematika Hijaiyyah Logo" width="400">
 </div>
 
