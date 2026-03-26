@@ -3,6 +3,61 @@ import HijaiyyahScene from '../components/HijaiyyahScene';
 import FormulaBlock from '../components/FormulaBlock';
 import GlassPanel from '../components/GlassPanel';
 
+/* ──────────── tiny helpers ──────────── */
+const colors = {
+  accent: '#00d4ff',
+  gold: '#d4af37',
+  green: '#00c853',
+  purple: '#b388ff',
+  red: '#ff5252',
+  blue: '#448aff',
+  muted: '#6b6b80',
+  text: '#e0e0e8',
+  bg: '#0a0a0f',
+  panel: '#12121a',
+  border: '#1e1e2e',
+};
+
+/* ──────────── Connector SVG ──────────── */
+function ArrowDown({ height = 28, color = 'currentColor' }) {
+  return (
+    <svg width="12" height={height} className="mx-auto block" style={{ color }}>
+      <line x1="6" y1="0" x2="6" y2={height - 6} stroke="currentColor" strokeWidth="1.5" />
+      <polygon points={`2,${height - 6} 10,${height - 6} 6,${height}`} fill="currentColor" />
+    </svg>
+  );
+}
+
+/* ──────────── Node Box ──────────── */
+function NodeBox({ label, sub, formula, color, borderColor, bgColor, small, className = '', glow }) {
+  return (
+    <div
+      className={`framework-node rounded-lg border text-center transition-all ${className} ${glow ? 'shadow-lg' : ''}`}
+      style={{
+        borderColor,
+        backgroundColor: bgColor,
+        boxShadow: glow ? `0 0 20px ${borderColor}40` : undefined,
+      }}
+    >
+      <div
+        className={`font-bold font-mono ${small ? 'text-[10px] px-2 py-1' : 'text-xs px-3 py-2'}`}
+        style={{ color }}
+      >
+        {label}
+      </div>
+      {sub && (
+        <div className="text-[9px] text-hom-muted px-2 pb-1.5 -mt-0.5">{sub}</div>
+      )}
+      {formula && (
+        <div className="text-[9px] px-2 pb-2 opacity-80">
+          <FormulaBlock tex={formula} />
+        </div>
+      )}
+    </div>
+  );
+}
+
+
 const stats = [
   { label: 'Letters', value: '28', sub: 'Canonical Hijaiyyah' },
   { label: 'Dimensions', value: '18', sub: 'Integer Vector Space' },
@@ -156,7 +211,7 @@ export default function Landing() {
             A formal mathematical system mapping 28 canonical Hijaiyyah letters
             to 18-dimensional integer vectors through four discrete geometric
             invariants — establishing{' '}
-            <span className="text-hom-gold font-semibold">hybit</span> as the
+            <span className="text-hom-green font-semibold">hybit</span> as the
             third computational paradigm.
           </p>
 
@@ -223,7 +278,7 @@ export default function Landing() {
           glow="gold"
         >
           <FormulaBlock
-            tex="\text{bit} \;\oplus\; \text{qubit} \;\oplus\; \text{hybit} \;=\; \text{three fundamental paradigms}"
+            tex="\color{white}{\text{bit} \;\oplus\; \text{qubit} \;\oplus\; \text{hybit} \;=\; \text{three fundamental paradigms}}"
             display
           />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-6">
@@ -234,7 +289,7 @@ export default function Landing() {
                 desc: 'Field (2 elements)',
                 domain: 'Boolean logic, switching',
                 validation: 'None',
-                color: 'text-hom-muted',
+                color: 'text-hom-gold',
               },
               {
                 name: 'Qubit',
@@ -250,7 +305,7 @@ export default function Landing() {
                 desc: 'Constrained Monoid (discrete)',
                 domain: 'Structured data + audit',
                 validation: 'Full, O(1), non-destructive',
-                color: 'text-hom-gold',
+                color: 'text-hom-green',
               },
             ].map((p) => (
               <div
@@ -272,8 +327,185 @@ export default function Landing() {
             ))}
           </div>
           <div className="mt-4 text-center text-[10px] text-hom-muted">
-            Mutually irreducible: Hybit ↛ Bit, Hybit ↛ Qubit, Bit ↛ Hybit
+            Mutually irreducible: <span className="text-hom-green">Hybit</span> ↛ <span className="text-hom-gold">Bit</span>, <span className="text-hom-green">Hybit</span> ↛ Qubit, <span className="text-hom-gold">Bit</span> ↛ <span className="text-hom-green">Hybit</span>
             (Theorems 3.8.1–3.8.3)
+          </div>
+        </GlassPanel>
+      </section>
+
+      {/* ═══════════════ KEY IDENTITIES & THEOREMS ═══════════════ */}
+      <section>
+        <GlassPanel
+          title="Key Identities & Theorems"
+          badge="12 Proven Results"
+          glow
+        >
+          <p className="text-sm text-hom-muted mb-6">
+            The complete set of identities and theorems that form the mathematical backbone of Hijaiyyah Mathematics.
+            Each result is rigorously verified across all 28 letters.
+          </p>
+
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm border-collapse">
+              <thead>
+                <tr className="border-b border-hom-border/40">
+                  <th className="text-left py-3 px-3 text-[10px] font-semibold uppercase tracking-wider text-hom-muted w-8">#</th>
+                  <th className="text-left py-3 px-3 text-[10px] font-semibold uppercase tracking-wider text-hom-muted">Result</th>
+                  <th className="text-left py-3 px-3 text-[10px] font-semibold uppercase tracking-wider text-hom-muted">Formula</th>
+                  <th className="text-center py-3 px-3 text-[10px] font-semibold uppercase tracking-wider text-hom-muted w-16">Label</th>
+                  <th className="text-left py-3 px-3 text-[10px] font-semibold uppercase tracking-wider text-hom-muted w-28">Source</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  {
+                    id: 1,
+                    result: 'Turning Decomposition',
+                    tex: '\\hat{\\Theta}(h) = U(h) + \\rho(h)',
+                    label: 'DP',
+                    labelColor: 'text-hom-accent',
+                    labelBg: 'bg-hom-accent/10 border-hom-accent/20',
+                    source: '',
+                  },
+                  {
+                    id: 2,
+                    result: 'Non-Negativity of Residue',
+                    tex: '\\rho(h) \\geq 0 \\;\\; \\text{for 28/28 letters}',
+                    label: 'CC',
+                    labelColor: 'text-hom-green',
+                    labelBg: 'bg-hom-green/10 border-hom-green/20',
+                    source: '',
+                  },
+                  {
+                    id: 3,
+                    result: 'Mod-4 Theorem',
+                    tex: '\\text{MainPath closed} \\;\\Rightarrow\\; \\hat{\\Theta} \\equiv 0 \\pmod{4}',
+                    label: 'VF',
+                    labelColor: 'text-hom-gold',
+                    labelBg: 'bg-hom-gold/10 border-hom-gold/20',
+                    source: '',
+                  },
+                  {
+                    id: 4,
+                    result: 'MainPath Uniqueness',
+                    tex: '\\exists!\\; \\gamma_h \\;\\text{for each}\\; h \\in \\mathcal{H}_{28}',
+                    label: 'VF',
+                    labelColor: 'text-hom-gold',
+                    labelBg: 'bg-hom-gold/10 border-hom-gold/20',
+                    source: '',
+                  },
+                  {
+                    id: 5,
+                    result: 'Codex Injectivity',
+                    tex: 'v_{18}(h_1) = v_{18}(h_2) \\;\\Rightarrow\\; h_1 = h_2 \\;\\text{on}\\; \\mathcal{H}_{28}',
+                    label: 'CC',
+                    labelColor: 'text-hom-green',
+                    labelBg: 'bg-hom-green/10 border-hom-green/20',
+                    source: 'Claim',
+                  },
+                  {
+                    id: 6,
+                    result: 'Vektronometry Identity',
+                    tex: 'r_N(h) + r_K(h) + r_Q(h) = 1 \\;\\text{for 28/28}',
+                    label: 'DP+CC',
+                    labelColor: 'text-hom-accent',
+                    labelBg: 'bg-hom-accent/10 border-hom-accent/20',
+                    source: '',
+                  },
+                  {
+                    id: 7,
+                    result: 'Vektronometry Pythagorean',
+                    tex: '\\|h\\|^2 = \\|\\Pi_\\Theta\\|^2 + \\|\\Pi_N\\|^2 + \\|\\Pi_K\\|^2 + \\|\\Pi_Q\\|^2',
+                    label: 'VF',
+                    labelColor: 'text-hom-gold',
+                    labelBg: 'bg-hom-gold/10 border-hom-gold/20',
+                    source: '',
+                  },
+                  {
+                    id: 8,
+                    result: 'Normivektor Identity',
+                    tex: '\\|\\Delta\\|^2 = \\Delta_\\Theta^2 + \\|\\Delta_N\\|^2 + \\|\\Delta_K\\|^2 + \\|\\Delta_Q\\|^2',
+                    label: 'VF',
+                    labelColor: 'text-hom-gold',
+                    labelBg: 'bg-hom-gold/10 border-hom-gold/20',
+                    source: '',
+                  },
+                  {
+                    id: 9,
+                    result: 'Aggregametric Additivity',
+                    tex: '\\Sigma_{uv}\\vec{h} = \\Sigma_u\\vec{h} + \\Sigma_v\\vec{h}',
+                    label: 'VF',
+                    labelColor: 'text-hom-gold',
+                    labelBg: 'bg-hom-gold/10 border-hom-gold/20',
+                    source: '',
+                  },
+                  {
+                    id: 10,
+                    result: 'Intrametric Polarization Identity',
+                    tex: 'd^2 = \\|h_1\\|^2 + \\|h_2\\|^2 - 2\\langle h_1, h_2 \\rangle',
+                    label: 'VF',
+                    labelColor: 'text-hom-gold',
+                    labelBg: 'bg-hom-gold/10 border-hom-gold/20',
+                    source: 'Prop. 2.38.1',
+                  },
+                  {
+                    id: 11,
+                    result: 'Energy-Norm Inequality',
+                    tex: '\\Phi(h) > \\|v_{14}(h)\\|^2 \\;\\text{strict for 28/28}',
+                    label: 'VF+CC',
+                    labelColor: 'text-hom-purple',
+                    labelBg: 'bg-hom-purple/10 border-hom-purple/20',
+                    source: '',
+                  },
+                  {
+                    id: 12,
+                    result: 'Mutual Irreducibility',
+                    tex: '\\color{#d4af37}{\\mathbb{F}_2} \\neq \\color{#00c853}{\\mathcal{V}} \\neq \\mathbb{C}^2 \\;\\text{(three distinct algebraic varieties)}',
+                    label: 'VF',
+                    labelColor: 'text-hom-gold',
+                    labelBg: 'bg-hom-gold/10 border-hom-gold/20',
+                    source: '',
+                  },
+                ].map((row, i) => (
+                  <tr
+                    key={row.id}
+                    className={`border-b border-hom-border/10 hover:bg-hom-accent/[0.03] transition-colors ${
+                      i % 2 === 0 ? 'bg-hom-bg/30' : ''
+                    }`}
+                  >
+                    <td className="py-3 px-3 font-mono text-xs text-hom-muted">{row.id}</td>
+                    <td className="py-3 px-3 text-xs text-hom-text font-medium whitespace-nowrap">{row.result}</td>
+                    <td className="py-3 px-3">
+                      <FormulaBlock tex={row.tex} />
+                    </td>
+                    <td className="py-3 px-3 text-center">
+                      <span className={`text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full border ${row.labelBg} ${row.labelColor}`}>
+                        {row.label}
+                      </span>
+                    </td>
+                    <td className="py-3 px-3 text-[10px] text-hom-muted font-mono">{row.source}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-3">
+            <div className="p-3 rounded-lg bg-hom-accent/5 border border-hom-accent/15 text-center">
+              <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-hom-accent/10 border border-hom-accent/20 text-hom-accent">DP</span>
+              <div className="text-[10px] text-hom-muted mt-2">Decomposition Property</div>
+              <div className="text-[10px] text-hom-text/60">Structural splitting of invariants</div>
+            </div>
+            <div className="p-3 rounded-lg bg-hom-green/5 border border-hom-green/15 text-center">
+              <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-hom-green/10 border border-hom-green/20 text-hom-green">CC</span>
+              <div className="text-[10px] text-hom-muted mt-2">Computational Check</div>
+              <div className="text-[10px] text-hom-text/60">Verified exhaustively on all 28 letters</div>
+            </div>
+            <div className="p-3 rounded-lg bg-hom-gold/5 border border-hom-gold/15 text-center">
+              <span className="text-[10px] font-mono font-semibold px-2 py-0.5 rounded-full bg-hom-gold/10 border border-hom-gold/20 text-hom-gold">VF</span>
+              <div className="text-[10px] text-hom-muted mt-2">Verified Formal</div>
+              <div className="text-[10px] text-hom-text/60">Proven theorem with formal proof</div>
+            </div>
           </div>
         </GlassPanel>
       </section>
@@ -369,39 +601,379 @@ export default function Landing() {
           ))}
         </div>
 
-        {/* Operations Flow Diagram */}
-        <GlassPanel className="mt-6" title="Operations Flow" badge="Architecture">
-          <div className="text-center font-mono text-xs text-hom-muted leading-relaxed">
-            <pre className="inline-block text-left">
-{`         ┌───────────────────┐
-         │   VEKTRONOMETRY   │ ← Measures composition
-         │      (VTM)        │
-         └─────────┬─────────┘
-                   │
-     ┌─────────────┴──────────────┐
-     │                            │
-     ▼                            ▼
-┌────────────┐            ┌──────────────┐
-│ NORMIVEKTOR│            │AGGREGAMETRIC │
-│   (NMV)    │            │    (AGM)     │
-│ Differences│            │ String sums  │
-└─────┬──────┘            └──────┬───────┘
-      │                          │
-      └────────────┬─────────────┘
-                   ▼
-         ┌───────────────────┐
-         │   INTRAMETRIC     │ ← Maps distances
-         │      (ITM)        │
-         └─────────┬─────────┘
-                   │
-                   ▼
-         ┌───────────────────┐
-         │    EXOMETRIC      │ ← Validates everything
-         │      (EXM)        │
-         └───────────────────┘`}
-            </pre>
+        {/* Operations Flow Diagram (Hybit Framework) */}
+        <div className="w-full overflow-x-auto mt-8 border-t border-hom-border/30 pt-12">
+          <div className="min-w-[700px] max-w-4xl mx-auto py-6 px-4 space-y-1">
+
+            {/* ═══════════ TITLE ═══════════ */}
+            <div className="text-center mb-6">
+              <h2 className="text-3xl md:text-4xl font-black tracking-wider" style={{ color: colors.green }}>
+                HYBIT
+              </h2>
+              <div className="text-2xl md:text-4xl text-hom-text mt-2 mb-4 font-mono leading-relaxed" dir="rtl">
+                ا، ب، ت، ث، ج، ح، خ، د، ذ، ر، ز، س، ش، ص، ض، ط، ظ، ع، غ، ف، ق، ك، ل، م، ن، و، هـ، ي
+              </div>
+              <div className="text-sm font-semibold mt-1" style={{ color: colors.gold }}>
+                <FormulaBlock tex="\mathcal{H}_{28}" /> — Hijaiyyah Mathematics
+              </div>
+            </div>
+
+            {/* ═══════════ ROW 1: CSGI + Euklides ═══════════ */}
+            <div className="flex items-center justify-center gap-6 mb-1">
+              <NodeBox
+                label="C S G I"
+                sub="Skeletonizer"
+                color={colors.text}
+                borderColor={colors.border}
+                bgColor={`${colors.panel}`}
+              />
+              <svg width="40" height="2"><line x1="0" y1="1" x2="40" y2="1" stroke={colors.muted} strokeWidth="1" strokeDasharray="4 3" /><polygon points="36,0 40,1 36,2" fill={colors.muted} /></svg>
+              <NodeBox
+                label="Euklides ℝ²"
+                color={colors.blue}
+                borderColor={`${colors.blue}50`}
+                bgColor={`${colors.blue}10`}
+              />
+            </div>
+
+            <ArrowDown color={colors.muted} />
+
+            {/* ═══════════ ROW 2: Four Geometric Invariants ═══════════ */}
+            <div className="grid grid-cols-4 gap-3">
+              <NodeBox
+                label="Nuqṭah نُقْطَة"
+                sub="N(h) ∈ ℕ₀³"
+                formula="N(h) = (N_a, N_b, N_d)"
+                color={colors.red}
+                borderColor={`${colors.red}40`}
+                bgColor={`${colors.red}08`}
+              />
+              <NodeBox
+                label="Khaṭṭ خَطّ"
+                sub="K(h) ∈ ℕ₀⁵"
+                formula="K(h) = (K_p, K_z, K_s, K_a, K_c)"
+                color={colors.green}
+                borderColor={`${colors.green}40`}
+                bgColor={`${colors.green}08`}
+              />
+              <NodeBox
+                label="Qaws قَوْس"
+                sub="Q(h) ∈ ℕ₀⁵"
+                formula="Q(h) = (Q_h, Q_z, Q_s, Q_a, Q_c)"
+                color={colors.purple}
+                borderColor={`${colors.purple}40`}
+                bgColor={`${colors.purple}08`}
+              />
+              <NodeBox
+                label="Inḥinā' إنْحِنَاء"
+                sub="Θ̂(h) ∈ ℕ₀"
+                formula="\hat{\Theta}(h) = Q_{90}(|\Theta^*(h)|) \in \mathbb{N}_0"
+                color={colors.gold}
+                borderColor={`${colors.gold}40`}
+                bgColor={`${colors.gold}08`}
+              />
+            </div>
+
+            {/* Arrows from 4 invariants down */}
+            <div className="grid grid-cols-4 gap-3">
+              {[0, 1, 2, 3].map(i => (
+                <ArrowDown key={i} height={20} color={colors.muted} />
+              ))}
+            </div>
+
+            {/* ═══════════ ROW 3: Core Invariant + Vektor 14 + MainPath ═══════════ */}
+            <div className="grid grid-cols-[1fr_1.2fr_1fr] gap-3 items-start">
+              {/* Core Invariant */}
+              <div className="space-y-1">
+                <NodeBox
+                  label="Core Invariant"
+                  formula="h = [\hat{\Theta} \mid \mathbf{N} \mid \mathbf{K} \mid \mathbf{Q}]"
+                  color={colors.accent}
+                  borderColor={`${colors.accent}40`}
+                  bgColor={`${colors.accent}08`}
+                  glow
+                />
+              </div>
+
+              {/* Vektor 14 (center) */}
+              <div className="space-y-1">
+                <NodeBox
+                  label="Vektor 14"
+                  formula="v_{14}(h) = [\hat{\Theta} \mid \mathbf{N} \mid \mathbf{K} \mid \mathbf{Q}] \in \mathbb{N}_0^{14}"
+                  color={colors.accent}
+                  borderColor={`${colors.accent}50`}
+                  bgColor={`${colors.accent}0a`}
+                  glow
+                />
+              </div>
+
+              {/* MainPath */}
+              <div className="space-y-1">
+                <NodeBox
+                  label="MainPath"
+                  formula="\gamma_h : [0, L_h] \to \mathbb{R}^2"
+                  color={colors.gold}
+                  borderColor={`${colors.gold}40`}
+                  bgColor={`${colors.gold}08`}
+                />
+                <ArrowDown height={16} color={colors.muted} />
+                <NodeBox
+                  label="Turning & Residu"
+                  formula="\hat{\Theta}(h) = U(h) + \rho(h)"
+                  color={colors.gold}
+                  borderColor={`${colors.gold}30`}
+                  bgColor={`${colors.gold}06`}
+                  small
+                />
+                <ArrowDown height={16} color={colors.muted} />
+                <NodeBox
+                  label="Mod-4"
+                  formula="\hat{\Theta}(h) \equiv 0 \pmod{4}"
+                  color={colors.gold}
+                  borderColor={`${colors.gold}20`}
+                  bgColor={`${colors.gold}05`}
+                  small
+                />
+              </div>
+            </div>
+
+            {/* Connection line from Core Invariant and right side into center */}
+            <ArrowDown color={colors.muted} />
+
+            {/* ═══════════ ROW 4: tag + Anāṣir + Algebra ═══════════ */}
+            <div className="grid grid-cols-[1fr_1.5fr_1fr] gap-3 items-center">
+              <NodeBox
+                label="tag(ε) = H*"
+                color={colors.purple}
+                borderColor={`${colors.purple}30`}
+                bgColor={`${colors.purple}06`}
+                small
+              />
+              <div className="text-center space-y-1">
+                <NodeBox
+                  label="Anāṣir العَنَاصِرُ"
+                  formula="\mathbf{A}(h) = (A_N(h),\; A_K(h),\; A_Q(h)) \in \mathbb{N}_0^3"
+                  color={colors.green}
+                  borderColor={`${colors.green}40`}
+                  bgColor={`${colors.green}08`}
+                />
+              </div>
+              <NodeBox
+                label="Algebra"
+                formula="\sum_{i=1}^{m} v_{18}(x_i) + \sum_{j=1}^{n} v_{18}(y_j)"
+                color={colors.blue}
+                borderColor={`${colors.blue}30`}
+                bgColor={`${colors.blue}06`}
+                small
+              />
+            </div>
+
+            <ArrowDown color={colors.muted} />
+
+            {/* ═══════════ ROW 5: Injective → Vektor 18D ═══════════ */}
+            <div className="grid grid-cols-[1fr_2fr_1fr] gap-3 items-center">
+              <NodeBox
+                label="Injective"
+                color={colors.accent}
+                borderColor={`${colors.accent}30`}
+                bgColor={`${colors.accent}06`}
+                small
+              />
+              <NodeBox
+                label="Vektor 18D"
+                formula="v_{18}(h) = [\hat{\Theta} \mid \mathbf{N} \mid \mathbf{K} \mid \mathbf{Q} \mid A_N, A_K, A_Q \mid H^*(h)] \in \mathbb{N}_0^{18}"
+                color={colors.accent}
+                borderColor={`${colors.accent}60`}
+                bgColor={`${colors.accent}0c`}
+                glow
+              />
+              <div />
+            </div>
+
+            {/* Arrows to foundations */}
+            <ArrowDown color={colors.muted} />
+
+            {/* ═══════════ ROW 6: Audit Collision + Formal Foundation + Guards ═══════════ */}
+            <div className="grid grid-cols-3 gap-3">
+              <NodeBox
+                label="Audit Collision"
+                color={colors.red}
+                borderColor={`${colors.red}30`}
+                bgColor={`${colors.red}06`}
+              />
+              <NodeBox
+                label="Formal Foundation"
+                color={colors.text}
+                borderColor={`${colors.border}`}
+                bgColor={colors.panel}
+                glow
+              />
+              <NodeBox
+                label="G1-G2-G3-G4"
+                color={colors.green}
+                borderColor={`${colors.green}30`}
+                bgColor={`${colors.green}06`}
+              />
+            </div>
+
+            <ArrowDown color={colors.muted} />
+
+            {/* ═══════════ ROW 7: Mathematical Operating System ═══════════ */}
+            <div className="text-center">
+              <div
+                className="framework-node inline-block rounded-xl border-2 px-8 py-3 mx-auto"
+                style={{
+                  borderColor: `${colors.gold}60`,
+                  backgroundColor: `${colors.gold}0a`,
+                  boxShadow: `0 0 30px ${colors.gold}20`,
+                }}
+              >
+                <div className="text-base font-bold" style={{ color: colors.gold }}>
+                  Mathematical Operating System
+                </div>
+              </div>
+            </div>
+
+            {/* ═══════════ ROW 8: 5 Metrik-Vektorial Operations ═══════════ */}
+            <div className="grid grid-cols-5 gap-2 mt-1">
+              {/* connecting lines */}
+              <div className="col-span-5 flex justify-around px-8">
+                {[colors.red, colors.accent, colors.gold, colors.purple, colors.green].map((c, i) => (
+                  <ArrowDown key={i} height={20} color={c} />
+                ))}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-5 gap-2">
+              <NodeBox
+                label="Normivektor"
+                color={colors.red}
+                borderColor={`${colors.red}50`}
+                bgColor={`${colors.red}0a`}
+                glow
+              />
+              <NodeBox
+                label="Vectronometry"
+                color={colors.accent}
+                borderColor={`${colors.accent}50`}
+                bgColor={`${colors.accent}0a`}
+                glow
+              />
+              <NodeBox
+                label="Intrametric"
+                color={colors.gold}
+                borderColor={`${colors.gold}50`}
+                bgColor={`${colors.gold}0a`}
+                glow
+              />
+              <NodeBox
+                label="Exometric"
+                color={colors.purple}
+                borderColor={`${colors.purple}50`}
+                bgColor={`${colors.purple}0a`}
+                glow
+              />
+              <NodeBox
+                label="Aggregametric"
+                color={colors.green}
+                borderColor={`${colors.green}50`}
+                bgColor={`${colors.green}0a`}
+                glow
+              />
+            </div>
+
+            {/* ═══════════ Converge to Hybit ═══════════ */}
+            <div className="flex justify-center">
+              <svg width="500" height="30" className="block mx-auto">
+                {/* Lines from each of 5 columns converging to center */}
+                {[50, 150, 250, 350, 450].map((x, i) => (
+                  <line key={i} x1={x} y1="0" x2={250} y2="26" stroke={[colors.red, colors.accent, colors.gold, colors.purple, colors.green][i]} strokeWidth="1" opacity="0.5" />
+                ))}
+                <polygon points="247,26 253,26 250,30" fill={colors.gold} />
+              </svg>
+            </div>
+
+            {/* ═══════════ HYBIT CORE ═══════════ */}
+            <div className="text-center">
+              <div
+                className="framework-node inline-block rounded-2xl border-2 px-12 py-4 mx-auto"
+                style={{
+                  borderColor: `${colors.gold}80`,
+                  backgroundColor: `${colors.gold}0c`,
+                  boxShadow: `0 0 40px ${colors.gold}30, 0 0 80px ${colors.gold}10`,
+                }}
+              >
+                <div className="text-2xl font-black tracking-widest" style={{ color: colors.green }}>
+                  Hybit
+                </div>
+                <div className="text-[10px] text-hom-muted mt-1">
+                  Hijaiyyah Hyperdimensional Bit Integration Technology
+                </div>
+              </div>
+            </div>
+
+            <ArrowDown color={colors.gold} height={24} />
+
+            {/* ═══════════ ROW 9: Pipeline Components - Row 1 ═══════════ */}
+            <div className="grid grid-cols-5 gap-2">
+              {[
+                { label: 'HCC', color: colors.accent },
+                { label: 'HASM', color: colors.green },
+                { label: 'HOM', color: colors.gold },
+                { label: 'H-Kernel', color: colors.purple },
+                { label: 'HGEO', color: colors.blue },
+              ].map((item) => (
+                <NodeBox
+                  key={item.label}
+                  label={item.label}
+                  color={item.color}
+                  borderColor={`${item.color}40`}
+                  bgColor={`${item.color}08`}
+                  small
+                />
+              ))}
+            </div>
+
+            {/* Pipeline Row 2 */}
+            <div className="grid grid-cols-4 gap-2 mt-1">
+              {[
+                { label: 'H-ISA', color: colors.accent },
+                { label: 'HC18DC', color: colors.green },
+                { label: 'HISAB', color: colors.gold },
+                { label: 'CMM-18C', color: colors.purple },
+              ].map((item) => (
+                <NodeBox
+                  key={item.label}
+                  label={item.label}
+                  color={item.color}
+                  borderColor={`${item.color}35`}
+                  bgColor={`${item.color}06`}
+                  small
+                />
+              ))}
+            </div>
+
+            {/* Pipeline Row 3 */}
+            <div className="grid grid-cols-5 gap-2 mt-1">
+              {[
+                { label: 'HGGS', color: colors.red },
+                { label: 'HL-18E', color: colors.accent },
+                { label: 'HOS', color: colors.gold },
+                { label: 'HCVM', color: colors.green },
+                { label: 'HCPU', color: colors.purple },
+              ].map((item) => (
+                <NodeBox
+                  key={item.label}
+                  label={item.label}
+                  color={item.color}
+                  borderColor={`${item.color}30`}
+                  bgColor={`${item.color}05`}
+                  small
+                />
+              ))}
+            </div>
           </div>
-        </GlassPanel>
+        </div>
       </section>
 
       {/* ═══════════════ VERIFICATION ═══════════════ */}
@@ -621,7 +1193,7 @@ npm run dev
       <section className="text-center py-8">
         <div className="glow-line mb-8" />
         <FormulaBlock
-          tex="\boxed{\text{bit} \;\oplus\; \text{qubit} \;\oplus\; \text{hybit}}"
+          tex="\boxed{\color{white}{\text{bit} \;\oplus\; \text{qubit} \;\oplus\; \text{hybit}}}"
           display
         />
         <p className="text-sm text-hom-muted mt-4 max-w-md mx-auto">
@@ -645,8 +1217,8 @@ npm run dev
           </a>
         </div>
         <div className="mt-12 max-w-4xl mx-auto flex flex-col items-center gap-8 px-4">
-          <div className="text-[10px] md:text-xs text-hom-muted/80 leading-relaxed text-justify space-y-4 p-8 rounded-xl border border-hom-border/20 bg-hom-panel w-full shadow-lg shadow-black/20">
-            <p className="font-semibold text-hom-text/90 text-center mb-6 text-sm">
+          <div className="text-[10px] md:text-xs text-white leading-relaxed text-justify space-y-4 p-8 rounded-xl border border-hom-border/20 bg-hom-panel w-full shadow-lg shadow-black/20">
+            <p className="font-semibold text-white text-center mb-6 text-sm">
               © 2026 Hijaiyyah Mathematics Computational Laboratory (HMCL). All rights reserved.
             </p>
             <p>
@@ -660,6 +1232,10 @@ npm run dev
             </p>
             <p className="font-semibold text-hom-red/90 text-center py-2 bg-hom-red/5 rounded-lg border border-hom-red/10">
               Unauthorized use, reproduction, or distribution may result in civil and/or criminal penalties under applicable laws.
+              <br />
+              <span className="text-white/60 text-[9px] tracking-[0.3em] font-bold mt-2 block">
+                PT AMRA COSMICTERA TECHNOLOGY
+              </span>
             </p>
             
             <div className="mt-8 pt-6 border-t border-hom-border/20 flex flex-col items-center text-center space-y-2">
