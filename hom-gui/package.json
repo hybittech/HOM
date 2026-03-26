@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "deploy": "vite build && gh-pages -d dist"
+    "deploy": "vite build && gh-pages -d dist",
+    "test:ui": "node tools/ui-automation.js"
   },
   "dependencies": {
     "@react-three/drei": "^9.105.0",
@@ -21,10 +22,12 @@
     "zustand": "^4.5.2"
   },
   "devDependencies": {
+    "@playwright/test": "^1.58.2",
     "@types/react": "^18.3.1",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.19",
     "gh-pages": "^6.1.1",
+    "playwright": "^1.58.2",
     "postcss": "^8.4.38",
     "tailwindcss": "^3.4.3",
     "vite": "^8.0.2"

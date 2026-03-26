@@ -22,12 +22,12 @@ export default function Navbar() {
           />
         </Link>
 
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-1 overflow-x-auto hide-scrollbar max-w-[60vw] md:max-w-none md:overflow-visible pb-1 md:pb-0">
           {links.map((link) => (
             <Link
               key={link.to}
               to={link.to}
-              className={`px-4 py-2 rounded-lg text-[10px] transition-all duration-300 nav-tab-futuristic ${
+              className={`px-3 py-2 rounded-lg text-[10px] whitespace-nowrap transition-all duration-300 nav-tab-futuristic ${
                 pathname === link.to
                   ? 'nav-tab-futuristic-active'
                   : 'text-hom-muted hover:text-hom-text hover:bg-hom-panel/50 hover:shadow-glow-sm'
