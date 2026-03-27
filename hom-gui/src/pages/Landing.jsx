@@ -3,6 +3,7 @@ import HijaiyyahScene from '../components/HijaiyyahScene';
 import FormulaBlock from '../components/FormulaBlock';
 import GlassPanel from '../components/GlassPanel';
 import { useLocale } from '../store/useLocale';
+import { Languages, Layers, ShieldCheck, Cpu } from 'lucide-react';
 
 /* ──────────── tiny helpers ──────────── */
 const colors = {
@@ -60,10 +61,10 @@ function NodeBox({ label, sub, formula, color, borderColor, bgColor, small, clas
 
 
 const stats = [
-  { label: 'Letters', value: '28', sub: 'Canonical Hijaiyyah' },
-  { label: 'Dimensions', value: '18', sub: 'Integer Vector Space' },
-  { label: 'Tests', value: '1,611', sub: 'All PASS · 0 FAIL' },
-  { label: 'ROM', value: '252', sub: 'Bytes (nibble-packed)' },
+  { label: 'Letters', value: '28', sub: 'Canonical Hijaiyyah', icon: Languages, color: 'text-hom-accent' },
+  { label: 'Dimensions', value: '18', sub: 'Integer Vector Space', icon: Layers, color: 'text-hom-gold' },
+  { label: 'Tests', value: '1,611', sub: 'All PASS · 0 FAIL', icon: ShieldCheck, color: 'text-hom-green' },
+  { label: 'ROM', value: '252', sub: 'Bytes (nibble-packed)', icon: Cpu, color: 'text-hom-purple' },
 ];
 
 const operations = [
@@ -190,10 +191,18 @@ export default function Landing() {
   return (
     <div className="space-y-16">
       {/* ═══════════════ HERO ═══════════════ */}
-      <section className="relative min-h-[70vh] flex flex-col items-center pt-10 pb-20">
+      <section className="relative min-h-[70vh] flex flex-col items-center pt-8 pb-20">
         <div className="absolute inset-0 -z-10">
           <HijaiyyahScene />
         </div>
+
+        {/* CENTRED QUOTE */}
+        <div className="relative z-10 w-full max-w-4xl mx-auto px-4 md:px-8 text-center mb-12">
+           <p className="text-hom-green font-bold text-xs md:text-sm tracking-wide leading-relaxed glass inline-block px-6 py-3.5 rounded-2xl border border-hom-green/30 shadow-[0_0_15px_rgba(0,255,128,0.15)] uppercase">
+             {t('landing.hero.quote')}
+           </p>
+        </div>
+
         <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8 md:gap-12 px-4 md:px-8">
           {/* ─── Left: Text Content ─── */}
           <div className="flex-1 min-w-0">
@@ -267,10 +276,29 @@ export default function Landing() {
 
       {/* ═══════════════ EXTENDED DEFINITION BLOCK - TRUE EDGE-TO-EDGE ═══════════════ */}
       <section className="w-full py-20 border-t border-b border-hom-border/10 bg-hom-panel/10">
-        <div className="w-full px-4 md:px-0"> {/* Minimal padding for mobile, zero for desktop edge-to-edge */}
-          <p className="text-hom-text/90 text-sm md:text-lg leading-relaxed mb-16 text-justify px-4 md:px-0">
-            {t('landing.hero.intro')}
+        <div className="w-full px-4 md:px-8 max-w-7xl mx-auto">
+          <p className="text-hom-text/90 text-sm md:text-lg leading-relaxed mb-8 text-justify">
+            {t('landing.hero.intro.part1')}
           </p>
+
+          <div className="mb-8 w-full overflow-x-auto rounded-2xl bg-black/40 border border-hom-border/40 p-5 md:p-8 flex items-center justify-center shadow-[inset_0_4px_20px_rgba(0,0,0,0.5)] scrollbar-thin scrollbar-thumb-hom-border scrollbar-track-transparent">
+            <FormulaBlock
+              tex={t('landing.hero.intro.tex')}
+              display
+              className="!m-0 text-[10px] sm:text-xs md:text-sm lg:text-base w-max mx-auto text-hom-green drop-shadow-[0_0_8px_rgba(0,255,128,0.25)]"
+            />
+          </div>
+
+          <p className="text-hom-text/90 text-sm md:text-lg leading-relaxed mb-16 text-justify">
+            {t('landing.hero.intro.part2a')}
+            <span className="inline-flex items-center mx-2 translate-y-0 text-hom-accent font-semibold tracking-wide">
+              Σ-MV(<span className="font-serif italic font-bold">ℋ</span><sub className="text-[0.6em]">28</sub>)
+            </span>
+            {t('landing.hero.intro.part2b')}
+          </p>
+        </div>
+
+        <div className="w-full px-4 md:px-0"> {/* Minimal padding for mobile, zero for desktop edge-to-edge */}
 
           {/* 5 Formal Operations Grid */}
           {(() => {
@@ -334,9 +362,15 @@ export default function Landing() {
       {/* ═══════════════ STATS ═══════════════ */}
       <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
         {stats.map((s) => (
-          <GlassPanel key={s.label} glow>
-            <div className="text-3xl font-bold neon-text font-mono">
-              {s.value}
+          <GlassPanel key={s.label} glow className="relative overflow-hidden group">
+            <div className="absolute top-3 right-3 opacity-10 group-hover:opacity-30 transition-opacity">
+              <s.icon size={48} className={s.color} />
+            </div>
+            <div className="flex items-center gap-3 mb-2">
+              <s.icon size={20} className={s.color} />
+              <div className="text-3xl font-bold neon-text font-mono">
+                {s.value}
+              </div>
             </div>
             <div className="text-sm text-hom-text mt-1">{t(s.label)}</div>
             <div className="text-[10px] text-hom-muted mt-0.5">{t(s.sub)}</div>
@@ -1305,17 +1339,34 @@ npm run dev
               {t('Unauthorized use, reproduction, or distribution may result in civil and/or criminal penalties under applicable laws.')}
               <br />
               <span className="text-white/60 text-[9px] tracking-[0.3em] font-bold mt-2 block">
-                PT AMRA COSMICTERA TECHNOLOGY
+                PT PURI PERTIWI INTERNATIONAL
               </span>
             </p>
             
-            <div className="mt-8 pt-6 border-t border-hom-border/20 flex flex-col items-center text-center space-y-2">
-              <span className="text-hom-gold font-bold tracking-wide text-sm">Firman Arief Hidayatullah</span>
-              <span className="text-hom-muted">{t('Founder & Principal Architect')}</span>
-              <div className="flex flex-wrap justify-center gap-4 mt-4 font-mono text-[10px]">
-                <span className="px-3 py-1.5 rounded-full bg-hom-accent/10 border border-hom-accent/20 text-hom-accent">{t('Release: HM-28-v1.2-HC18D')}</span>
-                <span className="px-3 py-1.5 rounded-full bg-hom-green/10 border border-hom-green/20 text-hom-green">{t('Status: Verified & Sealed')}</span>
+            <div className="mt-8 pt-6 border-t border-hom-border/20 flex flex-row items-center justify-center gap-8 md:gap-16">
+              {/* Left Icon (Web) */}
+              <img src={import.meta.env.BASE_URL + 'icon-web.png'} alt="web icon" className="h-16 md:h-24 w-auto object-contain opacity-100 hover:scale-110 transition-transform duration-300 drop-shadow-lg" />
+              
+              {/* Center Signature Details */}
+              <div className="flex flex-col items-center text-center space-y-2">
+                <span className="text-hom-gold font-bold tracking-wide text-sm">Firman Arief Hidayatullah</span>
+                <span className="text-hom-muted">{t('Founder & Principal Architect')}</span>
+                
+                <div className="flex flex-col items-center mt-4">
+                  <span className="text-hom-muted text-[10px] uppercase tracking-[0.2em] font-bold mb-1 opacity-70">{t('Contact')}</span>
+                  <a href="mailto:admin@hybit.tech" className="text-hom-accent font-mono text-xs hover:underline hover:text-hom-accent/80 transition-all">admin@hybit.tech</a>
+                </div>
+
+                <div className="flex flex-wrap justify-center gap-4 mt-6 font-mono text-[10px]">
+                  <span className="px-3 py-1.5 rounded-full bg-hom-accent/10 border border-hom-accent/20 text-hom-accent">{t('Release: HM-28-v1.2-HC18D')}</span>
+                  <span className="px-3 py-1.5 rounded-full bg-hom-green/10 border border-hom-green/20 text-hom-green">
+                    {t('Status: Verified & Sealed')}
+                  </span>
+                </div>
               </div>
+
+              {/* Right Icon (PT) */}
+              <img src={import.meta.env.BASE_URL + 'icon-PT.png'} alt="PT icon" className="h-16 md:h-24 w-auto object-contain opacity-100 hover:scale-110 transition-transform duration-300 drop-shadow-lg" />
             </div>
           </div>
 

@@ -2,7 +2,10 @@ import { create } from 'zustand';
 
 const dict = {
   en: {
-    'landing.hero.intro': 'Hijaiyyah Mathematics is a formal mathematical system based on 28 canonical Hijaiyyah letters represented as measurement objects, calculation objects, and computational objects within a unified framework. This system extracts the morphological structure of letters geometrically, then maps them into a multidimensional integer codex through a deterministic and lossless representation scheme. The codex is further developed into a Hijaiyyah Metric–Vektorial Operating System, which includes five main formal operations:',
+    'landing.hero.intro.part1': 'Hijaiyyah Mathematics is a formal mathematical system based on 28 canonical Hijaiyyah letters represented as measurement objects, calculation objects, and computational objects within a unified framework. This system geometrically extracts the morphological structure of letters through four discrete invariants — Inḥinā\' (total turns), Nuqṭah (dot distribution), Khaṭṭ (line components), and Qaws (curve components) — then maps them into a multidimensional integer codex:',
+    'landing.hero.intro.tex': 'v_{18}(h) = \\left( \\underbrace{\\hat{\\Theta}}_{\\text{turns 1 dim}}, \\underbrace{N_a, N_b, N_d}_{\\text{3-zone dots 3 dim}}, \\underbrace{K_p, K_x, K_s, K_a, K_c}_{\\text{5-cat. lines 5 dim}}, \\underbrace{Q_p, Q_x, Q_s, Q_a, Q_c}_{\\text{5-cat. curves 5 dim}}, \\underbrace{A_N, A_K, A_Q}_{\\text{summary 3 dim}}, \\underbrace{H^*}_{\\text{marker 1 dim}} \\right) \\in \\mathbb{N}_0^{18}',
+    'landing.hero.intro.part2a': 'through a deterministic and lossless representation scheme. The codex is further developed into a Hijaiyyah Metric–Vectorial Operating System ',
+    'landing.hero.intro.part2b': ', which encompasses five main formal operations:',
     'landing.hero.op1_title': 'Vektronometry',
     'landing.hero.op1_desc': 'Analysis of letter composition and geometric DNA component ratios.',
     'landing.hero.op2_title': 'Normivektor',
@@ -13,8 +16,12 @@ const dict = {
     'landing.hero.op4_desc': "Construction and audit of the alphabet's internal metric space.",
     'landing.hero.op5_title': 'Exometric',
     'landing.hero.op5_desc': 'Evaluation of internal consistency and data integrity through audit relations.',
-    'landing.hero.mid': 'Within this framework, the system functions not only as a representation tool but also as an instrument for metric measurement, data auditing, and structure-based computational processing. From this foundation, Hybit (Hijaiyyah Hyperdimensional Bit Integration Technology) is introduced, which is a codex-based computing paradigm that makes letter representation a unit of structured information. Unlike binary bits and quantum-probabilistic qubits, hybit operates multidimensional data units with internal constraints, intrinsic validation, and structural preservation during aggregation and transformation processes.',
-    'landing.hero.conclusion': 'Thus, Hijaiyyah Mathematics forms a scientific architecture that bridges letterform heritage, formal mathematical formulation, metric-vectoral systems, and the development of next-generation computing technology.'
+    'landing.hero.mid': 'Within this framework, the system functions not only as a representation tool but also as an instrument for metric measurement, data auditing, and structure-based computational processing. From this foundation, Hybit (Hijaiyyah Hyperdimensional Bit Integration Technology) is introduced, which is a codex-based computing paradigm that makes letter representation a unit of structured information. Unlike binary bits and quantum-probabilistic qubits, hybit operates multidimensional data units with internal constraints, intrinsic validation, and structural preservation during aggregation and transformation.',
+    'landing.hero.description': 'Hijaiyyah Mathematics establishes a formal algebraic structure over the 28 canonical Hijaiyyah letters. Using a topological-invariant abstraction protocol, the system extracts each letter into an 18-dimensional integer vector.',
+    'landing.hero.conclusion': 'Thus, Hijaiyyah Mathematics forms a scientific architecture bridging the heritage of letterforms, formal mathematical formulation, metric-vector systems, and the development of next-generation computing technologies.',
+    'landing.hero.quote': '"Hijaiyyah Mathematics proves that the 28 Hijaiyyah letters encoding the Quran also encrypt formal mathematics and the computational codex of Hybit — the third paradigm after bit and qubit."',
+    'Contact': 'Contact',
+    'layout.footer': 'Hijaiyyah Operating Machine · v1.2.0 · © 2026 HMCL',
   },
   id: {
     // Navbar & Layout
@@ -24,10 +31,13 @@ const dict = {
     'nav.system': 'Hybit',
     'nav.docs': 'Dokumentasi',
     'layout.title': 'Mesin Operasi Hijaiyyah',
-    'layout.footer': 'Mesin Operasi Hijaiyyah · v1.2.0 · © 2025 HMCL',
+    'layout.footer': 'Mesin Operasi Hijaiyyah · v1.2.0 · © 2026 HMCL',
 
     // Hero Redesign
-    'landing.hero.intro': 'Matematika Hijaiyyah adalah suatu sistem matematika formal berbasis 28 huruf Hijaiyyah kanonikal yang direpresentasikan sebagai objek ukur, objek hitung, dan objek komputasi dalam satu kerangka terpadu. Sistem ini mengekstraksi struktur morfologis huruf secara geometris, kemudian memetakannya ke dalam codex bilangan bulat multidimensi melalui skema representasi yang deterministik dan lossless. Codex tersebut selanjutnya dikembangkan menjadi suatu Sistem Operasi Metrik–Vektorial Hijaiyyah, yang mencakup lima operasi formal utama:',
+    'landing.hero.intro.part1': 'Matematika Hijaiyyah adalah suatu sistem matematika formal berbasis 28 huruf Hijaiyyah kanonikal yang direpresentasikan sebagai objek ukur, objek hitung, dan objek komputasi dalam satu kerangka terpadu. Sistem ini mengekstraksi struktur morfologis huruf secara geometris melalui empat invarian diskret — Inḥinā\' (total belokan), Nuqṭah (distribusi titik), Khaṭṭ (komponen garis), dan Qaws (komponen lengkung) — kemudian memetakannya ke dalam codex bilangan bulat multidimensi:',
+    'landing.hero.intro.tex': 'v_{18}(h) = \\left( \\underbrace{\\hat{\\Theta}}_{\\text{belokan 1 dim}}, \\underbrace{N_a, N_b, N_d}_{\\text{titik 3-zona 3 dim}}, \\underbrace{K_p, K_x, K_s, K_a, K_c}_{\\text{garis 5-kategori 5 dim}}, \\underbrace{Q_p, Q_x, Q_s, Q_a, Q_c}_{\\text{lengkung 5-kategori 5 dim}}, \\underbrace{A_N, A_K, A_Q}_{\\text{ringkasan 3 dim}}, \\underbrace{H^*}_{\\text{marker 1 dim}} \\right) \\in \\mathbb{N}_0^{18}',
+    'landing.hero.intro.part2a': 'melalui skema representasi yang deterministik dan lossless. Codex tersebut selanjutnya dikembangkan menjadi suatu Sistem Operasi Metrik–Vektorial Hijaiyyah ',
+    'landing.hero.intro.part2b': ', yang mencakup lima operasi formal utama:',
     'landing.hero.op1_title': 'Vektronometry',
     'landing.hero.op1_desc': 'Analisis komposisi huruf dan rasio komponen DNA geometris.',
     'landing.hero.op2_title': 'Normivektor',
@@ -39,7 +49,9 @@ const dict = {
     'landing.hero.op5_title': 'Exometric',
     'landing.hero.op5_desc': 'Evaluasi konsistensi internal dan integritas data melalui relasi audit.',
     'landing.hero.mid': 'Dalam kerangka ini, sistem tidak hanya berfungsi sebagai alat representasi, tetapi juga sebagai instrumen pengukuran metrik, audit data, dan pemrosesan komputasional berbasis struktur. Dari fondasi tersebut diperkenalkan Hybit (Hijaiyyah Hyperdimensional Bit Integration Technology), yaitu paradigma komputasi berbasis codex yang menjadikan representasi huruf sebagai unit informasi terstruktur. Berbeda dengan bit yang bersifat biner dan qubit yang bersifat kuantum-probabilistik, hybit mengoperasikan unit data multidimensi dengan constraint internal, validasi intrinsik, serta preservasi struktur selama proses agregasi dan transformasi.',
+    'landing.hero.description': 'Matematika Hijaiyyah membangun struktur aljabar formal di atas 28 huruf Hijaiyyah kanonikal. Menggunakan protokol abstraksi invarian topologis, sistem ini mengekstraksi setiap huruf menjadi vektor bilangan bulat 18-dimensi.',
     'landing.hero.conclusion': 'Dengan demikian, Matematika Hijaiyyah membentuk suatu arsitektur ilmiah yang menjembatani antara warisan bentuk huruf, formulasi matematis formal, sistem metrik-vektorial, dan pengembangan teknologi komputasi generasi lanjut.',
+    'landing.hero.quote': '"Matematika Hijaiyah membuktikan bahwa 28 huruf Hijaiyah yang menyandikan Al-Qur\'an juga menyandikan matematika formal dan codex teknologi komputasi Hybit paradigma ketiga setelah bit dan qubit."',
 
     // Explorer
     'Start Exploring': 'Mulai Jelajah',
@@ -282,7 +294,8 @@ const dict = {
     '© 2026 Hijaiyyah Mathematics Computational Laboratory (HMCL). All rights reserved.': '© 2026 Hijaiyyah Mathematics Computational Laboratory (HMCL). Hak cipta dilindungi undang-undang.',
     'The content, technology, and materials available within this platform—including but not limited to mathematical frameworks, computational models, software implementations, datasets, language specifications, compilation pipelines, file formats, processor architectures, and operating system designs—are proprietary to HMCL and are protected by applicable intellectual property laws.': 'Konten, teknologi, dan materi yang tersedia dalam platform ini—termasuk namun tidak terbatas pada kerangka matematika, model komputasi, implementasi perangkat lunak, kumpulan data, spesifikasi bahasa, pipeline kompilasi, format file, arsitektur prosesor, dan desain sistem operasi—adalah milik HMCL dan dilindungi oleh undang-undang kekayaan intelektual yang berlaku.',
     'No part of this platform may be copied, modified, distributed, transmitted, displayed, published, or otherwise used for commercial or non-commercial purposes without prior written authorization from HMCL.': 'Dilarang menyalin, memodifikasi, mendistribusikan, mentransmisikan, menampilkan, menerbitkan, atau menggunakan bagian apa pun dari platform ini untuk tujuan komersial maupun non-komersial tanpa izin tertulis sebelumnya dari HMCL.',
-    'HMCL, Hijaiyyah Mathematics, and all related names, logos, product names, and design marks are trademarks or registered trademarks of Hijaiyyah Mathematics Computational Laboratory.': 'HMCL, Hijaiyyah Mathematics, serta semua nama, logo, nama produk, dan tanda desain terkait adalah merek dagang atau merek dagang terdaftar dari Hijaiyyah Mathematics Computational Laboratory.'
+    'HMCL, Hijaiyyah Mathematics, and all related names, logos, product names, and design marks are trademarks or registered trademarks of Hijaiyyah Mathematics Computational Laboratory.': 'HMCL, Hijaiyyah Mathematics, serta semua nama, logo, nama produk, dan tanda desain terkait adalah merek dagang atau merek dagang terdaftar dari Hijaiyyah Mathematics Computational Laboratory.',
+    'Contact': 'Hubungi',
   }
 };
 

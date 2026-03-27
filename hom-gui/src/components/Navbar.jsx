@@ -19,9 +19,9 @@ export default function Navbar() {
         <div className="flex-1 flex justify-start">
           <Link to="/" className="flex items-center md:ml-20">
             <img 
-              src={import.meta.env.BASE_URL + 'Logo HOM 01.png'} 
-              alt="HOM Logo" 
-              className="h-10 w-10 object-contain hover:scale-110 transition-transform duration-300"
+              src={import.meta.env.BASE_URL + 'Hybit Logo Master 001.png'} 
+              alt="Hybit Logo" 
+              className="h-9 w-auto object-contain hover:scale-110 transition-transform duration-300"
             />
           </Link>
         </div>

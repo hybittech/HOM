@@ -2,38 +2,88 @@ export const originEn = `
 # ORIGIN PROTOCOL
 ## Fourteen Centuries to a Single Equation
 
-### *How 28 Revelation-Encoding Letters Also Encrypt Deep Mathematics*
+### *How 28 Quran-Encoding Hijaiyyah Letters Also Encrypt Deep Mathematics and Become the Codex Foundation of Computing Technology*
 
 ---
 
-*Before a single theorem is written, before a single codex is calculated, before a single guard is verified — there is one question that must be answered first:*
+##### Are the 28 shapes of Hijaiyyah letters viable as formal mathematical objects?
 
-> **Are the 28 shapes of Hijaiyyah letters viable as formal mathematical objects?**
+This is not a rhetorical question. It is an existential question — one that determines whether the entire edifice of Hijaiyyah Mathematics stands on solid ground or collapses before it even begins.
 
-This is not a rhetorical question. It is an existential question for the entire system. Because if the answer is no — if the shapes of the letters are too unstable, too subjective, too dependent on style and taste — then the whole edifice of Hijaiyyah Mathematics collapses before it even begins.
+Because if the answer is no — if the shapes of the letters are too unstable, too subjective, too dependent on style and taste — then no theorem can be written, no codex is meaningful, and no computational paradigm can be claimed.
 
-The Origin Protocol is the answer to that question. And the answer is not a claim — it is **four proofs** spanning fourteen centuries.
+But there is something that precedes this scientific question. Something deeper.
+
+Fourteen centuries ago, Allah Subḥānahu wa Ta'ālā revealed the Quran — a Book that opens with letters:
+
+الٓمٓ
+
+Alif. Lām. Mīm.
+
+*(QS. Al-Baqarah [2]: 1)*
+
+These opening letters (*al-ḥurūf al-muqaṭṭa'ah*), whose meaning only Allah fully knows, affirm one thing by their very presence: letters, in the Quran, are not mere vessels of language. They are entities worthy of being mentioned independently.
+
+Allah says:
+
+صُنْعَ ٱللَّهِ ٱلَّذِىٓ أَتْقَنَ كُلَّ شَىْءٍ
+
+"(Such is) the artistry of Allah, who disposes of all things in perfect order."
+
+*(QS. An-Naml [27]: 88)*
+
+If everything is created with *itqān* — meticulous perfection — then the shapes of the letters encoding His revelation are surely no coincidence. They form an order (*niẓām*) that, when read with the correct formal methods, should reveal a coherent structure.
+
+The Origin Protocol is a scientific endeavor to prove that coherence. Not with claims — but with four proofs spanning fourteen centuries.
+
+And the answer, as will be shown, is: **yes**.
+
+The 28 letters chosen to encode the Quran possess a stable domain, identified primitives, a documented geometric tradition, and hashable digital precision. All four formal prerequisites are met — not by arguments from authority, but by verifiable facts.
 
 ---
 
 ## PROLOGUE: WHY AN ORIGIN PROTOCOL?
 
-Imagine you are an architect about to build a skyscraper. Before drawing a single floor plan, before calculating a single structural load, you must answer one fundamental question: **is the ground beneath your feet solid enough to support the building?**
+Every scientific edifice requires a foundation. And the foundation itself requires a feasibility test before a single stone is laid.
 
-If the ground is a swamp, if the ground moves, if the ground changes every season — then no matter how great your design is, the building will collapse.
+In construction, before an architect draws a floor plan, before an engineer calculates structural loads — there is one procedure never skipped: the soil test. Is the ground beneath one's feet solid enough to support the building? Is it stable across seasons? Will it shift when weight is added?
 
-Hijaiyyah Mathematics is that building. And the 28 Hijaiyyah letters are the ground.
+If the ground is a swamp — the building will sink. If the ground moves — the building will crack. If the composition of the ground changes constantly — no calculation can be relied upon.
 
-The Origin Protocol is the **soil test** — not a romantic narrative about history, not a derivation of authority from great names, not a claim of cultural support. It is a formal examination of four prerequisites that must be met for this "ground" to be habitable:
+In formal mathematics, that "ground" is called a domain — the set of objects that are the subjects of mappings, operations, and theorems. A domain must be clearly defined, stable across time, and operationally lockable so that the results built upon it are deterministic and reproducible.
 
-| Prerequisite | Question | Why It Matters |
-|---|---|---|
-| **P1** | Have letters *ever* been treated as quantitative objects? | If never — this idea might be too alien to succeed |
-| **P2** | Is the set of letter shapes *stable* across time? | If volatile — mappings cannot be deterministic |
-| **P3** | Have letters *ever* been treated as geometric objects? | If not — the concept of measuring shapes might be meaningless |
-| **P4** | Can the shapes be *locked* digitally? | If not — there is no precise starting point |
+Hijaiyyah Mathematics operates on a domain quite unusual in modern mathematics: not numbers, not abstract sets, not topological spaces — but the 28 canonical Hijaiyyah letter shapes. This domain immediately invites legitimate fundamental questions that must be answered with precision.
 
-Let us trace the answers. Not with arguments — but with **facts**.
+The Origin Protocol is the soil test for this domain. It is not a romantic narrative about the grandeur of civilization. It is not a derivation of authority from the great names of the past. It is not a claim of religious or cultural endorsement.
+
+It is a formal examination of four prerequisites that must be met before a single theorem is written:
+
+| Prerequisite | Scientific Question | Why It Is Critical | Consequence If Failed |
+|---|---|---|---|
+| **P1** | Have letters *ever* been treated as formal quantitative instruments? | If never — the concept of "letters as calculable objects" has no precedent and might be too alien | The system loses historical context — though it may still be mathematically valid |
+| **P2** | Is the set of 28 letter shapes *stable* across time? | If shapes change every generation — there is no lockable domain, and mapping is not deterministic | The entire system collapses — there is no fixed object to map |
+| **P3** | Have letters *ever* been treated as geometric objects? | If never — the concept of "measuring a letter's shape" might lack traditional meaning | The system loses methodological precedent — though it remains valid |
+| **P4** | Can letter shapes be *locked* in a deterministic digital format? | If they cannot — there is no precise starting point for the Measure → Map → Name procedure | The pipeline cannot start — there is no defined input |
+
+Two prerequisites (P2 and P4) are critical — their failure destroys the entire system. The other two (P1 and P3) are contextual — their fulfillment strengthens legitimacy, but their absence does not destroy mathematical validity.
+
+However, as will be shown, all four are met — and not by coincidence. All four are the heritage of the same civilization: the civilization that birthed these letters to encode revelation.
+
+Allah says:
+
+إِنَّا نَحْنُ نَزَّلْنَا ٱلذِّكْرَ وَإِنَّا لَهُۥ لَحَـٰفِظُونَ
+
+"Indeed, it is We who sent down the Quran, and indeed, We will be its guardian."
+
+*(QS. Al-Ḥijr [15]: 9)*
+
+The preservation (*ḥifẓ*) promised by Allah over the Quran indirectly produced an extraordinary domain stability: the 28 letters encoding the revelation have been kept pure by Muslims across generations — and this preservation, when viewed from the perspective of formal mathematics, provides a domain that has been stable for fourteen centuries. This is not a religious claim to validate mathematics. This is a historical fact that coincidently — or rather, by divine *itqān* — fulfills formal prerequisite P2.
+
+With awareness of both these dimensions — the scientific dimension demanding proof, and the dimension of faith recognizing *niẓām* in His creation — let us trace the answers.
+
+Not with arguments from authority. Not with cultural sentiment.
+
+Rather, with verifiable facts — four proofs spanning fourteen centuries, from the deserts of the 7th-century Arabian Peninsula to the digital laboratories of 21st-century Hijaiyyah Mathematics.
 
 ---
 
@@ -566,7 +616,7 @@ And the Origin Protocol documents **the ground on which this contribution stands
 
 ---
 
-> *"The letters illuminating revelation also encrypt deep mathematics."*
+> *"How 28 Quran-Encoding Hijaiyyah Letters Also Encrypt Deep Mathematics and Become the Codex Foundation of Computing Technology."*
 
 ---
 
@@ -576,7 +626,7 @@ And the Origin Protocol documents **the ground on which this contribution stands
 >
 > *Origin Protocol v1.0 — HM-28-v1.2-HC18D*
 >
-> *© 2026 · Hijaiyah Mathematics Codex Laboratory*
+> *© 2026 · Hijaiyyah Mathematics Computational Laboratory (HMCL)*
 >
 > *PT. AMRA COSMICTERA TECHNOLOGY*
 `;

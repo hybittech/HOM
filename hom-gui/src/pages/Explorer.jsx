@@ -22,6 +22,11 @@ const mdComponents = {
   h4: ({ children }) => (
     <h4 className="text-lg font-semibold text-hom-text/90 mt-6 mb-2">{children}</h4>
   ),
+  h5: ({ children }) => (
+    <div className="border border-hom-green/40 bg-hom-green/10 text-hom-green font-bold p-5 rounded-xl text-center my-8 text-lg md:text-xl shadow-[0_0_15px_rgba(0,255,128,0.15)] leading-relaxed">
+      {children}
+    </div>
+  ),
   p: ({ children }) => (
     <p className="text-sm md:text-base text-hom-text/85 leading-relaxed mb-4">{children}</p>
   ),

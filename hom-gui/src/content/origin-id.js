@@ -2,38 +2,88 @@ export const originId = `
 # ORIGIN PROTOCOL
 ## Empat Belas Abad Menuju Satu Persamaan
 
-### *Bagaimana 28 Huruf yang Menyandikan Wahyu Juga Menyandikan Matematika yang Dalam*
+### *Bagaimana 28 Huruf Hijaiyyah yang Menyandikan Al-Qur’an Juga Menyimpan Matematika yang Mendalam dan Menjadi Fondasi Codex Teknologi Komputasi*
 
 ---
 
-*Sebelum satu pun teorema ditulis, sebelum satu pun codex dihitung, sebelum satu pun guard diverifikasi — ada satu pertanyaan yang harus dijawab terlebih dahulu:*
+##### Apakah 28 bentuk huruf Hijaiyah layak menjadi objek matematika formal?
 
-> **Apakah 28 bentuk huruf Hijaiyah layak menjadi objek matematika formal?**
+Pertanyaan ini bukan retorika. Ia adalah pertanyaan eksistensial — pertanyaan yang menentukan apakah seluruh bangunan Matematika Hijaiyah berdiri di atas fondasi yang kokoh atau runtuh sebelum dimulai.
 
-Ini bukan pertanyaan retoris. Ini adalah pertanyaan eksistensial bagi seluruh sistem. Karena jika jawabannya tidak — jika bentuk huruf terlalu tidak stabil, terlalu subjektif, terlalu bergantung pada gaya dan selera — maka seluruh bangunan Matematika Hijaiyah runtuh sebelum dimulai.
+Karena jika jawabannya tidak — jika bentuk huruf terlalu tidak stabil, terlalu subjektif, terlalu bergantung pada gaya dan selera — maka tidak ada teorema yang bisa ditulis, tidak ada codex yang bermakna, tidak ada paradigma komputasi yang bisa diklaim.
 
-Origin Protocol adalah jawaban atas pertanyaan itu. Dan jawabannya bukan klaim — melainkan **empat bukti** yang membentang empat belas abad.
+Tetapi ada sesuatu yang mendahului pertanyaan ilmiah ini. Sesuatu yang lebih dalam.
+
+Empat belas abad yang lalu, Allah Subḥānahu wa Ta'ālā menurunkan Al-Qur'an — Kitab yang dibuka dengan huruf:
+
+الٓمٓ
+
+Alif. Lām. Mīm.
+
+*(QS. Al-Baqarah [2]: 1)*
+
+Huruf-huruf pembuka (*al-ḥurūf al-muqaṭṭa'ah*) yang maknanya hanya Allah yang mengetahui sepenuhnya — tetapi keberadaannya menegaskan satu hal: huruf, dalam Al-Qur'an, bukan sekadar wadah bahasa. Ia adalah entitas yang layak disebut secara mandiri.
+
+Allah berfirman:
+
+صُنْعَ ٱللَّهِ ٱلَّذِىٓ أَتْقَنَ كُلَّ شَىْءٍ
+
+"(Begitulah) ciptaan Allah yang mencipta dengan sempurna segala sesuatu."
+
+*(QS. An-Naml [27]: 88)*
+
+Jika segala sesuatu diciptakan dengan *itqān* — kesempurnaan yang teliti — maka bentuk huruf yang menyandikan wahyu-Nya tentu bukan kebetulan. Ia adalah keteraturan (*niẓām*) yang, ketika dibaca dengan metode formal yang tepat, seharusnya mengungkapkan struktur yang koheren.
+
+Origin Protocol adalah ikhtiar ilmiah untuk membuktikan koherensi itu. Bukan dengan klaim — melainkan dengan empat bukti yang membentang empat belas abad.
+
+Dan jawabannya, sebagaimana akan ditunjukkan, adalah: **ya**.
+
+28 huruf yang dipilih untuk menyandikan Al-Qur'an memiliki domain yang stabil, primitif yang teridentifikasi, tradisi geometris yang terdokumentasi, dan presisi digital yang dapat di-hash. Keempat prasyarat formal terpenuhi — bukan karena argumen otoritas, melainkan karena fakta yang dapat diverifikasi.
 
 ---
 
 ## PROLOG: MENGAPA PERLU PROTOKOL ASAL-USUL?
 
-Bayangkan Anda seorang arsitek yang hendak membangun gedung pencakar langit. Sebelum menggambar satu pun denah, sebelum menghitung satu pun beban struktur, Anda harus menjawab satu pertanyaan fundamental: **apakah tanah di bawah kaki Anda cukup kokoh untuk menopang bangunan?**
+Setiap bangunan ilmiah memerlukan fondasi. Dan fondasi itu sendiri memerlukan uji kelayakan sebelum satu batu pun diletakkan.
 
-Jika tanahnya rawa, jika tanahnya bergerak, jika tanahnya berganti-ganti setiap musim — maka sehebat apa pun desain Anda, bangunan itu akan ambruk.
+Dalam ilmu konstruksi, sebelum seorang arsitek menggambar denah, sebelum seorang insinyur menghitung beban struktur — ada satu prosedur yang tidak pernah dilewati: uji tanah. Apakah tanah di bawah kaki cukup kokoh untuk menopang bangunan? Apakah ia stabil lintas musim? Apakah ia tidak akan bergeser ketika beban ditambahkan?
 
-Matematika Hijaiyah adalah gedung itu. Dan 28 huruf Hijaiyah adalah tanahnya.
+Jika tanahnya rawa — bangunan akan tenggelam. Jika tanahnya bergerak — bangunan akan retak. Jika tanahnya berganti-ganti komposisi — tidak ada perhitungan yang bisa diandalkan.
 
-Origin Protocol adalah **uji tanah** — bukan narasi romantis tentang sejarah, bukan penurunan otoritas dari nama-nama besar, bukan klaim dukungan budaya. Ia adalah pemeriksaan formal atas empat prasyarat yang harus dipenuhi agar "tanah" ini layak ditempati:
+Dalam matematika formal, "tanah" itu disebut domain — himpunan objek yang menjadi subjek pemetaan, operasi, dan teorema. Domain harus terdefinisi dengan jelas, stabil lintas waktu, dan dapat dikunci secara operasional agar hasil yang dibangun di atasnya bersifat deterministik dan reproducible.
 
-| Prasyarat | Pertanyaan | Mengapa Penting |
-|---|---|---|
-| **P1** | Apakah huruf *pernah* diperlakukan sebagai objek kuantitatif? | Jika belum pernah — ide ini mungkin terlalu asing untuk berhasil |
-| **P2** | Apakah himpunan bentuk huruf *stabil* lintas waktu? | Jika berubah-ubah — pemetaan tidak bisa deterministik |
-| **P3** | Apakah huruf *pernah* diperlakukan sebagai objek geometris? | Jika belum — konsep mengukur bentuk mungkin tidak bermakna |
-| **P4** | Apakah bentuk bisa *dikunci* secara digital? | Jika tidak — tidak ada titik awal yang presisi |
+Matematika Hijaiyah beroperasi pada domain yang tidak lazim dalam matematika modern: bukan bilangan, bukan himpunan abstrak, bukan ruang topologis — melainkan 28 bentuk huruf Hijaiyah kanonik. Domain ini segera mengundang pertanyaan fundamental yang sah dan harus dijawab dengan presisi.
 
-Mari kita telusuri jawabannya. Bukan dengan argumen — melainkan dengan **fakta**.
+Origin Protocol adalah uji tanah untuk domain ini. Ia bukan narasi romantis tentang keagungan peradaban. Ia bukan penurunan otoritas dari nama-nama besar masa lalu. Ia bukan klaim dukungan agama atau budaya.
+
+Ia adalah pemeriksaan formal atas empat prasyarat yang harus dipenuhi sebelum satu pun teorema dituliskan:
+
+| Prasyarat | Pertanyaan Ilmiah | Mengapa Kritis | Konsekuensi Jika Gagal |
+|---|---|---|---|
+| **P1** | Apakah huruf pernah diperlakukan sebagai instrumen kuantitatif formal? | Jika belum pernah — konsep "huruf sebagai objek hitung" tidak memiliki preseden dan mungkin terlalu asing | Sistem kehilangan konteks historis — meskipun masih bisa valid secara matematis |
+| **P2** | Apakah himpunan 28 bentuk huruf stabil lintas waktu? | Jika bentuk berubah-ubah setiap generasi — tidak ada domain yang bisa dikunci, dan pemetaan tidak deterministik | Seluruh sistem runtuh — tidak ada objek tetap untuk dipetakan |
+| **P3** | Apakah huruf pernah diperlakukan sebagai objek geometris? | Jika belum pernah — konsep "mengukur bentuk huruf" mungkin tidak bermakna secara tradisi | Sistem kehilangan preseden metodologis — meskipun tetap bisa valid |
+| **P4** | Apakah bentuk huruf bisa dikunci dalam format digital deterministik? | Jika tidak bisa — tidak ada titik awal yang presisi untuk prosedur Measure → Map → Name | Pipeline tidak bisa dimulai — tidak ada input yang terdefinisi |
+
+Dua prasyarat (P2 dan P4) bersifat kritis — kegagalannya menghancurkan seluruh sistem. Dua lainnya (P1 dan P3) bersifat kontekstual — keberadaannya memperkuat legitimasi tetapi ketiadaannya tidak menghancurkan validitas matematis.
+
+Namun sebagaimana akan ditunjukkan, keempatnya terpenuhi — dan bukan secara kebetulan. Keempatnya merupakan warisan dari peradaban yang sama: peradaban yang melahirkan huruf-huruf ini untuk menyandikan wahyu.
+
+Allah berfirman:
+
+إِنَّا نَحْنُ نَزَّلْنَا ٱلذِّكْرَ وَإِنَّا لَهُۥ لَحَـٰفِظُونَ
+
+"Sesungguhnya Kami-lah yang menurunkan Al-Qur'an, dan sesungguhnya Kami benar-benar memeliharanya."
+
+*(QS. Al-Ḥijr [15]: 9)*
+
+Pemeliharaan (*ḥifẓ*) yang dijanjikan oleh Allah atas Al-Qur'an secara tidak langsung menghasilkan stabilitas domain yang luar biasa: 28 huruf yang menyandikan wahyu dijaga kemurniannya oleh umat Islam lintas generasi — dan penjagaan ini, ketika dilihat dari perspektif matematika formal, menyediakan domain yang stabil selama empat belas abad. Ini bukan klaim religius untuk memvalidasi matematika. Ini adalah fakta sejarah yang kebetulan — atau tepatnya, yang dengan *itqān* ilahi — memenuhi prasyarat formal P2.
+
+Dengan kesadaran akan kedua dimensi ini — dimensi ilmiah yang menuntut bukti, dan dimensi iman yang mengenali *niẓām* dalam ciptaan-Nya — mari kita telusuri jawabannya.
+
+Bukan dengan argumen otoritas. Bukan dengan sentimen budaya.
+
+Melainkan dengan fakta yang dapat diverifikasi — empat bukti yang membentang empat belas abad, dari padang pasir Jazirah Arab abad ke-7 hingga laboratorium digital Matematika Hijaiyyah abad ke-21.
 
 ---
 
@@ -566,7 +616,7 @@ Dan Origin Protocol mendokumentasikan **tanah tempat kontribusi ini berdiri** �
 
 ---
 
-> *"Huruf-huruf yang menyandikan wahyu juga menyandikan matematika yang dalam."*
+> *"Bagaimana 28 Huruf Hijaiyyah yang Menyandikan Al-Qur’an Juga Menyimpan Matematika yang Mendalam dan Menjadi Fondasi Codex Teknologi Komputasi."*
 
 ---
 
@@ -576,7 +626,7 @@ Dan Origin Protocol mendokumentasikan **tanah tempat kontribusi ini berdiri** �
 >
 > *Origin Protocol v1.0 — HM-28-v1.2-HC18D*
 >
-> *© 2026 · Hijaiyah Mathematics Codex Laboratory*
+> *© 2026 · Hijaiyyah Mathematics Computational Laboratory (HMCL)*
 >
 > *PT. AMRA COSMICTERA TECHNOLOGY*
 `;
