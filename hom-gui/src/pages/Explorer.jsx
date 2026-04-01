@@ -1,8 +1,11 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 import { useLocale } from '../store/useLocale';
 import { originId } from '../content/origin-id';
 import { originEn } from '../content/origin-en';
+import 'katex/dist/katex.min.css';
 
 /* ─── Custom Markdown Components ─── */
 const mdComponents = {
@@ -75,7 +78,11 @@ export default function Explorer() {
         <div className="text-[11px] font-mono text-hom-gold/80 tracking-wide uppercase mb-8 text-center bg-hom-panel/50 py-2 rounded-lg border border-hom-gold/20">
           @2026 Sumber Buku Matematika Hijaiyyah-v.1.0
         </div>
-        <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
+        <ReactMarkdown 
+          remarkPlugins={[remarkGfm, remarkMath]} 
+          rehypePlugins={[rehypeKatex]}
+          components={mdComponents}
+        >
           {content}
         </ReactMarkdown>
       </div>

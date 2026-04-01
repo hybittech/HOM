@@ -1,5 +1,8 @@
 import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
+import remarkMath from 'remark-math';
+import rehypeKatex from 'rehype-katex';
+import 'katex/dist/katex.min.css';
 
 const readmeContent = `
 # MATEMATIKA HIJAIYYAH
@@ -842,7 +845,11 @@ export default function Documentation() {
   return (
     <div className="max-w-5xl mx-auto">
       <div className="bg-hom-panel/30 backdrop-blur-xl border border-hom-border/20 rounded-2xl p-6 md:p-10">
-        <ReactMarkdown remarkPlugins={[remarkGfm]} components={mdComponents}>
+        <ReactMarkdown 
+          remarkPlugins={[remarkGfm, remarkMath]} 
+          rehypePlugins={[rehypeKatex]}
+          components={mdComponents}
+        >
           {readmeContent}
         </ReactMarkdown>
       </div>
