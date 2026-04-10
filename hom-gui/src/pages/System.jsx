@@ -290,9 +290,56 @@ export default function System() {
       </section>
 
       {/* ═══════════ REALISASI FISIK ═══════════ */}
-      <section className="rounded-2xl border border-hom-red/20 bg-hom-panel/30 backdrop-blur-xl p-6 md:p-8"
-        style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.3), 0 0 30px rgba(255,82,82,0.05)' }}>
-        <SectionTitle sub="Aspirational · Photonic architecture">REALISASI FISIK</SectionTitle>
+      <section className="rounded-2xl border border-hom-green/30 bg-hom-panel/30 backdrop-blur-xl p-6 md:p-8"
+        style={{ boxShadow: '0 8px 32px rgba(0,0,0,0.3), 0 0 30px rgba(0,200,83,0.05)' }}>
+        <SectionTitle sub="Silicon RTL (Operasional) & Photonic (Aspirational)">REALISASI FISIK: HCPU</SectionTitle>
+
+        {/* Silicon Phase 2.0 Block */}
+        <div className="rounded-xl border border-hom-green/30 bg-hom-green/5 p-6 mb-6">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-lg">✅</span>
+            <span className="text-xl font-bold text-hom-green font-mono">HCPU Phase 2.0</span>
+            <span className="text-xs text-hom-muted ml-2">— Silicon RTL Architecture</span>
+            <span className="ml-auto text-[9px] font-mono px-2 py-0.5 rounded-full border border-hom-green/30 bg-hom-green/10 text-hom-green">
+              SYNTHESIS-READY
+            </span>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-hom-muted mb-2 font-bold">Fitur Perangkat Keras</div>
+              <div className="space-y-1.5 text-xs text-hom-text/80 font-mono">
+                <div>▸ 5-stage In-Order Pipeline (Harvard)</div>
+                <div>▸ 18-wide Vector Codex ALU (AGM, VTM, ITM)</div>
+                <div>▸ Hardware Hazard Resolution (Load-Use stall)</div>
+                <div>▸ O(1) Intrinsik Guard Checker (EXM)</div>
+                <div>▸ Hardware HISAB Serializer (Nibble-pack + CRC32)</div>
+              </div>
+            </div>
+            
+            <div>
+              <div className="text-[10px] uppercase tracking-widest text-hom-muted mb-2 font-bold">Target Integrasi</div>
+              <div className="space-y-1.5 text-xs">
+                <div className="flex justify-between">
+                  <span className="text-hom-muted">Status RTL</span>
+                  <span className="text-hom-green font-mono font-bold">174/174 PASS (No Lint Errors)</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-hom-muted">MPW Fabrikasi</span>
+                  <span className="text-hom-accent font-mono">SkyWater SKY130 (Caravel)</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-hom-muted">Target FPGA</span>
+                  <span className="text-hom-gold font-mono">Xilinx Arty A7-35T (100MHz)</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-hom-muted">Clock Domain</span>
+                  <span className="text-hom-text/80 font-mono">Single Domain (0 CDC)</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
         <div className="rounded-xl border border-hom-red/20 bg-hom-red/5 p-6">
           <div className="flex items-center gap-2 mb-3">
@@ -354,7 +401,7 @@ export default function System() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
           {[
-            { status: 'OP', count: 15 },
+            { status: 'OP', count: 16 },
             { status: 'SPEC', count: 6 },
             { status: 'DES', count: 3 },
             { status: 'ASP', count: 1 },
@@ -384,7 +431,7 @@ export default function System() {
             </thead>
             <tbody>
               {[
-                { status: 'OP', components: 'HC, HCC, HVM, CSGI, H-ISA, Guard, HCHECK, HISAB, HAR, Ψ-Compiler, MasterTable, ROM, SHA-256, Injectivity, .hc' },
+                { status: 'OP', components: 'HCPU RTL, HC, HCC, HVM, CSGI, H-ISA, Guard, HCHECK, HISAB, HAR, Ψ-Compiler, MasterTable, ROM, SHA-256, Injectivity, .hc' },
                 { status: 'SPEC', components: 'HASM, .hbc, .hgeo, HCC codegen, HCHECK full, HAR extended' },
                 { status: 'DES', components: 'HOS, HFS, H-Kernel' },
                 { status: 'ASP', components: 'HCPU (fotonik)' },
@@ -407,17 +454,17 @@ export default function System() {
         <div className="mt-6 rounded-xl border border-hom-accent/30 bg-hom-accent/5 p-4">
           <div className="flex items-center justify-between mb-2">
             <span className="text-xs font-mono text-hom-accent font-bold">TOTAL KOMPONEN</span>
-            <span className="text-lg font-bold font-mono text-hom-accent">25</span>
+            <span className="text-lg font-bold font-mono text-hom-accent">26</span>
           </div>
           <div className="h-3 bg-hom-bg/50 rounded-full overflow-hidden flex">
-            <div className="h-full bg-[#00c853] transition-all" style={{ width: '60%' }} title="15 Operasional" />
-            <div className="h-full bg-[#d4af37] transition-all" style={{ width: '24%' }} title="6 Terspesifikasi" />
+            <div className="h-full bg-[#00c853] transition-all" style={{ width: '61%' }} title="16 Operasional" />
+            <div className="h-full bg-[#d4af37] transition-all" style={{ width: '23%' }} title="6 Terspesifikasi" />
             <div className="h-full bg-[#b388ff] transition-all" style={{ width: '12%' }} title="3 Terdesain" />
             <div className="h-full bg-[#ff5252] transition-all" style={{ width: '4%' }} title="1 Aspirasional" />
           </div>
           <div className="flex justify-between mt-1.5 text-[9px] font-mono text-hom-muted">
-            <span className="text-[#00c853]">60% Operasional</span>
-            <span className="text-[#d4af37]">24% Spesifikasi</span>
+            <span className="text-[#00c853]">61% Operasional</span>
+            <span className="text-[#d4af37]">23% Spesifikasi</span>
             <span className="text-[#b388ff]">12% Desain</span>
             <span className="text-[#ff5252]">4% Aspirasi</span>
           </div>
